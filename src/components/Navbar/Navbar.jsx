@@ -1,5 +1,6 @@
 import React from "react";
 import "./Navbar.css";
+import smileyLogo from "../../assets/smileyLogo.png";
 
 export default function Navbar() {
   return (
@@ -10,7 +11,7 @@ export default function Navbar() {
       >
         <div className="col-1 p-0">
           <img
-            src="./smileyLogo.png"
+            src={smileyLogo}
             alt="Logo"
             style={{ height: "40px", width: "40px" }}
           />
