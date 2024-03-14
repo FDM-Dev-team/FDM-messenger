@@ -1,81 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import io from 'socket.io-client';
+import React, { useEffect } from "react";
+import useChatMiddleware from '../../middleware/ChatMiddleware';
 
 const Chat = () => {
-  const [message, setMessage] = useState('');
-  const [chatLog, setChatLog] = useState([]);
-  const [socket, setSocket] = useState(null);
+  const { message, setMessage, chatLog, sendMessage, socket } = useChatMiddleware();
 
   useEffect(() => {
-    // Initialize Socket.IO connection only if socket is null
-    if (!socket) {
-      const user = {
-        id: 1,
-        name: 'John Doe',
-      };
-      
-      const newSocket = io('http://localhost:8000', {
-        query: {
-          userId: user.id,
-          userName: user.name,
-        },
-      });
-      setSocket(newSocket);
-    }
-
-    // Clean up function to disconnect socket when component unmounts
-    return () => {
-      if (socket) {
-        socket.disconnect();
-      }
-    };
+    console.log("Chat socket:", socket);
   }, [socket]);
-
-  useEffect(() => {
-    if (!socket) return; // Check if socket is null
-
-  // Event listener for successful connection
-  const handleConnect = () => {
-    console.log('Connected to server');
-    joinChatRoom('joinRoom','roomId_1','userId_1'); // Join the chat room when connected
-  };
-  socket.on('connect', handleConnect);
-
-    // Event listener for incoming messages
-    const handleChatMessage = (data) => {
-      try {
-        // Handle JSON message
-        setChatLog((prevChatLog) => [...prevChatLog, data]);
-      } catch (error) {
-        // Handle non-JSON message
-        console.log('Received non-JSON message:', data);
-      }
-    };
-    socket.on('chat message', handleChatMessage);
-
-    // Clean up event listeners when component unmounts or socket changes
-    return () => {
-      socket.off('connection', handleConnect);
-      socket.off('chat message', handleChatMessage);
-    };
-  }, [socket]);
-
-  const joinChatRoom = (joinroom, room, userId) => {
-    if (socket) {
-      socket.emit(joinroom, room,userId);
-    }
-  };
-
-  const sendMessage = () => {
-    if (socket && message.trim() !== '') {
-      const data = {
-        roomId: 'roomId_1', // Replace 'your-room-id' with the actual room ID
-        message: message.trim(),
-      };
-      socket.emit('chat message', data);
-      setMessage('');
-    }
-  };
 
   return (
     <div className="col flex-grow-1 d-flex flex-column p-0" style={{ height: "100vh" }}>
@@ -101,7 +32,8 @@ const Chat = () => {
             value={message}
             onChange={(e) => setMessage(e.target.value)}
           />
-          <button onClick={sendMessage}>Send</button>
+          <button onClick={
+            sendMessage}>Send</button>
         </div>
       </div>
     </div>

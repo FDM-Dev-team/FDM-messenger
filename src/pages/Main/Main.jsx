@@ -1,10 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Main.css";
 import Navbar from "../../components/Navbar/Navbar";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import Chat from "../../components/Chat/Chat";
+import useChatMiddleware from '../../middleware/ChatMiddleware';
+import { Socket } from "socket.io-client";
 
 export default function Main() {
+  const { connectPeronalChannel , socket} = useChatMiddleware();
+
+  useEffect(() => {
+    connectPeronalChannel();
+  }, []);
+
+  useEffect(() => {
+    console.log("main socket:", socket);
+  }, [socket]);
+
+
   return (
     <div className="App d-flex min-vh-100">
       <div

@@ -1,7 +1,18 @@
-import React from "react";
+import React, { useEffect } from 'react';
 import "./Sidebar.css";
+import useChatMiddleware from '../../middleware/ChatMiddleware';
+
+
 
 export default function Sidebar() {
+
+  // const { joinChatRoom } = useChatMiddleware();
+
+
+  // useEffect(() => {
+  //   joinChatRoom('joinRoom', 'roomId_1', 'userId_1'); // Call connectAndJoinRoom when the component mounts
+  // }, []);
+
   return (
     <div className="row flex-grow-1 justify-content-center">
       <div
