@@ -4,6 +4,8 @@ import Navbar from "../../components/Navbar/Navbar";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import Chat from "../../components/Chat/Chat";
 
+
+
 export default function Main() {
   return (
     <div className="App d-flex min-vh-100">
@@ -18,6 +20,8 @@ export default function Main() {
           >
             <Navbar />
             <Sidebar />
+           
+
           </div>
           <div
             className="col flex-grow-1 d-flex flex-column p-0"
