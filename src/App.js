@@ -1,26 +1,36 @@
-// import logo from './logo.svg';
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.js";
-import { Routes, Route } from "react-router-dom";
-
-import Navbar from "./components/Navbar/Navbar";
-import Sidebar from "./components/Sidebar/Sidebar";
-import Chat from "./components/Chat/Chat";
+import { Routes, Route, Navigate, BrowserRouter as Router } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { getLoggedInUser} from "./services/userService";
 import Main from "./pages/Main/Main";
 import Login from "./pages/Login/Login";
 
-function App() {
+const App = () => {
+  const [currentUser, setCurrentUser] = useState(null);
+  useEffect(() => {
+    const checkLoggedInUser = async () => {
+      try {
+        const user = await getLoggedInUser();
+        setCurrentUser(user);
+      } catch (error) {
+        console.error("Error checking logged in user:", error);
+      }
+    };
+
+    checkLoggedInUser();
+  }, []);
+
   return (
-    <div>
-      {/* to do:
-        add userService where we check if User is logged in or not
-        if yes, then show Main page
-        if no, then show Login page
-      */}
-      <Login />
-      <Main />
-    </div>
+    
+      <Routes>
+        <Route path="/" element={currentUser ? <Main /> : <Navigate to="/login" />} />
+        <Route path="/login" element={<Login setCurrentUser={setCurrentUser}/>} />
+      </Routes>
+   
   );
-}
+
+};
+
 export default App;

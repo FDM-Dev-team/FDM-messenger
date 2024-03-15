@@ -45,6 +45,7 @@ export default function Navbar() {
             className="bg-info m-1 rounded-circle"
             style={{ height: "70px", width: "70px" }}
           >
+            2
           </div>
           <div
             className="bg-info m-1 rounded-circle"

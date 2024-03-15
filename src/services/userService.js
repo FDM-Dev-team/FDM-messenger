@@ -15,8 +15,23 @@ export const getUser = async (userId) => {
 export const loginUser = async (username, password) => {
     try {
       const response = await axios.post(`${BASE_URL}/login`, { username, password });
-      return response.data;
+      const user = response.data;
+      localStorage.setItem('user', JSON.stringify(response.data));
+    return user;
     } catch (error) {
         console.error(error);
     }
+  };
+
+
+  
+  
+  
+  export const getLoggedInUser = () => {
+    const storedUser = localStorage.getItem('user');
+    return storedUser ? JSON.parse(storedUser) : null;
+  };
+  
+  export const logoutUser = () => {
+    localStorage.removeItem('user');
   };
