@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import io from 'socket.io-client';
 
-const useChatMiddleware = () => {
+const useChatContext = () => {
   const [message, setMessage] = useState('');
   const [chatLog, setChatLog] = useState([]);
   const [socket, setSocket] = useState(null);
 
-  const connectPeronalChannel = () => {
+  const connectPersonalChannel = () => {
     if (!socket) {
       const user = {
         id: 1,
@@ -19,8 +19,7 @@ const useChatMiddleware = () => {
           userName: user.name,
         },
       });
-      
-    
+
       newSocket.on('connect', () => {
         joinChatRoom('joinRoom', 'roomId_1', 'userId_1'); // Join personal channel when connected
       });
@@ -32,15 +31,14 @@ const useChatMiddleware = () => {
 
   useEffect(() => {
     if (!socket) return; // Check if socket is null
-  
+
     // Event listener for successful connection
     const handleConnect = () => {
       joinChatRoom('joinRoom', 'roomId_1', 'userId_1'); // Join the chat room when connected
       console.log('Connected to friend channel');
-
     };
-    // socket.on('connect', handleConnect);
-    handleConnect()
+
+    handleConnect();
 
     // Event listener for incoming messages
     const handleChatMessage = (data) => {
@@ -52,8 +50,8 @@ const useChatMiddleware = () => {
         console.log('Received non-JSON message:', data);
       }
     };
+
     socket.on('chat message', handleChatMessage);
-    //console.log(socket)
 
     // Clean up event listeners when component unmounts or socket changes
     return () => {
@@ -63,18 +61,16 @@ const useChatMiddleware = () => {
     };
   }, [socket]);
 
-
   const joinChatRoom = (joinroom, room, userId) => {
     if (socket) {
       socket.emit(joinroom, room, userId);
     }
   };
 
-  
   const sendMessage = () => {
-    console.log("socket:", socket, " message:", message);
+    console.log('socket:', socket, ' message:', message);
     if (socket && socket.connected && message.trim() !== '') {
-      console.log("send");
+      console.log('send');
       const data = {
         roomId: 'roomId_1', // Replace 'your-room-id' with the actual room ID
         message: message.trim(),
@@ -86,7 +82,7 @@ const useChatMiddleware = () => {
 
   return {
     socket,
-    connectPeronalChannel,
+    connectPersonalChannel, // Corrected function name
     message,
     setMessage,
     chatLog,
@@ -95,4 +91,4 @@ const useChatMiddleware = () => {
   };
 };
 
-export default useChatMiddleware;
+export default useChatContext;

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import "./Sidebar.css";
-import useChatMiddleware from '../../middleware/ChatMiddleware';
+import useChatMiddleware from '../../context/ChatContext';
 
 
 

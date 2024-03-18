@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
-import useChatMiddleware from '../../middleware/ChatMiddleware';
+import React, { useEffect,useContext } from "react";
+import { ChatContext } from '../../context/ChatContext';
 
 const Chat = () => {
-  const { message, setMessage, chatLog, sendMessage, socket } = useChatMiddleware();
+  const { message, setMessage, chatLog, sendMessage, socket } = useContext(ChatContext);
 
   useEffect(() => {
     console.log("Chat socket:", socket);

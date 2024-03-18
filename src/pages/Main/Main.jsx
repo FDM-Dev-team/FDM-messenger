@@ -1,13 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useEffect,useContext } from "react";
 import "./Main.css";
 import Navbar from "../../components/Navbar/Navbar";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import Chat from "../../components/Chat/Chat";
-import useChatMiddleware from '../../middleware/ChatMiddleware';
+import { ChatContext } from '../../context/ChatContext';
 import { Socket } from "socket.io-client";
 
 export default function Main() {
-  const { connectPeronalChannel , socket} = useChatMiddleware();
+  const { connectPeronalChannel , socket} = useContext(ChatContext);
 
   useEffect(() => {
     connectPeronalChannel();
