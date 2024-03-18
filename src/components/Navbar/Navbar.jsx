@@ -1,7 +1,7 @@
 import React from "react";
 import "./Navbar.css";
 
-export default function Navbar() {
+export default function Navbar({ onNavbarItemClick }) {
   return (
     <div>
       <div
@@ -38,6 +38,7 @@ export default function Navbar() {
           <div
             className="bg-info m-1 rounded-circle"
             style={{ height: "70px", width: "70px" }}
+            onClick={() => onNavbarItemClick("profile")}
           >
             1
           </div>
@@ -50,6 +51,7 @@ export default function Navbar() {
           <div
             className="bg-info m-1 rounded-circle"
             style={{ height: "70px", width: "70px" }}
+            onClick={() => onNavbarItemClick("chat")}
           >
             3
           </div>
