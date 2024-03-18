@@ -1,7 +1,10 @@
 import React from "react";
 import "./Navbar.css";
+import { FaUserFriends } from 'react-icons/fa';
+import { useNavigate } from "react-router-dom";
 
-export default function Navbar() {
+export default function Navbar({ onNavbarItemClick }) {
+
   return (
     <div>
       <div
@@ -42,10 +45,10 @@ export default function Navbar() {
             1
           </div>
           <div
-            className="bg-info m-1 rounded-circle"
-            style={{ height: "70px", width: "70px" }}
+            className="bg-info m-1 rounded-circle friends-icon-container"
+            onClick={() => onNavbarItemClick("friends")}
           >
-            2
+            <FaUserFriends size={40} />
           </div>
           <div
             className="bg-info m-1 rounded-circle"

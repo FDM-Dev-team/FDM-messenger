@@ -3,10 +3,18 @@ import "./Main.css";
 import Navbar from "../../components/Navbar/Navbar";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import Chat from "../../components/Chat/Chat";
+import { useState } from "react";
+import Friends from "../../components/Friends/Friends";
 
 
 
 export default function Main() {
+  const [activeComponent, setActiveComponent] = useState("chat");
+
+  const handleNavbarItemClick = (component) => {
+    setActiveComponent(component);
+  };
+
   return (
     <div className="App d-flex min-vh-100">
       <div
@@ -18,16 +26,16 @@ export default function Main() {
             className="col-2 d-flex flex-column p-0"
             style={{ width: "350px" }}
           >
-            <Navbar />
+            <Navbar onNavbarItemClick={handleNavbarItemClick} />
             <Sidebar />
-           
 
           </div>
           <div
             className="col flex-grow-1 d-flex flex-column p-0"
             style={{ height: "100vh" }}
           >
-            <Chat />
+             {activeComponent === "chat" && <Chat />}
+            {activeComponent === "friends" && <Friends />}
           </div>
         </div>
       </div>

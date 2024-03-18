@@ -1,0 +1,8 @@
+.friends-icon-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 70px;
+    width: 70px;
+    cursor: pointer;
+  }

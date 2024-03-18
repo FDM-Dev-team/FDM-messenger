@@ -1,0 +1,45 @@
+.friends-container {
+    margin-bottom: 15px;
+    margin-top: 15px;
+    margin-right: 15px;
+    margin-left: 5px;
+    flex: 1;
+    box-shadow: -4px 4px 10px rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .friends-header {
+    height: 70px;
+    background: white;
+    padding: 0 15px;
+    display: flex;
+    align-items: center;
+  }
+  .friends-header-content {
+    height: 40px;
+    background: white;
+    padding: 0 15px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .friends-title {
+    font-size: 30px;
+    font-weight: bold;
+  }
+  
+  .friends-icon {
+    font-size: 30px;
+    margin-right: 40px;
+    
+  }
+  
+  .friends-tab {
+    background-color: lightslategray;
+    color: white;
+    padding: 5px 50px;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    }
