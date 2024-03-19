@@ -1,0 +1,45 @@
+.profile-header {
+  height: 10%;
+  font-size: 30px;
+  font-weight: 450;
+  margin-bottom: 5px;
+  text-align: left;
+  color: gray;
+  margin-left: 25px;
+  margin-top: 10px;
+}
+
+.profile-main {
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile-name {
+  font-size: 34px;
+  color: gray;
+  font-weight: 500;
+}
+
+.profile-username {
+  font-size: 16px;
+  color: gray;
+  font-weight: 500;
+}
+
+.profile-line-break {
+  height: 1px;
+  width: 300px;
+  font-weight: 100;
+  background-color: gray;
+  margin: 3px 0;
+}
+
+.profile-email,
+.profile-friend {
+  font-size: 18px;
+  color: gray;
+  font-weight: 500;
+}

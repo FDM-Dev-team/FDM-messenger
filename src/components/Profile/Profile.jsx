@@ -34,12 +34,27 @@ export default function Profile() {
           boxShadow: "-4px 4px 10px rgba(0, 0, 0, 0.4)",
         }}
       >
-        <h2>Profile</h2>
-        <div>
-          <strong>Name:</strong> {profile.username}
-        </div>
-        <div>
-          <strong>Email:</strong> {profile.email}
+        <div className="profile-header">Profile</div>
+
+        <div className="profile-main">
+          <div
+            className="circle"
+            style={{
+              width: "200px",
+              height: "200px",
+              borderRadius: "50%",
+              backgroundColor: "lightgray",
+              boxShadow: "5px 5px 10px rgba(0, 0, 0, 0.5)",
+              marginBottom: "10px",
+            }}
+          ></div>
+          <div className="profile-name">
+            {profile.firstname} {profile.lastname}
+          </div>
+          <div className="profile-username"> @{profile.username} </div>
+          <div className="profile-line-break"></div>
+          <div className="profile-email"> {profile.email} </div>
+          <div className="profile-friend"> Friends: {} </div>
         </div>
       </div>
     </div>
