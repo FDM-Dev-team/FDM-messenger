@@ -20,9 +20,10 @@ export default function SideBarChats({ chat }) {
       style={{
         width: "300px",
         height: "75px",
-        borderRadius: "50px",
+        borderRadius: "20px",
         padding: "10px",
         cursor: "pointer",
+        boxShadow: "-2px 2px 4px rgba(0, 0, 0, 0.5)",
       }}
       onClick={fetchThatChatMessage}
     >
