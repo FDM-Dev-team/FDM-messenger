@@ -16,10 +16,6 @@ export default function Main() {
     connectPersonalChannel();
   }, []);
 
-  useEffect(() => {
-    console.log("main socket:", socket);
-  }, [socket]);
-
 
   const [activeComponent, setActiveComponent] = useState("chat");
 

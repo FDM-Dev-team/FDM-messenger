@@ -2,13 +2,14 @@ import React, { useEffect,useContext } from "react";
 import { useChat } from '../../context/ChatContext'
 import "./Chat.css";
 import axios from "axios";
+import ChatMessages from "./ChatMessages/ChatMessages";
 
 const Chat = () => {
   const { message, setMessage, chatLog, sendMessage, socket } = useChat();
 
   useEffect(() => {
-    console.log("Chat socket:", socket);
-  }, [socket]);
+    console.log("Chatlog:", chatLog);
+  }, [chatLog]);
 
   return (
     <div
@@ -41,7 +42,20 @@ const Chat = () => {
           ></div>
           <div className="chatroom-name">123</div>
         </div>
-        <div className="flex-grow-1"></div>
+
+        <div className="flex-grow-1">
+          <div
+            className="message-list"
+            style={{
+              paddingInline: "20px",
+            }}
+          >
+            {chatLog.map((msg, index) => (
+              <ChatMessages key={index} messages={msg} />
+            ))}
+          </div>
+        </div>
+
         <div
           className="input-area"
           style={{
@@ -67,6 +81,7 @@ const Chat = () => {
           </div>
           <input
             type="text"
+            value={message} onChange={(e) => setMessage(e.target.value)}
             placeholder="Enter your message"
             style={{
               width: "80%",
@@ -85,7 +100,7 @@ const Chat = () => {
               width: "10%",
             }}
           >
-            <span style={{ cursor: "pointer" }}>Send</span>
+            <button onClick={sendMessage}>Send</button>
           </div>
         </div>
       </div>

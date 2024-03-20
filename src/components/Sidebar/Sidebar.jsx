@@ -44,8 +44,8 @@ export default function Sidebar() {
             paddingBottom: "10px",
           }}
         >
-          {chatList.map((chat) => (
-            <SideBarChats key={chat.id} chat={chat} />
+          {chatList.map((chat, index) => (
+            <SideBarChats key={chat.id || index} chat={chat} />
           ))}
         </div>
       </div>
