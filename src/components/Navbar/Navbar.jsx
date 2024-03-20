@@ -1,7 +1,7 @@
 import React from "react";
 import "./Navbar.css";
 import smileyLogo from "../../assets/smileyLogo.png";
-import { FaUserFriends } from 'react-icons/fa';
+import { FaUserFriends, FaUser, FaFacebookMessenger, FaTools } from 'react-icons/fa';
 import { useNavigate } from "react-router-dom";
 
 
@@ -40,11 +40,11 @@ export default function Navbar({onNavbarItemClick}) {
           }}
         >
           <div
-            className="bg-info m-1 rounded-circle"
-            style={{ height: "70px", width: "70px" }}
+            className="bg-info m-1 rounded-circle friends-icon-container"
+
             onClick={() => onNavbarItemClick("profile")}
           >
-            1
+            <FaUser size={32} />
           </div>
           <div
             className="bg-info m-1 rounded-circle friends-icon-container"
@@ -53,17 +53,16 @@ export default function Navbar({onNavbarItemClick}) {
             <FaUserFriends size={40} />
           </div>
           <div
-            className="bg-info m-1 rounded-circle"
-            style={{ height: "70px", width: "70px" }}
+            className="bg-info m-1 rounded-circle friends-icon-container"
             onClick={() => onNavbarItemClick("chat")}
           >
-            3
+            <FaFacebookMessenger size={32} />
           </div>
           <div
-            className="bg-info m-1 rounded-circle"
-            style={{ height: "70px", width: "70px" }}
+            className="bg-info m-1 rounded-circle friends-icon-container"
+            onClick={() => onNavbarItemClick("settings")}
           >
-            4
+            <FaTools size={32} />
           </div>
         </div>
       </div>

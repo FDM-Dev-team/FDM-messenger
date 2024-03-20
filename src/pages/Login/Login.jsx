@@ -14,6 +14,7 @@ const Login = ({ setCurrentUser }) => {
     e.preventDefault();
     const userData = await loginUser(username, password);
     if (userData) {
+      console.log(userData)
       setCurrentUser(userData);
       navigate('/');
     } else {
