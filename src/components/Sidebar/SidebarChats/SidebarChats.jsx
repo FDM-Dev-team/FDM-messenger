@@ -1,18 +1,14 @@
 import React from "react";
 import "./SidebarChats.css";
-import axios from "axios";
+import { useChat } from '../../../context/ChatContext'
+
 
 export default function SideBarChats({ chat }) {
-  const fetchThatChatMessage = async () => {
-    try {
-      const response = await axios.get(
-        `http://localhost:9000/chatmessage/${chat.chat_id}`
-      );
-      console.log(response.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  const { currentActiveChat, changeCurrentActiveChat } = useChat();
+
+  const editCurrentActiveChat = () => {
+    changeCurrentActiveChat(chat.chat_id);
+  }
 
   return (
     <div
@@ -25,7 +21,7 @@ export default function SideBarChats({ chat }) {
         cursor: "pointer",
         boxShadow: "-2px 2px 4px rgba(0, 0, 0, 0.5)",
       }}
-      onClick={fetchThatChatMessage}
+      onClick={editCurrentActiveChat}
     >
       <div
         className="circle"
