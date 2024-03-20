@@ -8,8 +8,13 @@ import { useNavigation } from '../../context/NavigationContext';
 import { Socket } from "socket.io-client";
 import Friends from "../../components/Friends/Friends";
 import Profile from "../../components/Profile/Profile";
+import { useUser } from "../../context/UserContext";
+import { Navigate } from "react-router-dom";
 
 export default function Main() {
+  const User = useUser();
+  const isLoggedIn = User.userIsAuthenticated();
+
   const { connectPersonalChannel, socket } = useChat();
   const { navagation, navagate } = useNavigation();
 
@@ -17,6 +22,13 @@ export default function Main() {
     connectPersonalChannel();
   }, []);
 
+  useEffect(() => {
+    console.log("main socket:", socket);
+  }, [socket]);
+
+  if (!isLoggedIn) {
+    return <Navigate to="/login" />;
+  }
 
   const handleNavbarItemClick = (component) => {
     navagate(component);
