@@ -22,10 +22,6 @@ export const loginUser = async (username, password) => {
         console.error(error);
     }
   };
-
-
-  
-  
   
   export const getLoggedInUser = () => {
     const storedUser = localStorage.getItem('user');

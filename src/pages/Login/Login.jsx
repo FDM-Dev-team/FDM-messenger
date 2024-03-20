@@ -1,25 +1,54 @@
 
 import "./Login.css";
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from "react-router-dom";
 import { loginUser } from "../../services/userService";
+import { useUser } from "../../context/UserContext";
 
 
-const Login = ({ setCurrentUser }) => {
+const Login = () => {
+  const User = useUser()
+  const isLoggedIn = User.userIsAuthenticated()
+
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+
   const navigate = useNavigate();
+
+  const formValidation = () => {
+    // Check all inputs
+    if (!username || !password) {
+      // setErrorMessage("Please provide username and password")
+      return false;
+    }
+    return true;
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const userData = await loginUser(username, password);
-    if (userData) {
-      setCurrentUser(userData);
-      navigate('/');
-    } else {
-      alert('Invalid username or password');
+    if (!formValidation()) return;
+
+    try {
+      const response = await loginUser(username, password)
+      const { id, email, name, firstname, lastname, initials } = response.data
+      const authdata = window.btoa(username + ':' + password)
+      const authenticatedUser = { id, email, name, firstname, lastname, initials, authdata }
+
+      User.userLogin(authenticatedUser)
+
+      setUsername('')
+      setPassword('')
+      navigate('/')
+    } catch (error) {
+      // handleLogError(error)
+      // setErrorMessage(error.response.data.message)
     }
   };
+
+  if (isLoggedIn) {
+    return <Navigate to={'/'} />
+  }
+
   return (
     <div className="container">
       <div className="login-wrapper">
