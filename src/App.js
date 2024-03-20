@@ -16,19 +16,6 @@ import Login from "./pages/Login/Login";
 import UserService from "./services/userService";
 
 const App = () => {
-  const [currentUser, setCurrentUser] = useState(null);
-  useEffect(() => {
-    const checkLoggedInUser = async () => {
-      try {
-        const user = await getLoggedInUser();
-        setCurrentUser(user);
-      } catch (error) {
-        console.error("Error checking logged in user:", error);
-      }
-    };
-
-    checkLoggedInUser();
-  }, []);
 
   return (
     <NavigationProvider>
@@ -36,8 +23,8 @@ const App = () => {
         <FriendsProvider>
           <ChatProvider>
             <Routes>
-              <Route path="/" element={currentUser ? <Main /> : <Navigate to="/login" />} />
-              <Route path="/login" element={<Login setCurrentUser={setCurrentUser}/>} />
+              <Route path="/" element={<Main />}/>
+              <Route path="/login" element={<Login />} />
             </Routes>
           </ChatProvider>
         </FriendsProvider>

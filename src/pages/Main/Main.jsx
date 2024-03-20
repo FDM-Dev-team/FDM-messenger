@@ -8,16 +8,27 @@ import { Socket } from "socket.io-client";
 import { useState } from "react";
 import Friends from "../../components/Friends/Friends";
 import Profile from "../../components/Profile/Profile";
+import { useUser } from "../../context/UserContext";
+import { Navigate } from "react-router-dom";
 
 export default function Main() {
+  const User = useUser();
+  const isLoggedIn = User.userIsAuthenticated();
+
   const { connectPersonalChannel , socket} = useChat();
+  const [activeComponent, setActiveComponent] = useState("chat");
 
   useEffect(() => {
     connectPersonalChannel();
   }, []);
 
+  useEffect(() => {
+    console.log("main socket:", socket);
+  }, [socket]);
 
-  const [activeComponent, setActiveComponent] = useState("chat");
+  if (!isLoggedIn) {
+    return <Navigate to="/login" />;
+  }
 
   const handleNavbarItemClick = (component) => {
     setActiveComponent(component);
