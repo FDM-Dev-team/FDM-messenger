@@ -5,7 +5,6 @@ import "bootstrap/dist/js/bootstrap.js";
 import { Routes, Route, Navigate, BrowserRouter as Router } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getLoggedInUser} from "./services/userService";
-import { Routes, Route } from "react-router-dom";
 
 import Navbar from "./components/Navbar/Navbar";
 import Sidebar from "./components/Sidebar/Sidebar";

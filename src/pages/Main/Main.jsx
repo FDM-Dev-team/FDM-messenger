@@ -25,7 +25,6 @@ export default function Main() {
             style={{ width: "350px" }}
           >
             <Navbar onNavbarItemClick={handleNavbarItemClick} />
-            <Navbar onNavbarItemClick={handleNavbarItemClick} />
             <Sidebar />
 
           </div>
