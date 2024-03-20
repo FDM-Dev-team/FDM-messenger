@@ -16,7 +16,7 @@ export default function Main() {
   const isLoggedIn = User.userIsAuthenticated();
 
   const { connectPersonalChannel, socket } = useChat();
-  const { navagation, navagate } = useNavigation();
+  const [activeComponent, setActiveComponent] = useState("chat");
 
   useEffect(() => {
     connectPersonalChannel();
