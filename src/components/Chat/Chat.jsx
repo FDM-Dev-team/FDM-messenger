@@ -58,6 +58,8 @@ export default function Chat() {
             className="message-list"
             style={{
               paddingInline: "20px",
+              height: `calc(100vh - 200px)`,
+              overflow: "scroll"
             }}
           >
             {messages.map((message) => (
