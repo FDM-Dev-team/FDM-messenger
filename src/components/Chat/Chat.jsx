@@ -1,5 +1,7 @@
 import React, { useEffect,useContext } from "react";
 import { useChat } from '../../context/ChatContext'
+import "./Chat.css";
+import axios from "axios";
 
 const Chat = () => {
   const { message, setMessage, chatLog, sendMessage, socket } = useChat();
