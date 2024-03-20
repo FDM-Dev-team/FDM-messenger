@@ -18,7 +18,7 @@ export default function ChatMessages({ messages }) {
           : "recieved-message"
         }`}
     >
-      <div className="message-text">{messages}</div>
+      <div className="message-text">{messages.text}</div>
       <div className="message-time">{convertTime(messages.time)}</div>
     </div>
   );

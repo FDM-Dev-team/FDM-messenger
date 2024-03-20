@@ -1,15 +1,25 @@
-import React, { useEffect,useContext } from "react";
 import { useChat } from '../../context/ChatContext'
+import React, { useEffect, useState } from "react";
 import "./Chat.css";
 import axios from "axios";
 import ChatMessages from "./ChatMessages/ChatMessages";
 
-const Chat = () => {
-  const { message, setMessage, chatLog, sendMessage, socket } = useChat();
+export default function Chat() {
+  const [messages, setMessages] = useState([]);
 
   useEffect(() => {
-    console.log("Chatlog:", chatLog);
-  }, [chatLog]);
+    const fetchMessagesData = async () => {
+      try {
+        const response = await axios.get("http://localhost:9000/chatmessage/1");
+        setMessages(response.data);
+        console.log(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchMessagesData();
+  }, []);
 
   return (
     <div
@@ -48,10 +58,12 @@ const Chat = () => {
             className="message-list"
             style={{
               paddingInline: "20px",
+              height: `calc(100vh - 200px)`,
+              overflow: "scroll"
             }}
           >
-            {chatLog.map((msg, index) => (
-              <ChatMessages key={index} messages={msg} />
+            {messages.map((message) => (
+              <ChatMessages key={message.message_id} messages={message} />
             ))}
           </div>
         </div>
@@ -106,6 +118,4 @@ const Chat = () => {
       </div>
     </div>
   );
-};
-
-export default Chat;
+}

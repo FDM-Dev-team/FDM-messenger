@@ -5,7 +5,7 @@ import { FaUserFriends } from 'react-icons/fa';
 import { useNavigate } from "react-router-dom";
 
 
-export default function Navbar({onNavbarItemClick}) {
+export default function Navbar({ onNavbarItemClick }) {
   return (
     <div>
       <div

@@ -1,20 +1,25 @@
-import { useState, createContext, useContext, useEffect } from 'react';
+import { useState, createContext, useContext, useEffect } from "react";
 
-
-
-const navigationContext = createContext()
+const navigationContext = createContext();
 
 export function NavigationProvider({ children }) {
-  const [navagation, setNavagation] = useState('');
+  const [navagation, setNavagation] = useState("chat");
 
-
+  const navagate = (destination) => {
+    setNavagation(destination);
+  };
 
   const contextData = {
-    navagation
-  }
-  return <navigationContext.Provider value={contextData}>{children}</navigationContext.Provider>
+    navagation,
+    navagate,
+  };
+  return (
+    <navigationContext.Provider value={contextData}>
+      {children}
+    </navigationContext.Provider>
+  );
 }
 
 export function useNavigation() {
-  return useContext(navigationContext)
+  return useContext(navigationContext);
 }

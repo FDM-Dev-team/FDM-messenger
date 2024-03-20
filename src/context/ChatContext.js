@@ -1,33 +1,33 @@
-import { useState, createContext, useContext, useEffect } from 'react';
-import io from 'socket.io-client';
+import { useState, createContext, useContext, useEffect } from "react";
+import io from "socket.io-client";
 
-
-const chatContext = createContext()
+const chatContext = createContext();
 
 export function ChatProvider({ children }) {
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState("");
   const [chatLog, setChatLog] = useState([]);
+  const [currentActiveChat, setCurrentActiveChat] = useState(null);
   const [socket, setSocket] = useState(null);
 
   const connectPersonalChannel = () => {
     if (!socket) {
       const user = {
         id: 1,
-        name: 'John Doe',
+        name: "John Doe",
       };
 
-      const newSocket = io('http://localhost:8000', {
+      const newSocket = io("http://localhost:8000", {
         query: {
           userId: user.id,
           userName: user.name,
         },
       });
 
-      newSocket.on('connect', () => {
-        joinChatRoom('joinRoom', 'roomId_1', 'userId_1'); // Join personal channel when connected
+      newSocket.on("connect", () => {
+        joinChatRoom("joinRoom", "roomId_1", "userId_1"); // Join personal channel when connected
       });
 
-      console.log('Connected to personal channel');
+      console.log("Connected to personal channel");
       setSocket(newSocket);
     }
   };
@@ -37,8 +37,8 @@ export function ChatProvider({ children }) {
 
     // Event listener for successful connection
     const handleConnect = () => {
-      joinChatRoom('joinRoom', 'roomId_1', 'userId_1'); // Join the chat room when connected
-      console.log('Connected to friend channel');
+      joinChatRoom("joinRoom", "roomId_1", "userId_1"); // Join the chat room when connected
+      console.log("Connected to friend channel");
     };
 
     handleConnect();
@@ -50,17 +50,17 @@ export function ChatProvider({ children }) {
         setChatLog((prevChatLog) => [...prevChatLog, data]);
       } catch (error) {
         // Handle non-JSON message
-        console.log('Received non-JSON message:', data);
+        console.log("Received non-JSON message:", data);
       }
     };
 
-    socket.on('chat message', handleChatMessage);
+    socket.on("chat message", handleChatMessage);
 
     // Clean up event listeners when component unmounts or socket changes
     return () => {
-      console.log('Socket is unmounted'); // Log when the socket is unmounted
-      socket.off('connect', handleConnect);
-      socket.off('chat message', handleChatMessage);
+      console.log("Socket is unmounted"); // Log when the socket is unmounted
+      socket.off("connect", handleConnect);
+      socket.off("chat message", handleChatMessage);
     };
   }, [socket]);
 
@@ -71,9 +71,9 @@ export function ChatProvider({ children }) {
   };
 
   const sendMessage = () => {
-    console.log('socket:', socket, ' message:', message);
-    if (socket && socket.connected && message.trim() !== '') {
-      console.log('send');
+    console.log("socket:", socket, " message:", message);
+    if (socket && socket.connected && message.trim() !== "") {
+      console.log("send");
       const data = {
         roomId: 'roomId_1', // Replace 'your-room-id' with the actual room ID
         sender: 'userId_1',
@@ -81,9 +81,13 @@ export function ChatProvider({ children }) {
         sentTime: "null"
 
       };
-      socket.emit('chat message', data);
-      setMessage('');
+      socket.emit("chat message", data);
+      setMessage("");
     }
+  };
+
+  const changeCurrentActiveChat = (chatId) => {
+    setCurrentActiveChat(chatId);
   };
 
   const contextData = {
@@ -93,11 +97,15 @@ export function ChatProvider({ children }) {
     setMessage,
     chatLog,
     sendMessage,
-    joinChatRoom
-  }
-  return <chatContext.Provider value={contextData}>{children}</chatContext.Provider>
+    joinChatRoom,
+    currentActiveChat,
+    changeCurrentActiveChat,
+  };
+  return (
+    <chatContext.Provider value={contextData}>{children}</chatContext.Provider>
+  );
 }
 
 export function useChat() {
-  return useContext(chatContext)
+  return useContext(chatContext);
 }
