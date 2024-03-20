@@ -1,13 +1,26 @@
-import React, { Component } from "react";
+import React, { Component, useEffect,useContext } from "react";
 import "./Main.css";
 import Navbar from "../../components/Navbar/Navbar";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import Chat from "../../components/Chat/Chat";
+import { useChat } from '../../context/ChatContext'
+import { Socket } from "socket.io-client";
 import { useState } from "react";
 import Friends from "../../components/Friends/Friends";
 import Profile from "../../components/Profile/Profile";
 
 export default function Main() {
+  const { connectPersonalChannel , socket} = useChat();
+
+  useEffect(() => {
+    connectPersonalChannel();
+  }, []);
+
+  useEffect(() => {
+    console.log("main socket:", socket);
+  }, [socket]);
+
+
   const [activeComponent, setActiveComponent] = useState("chat");
 
   const handleNavbarItemClick = (component) => {

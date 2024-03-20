@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Sidebar.css";
+import useChatMiddleware from '../../context/ChatContext';
 import axios from "axios";
 import SideBarChats from "./SidebarChats/SidebarChats";
 

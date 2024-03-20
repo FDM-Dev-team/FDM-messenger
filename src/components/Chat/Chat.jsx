@@ -1,7 +1,13 @@
-import React from "react";
-import "./Chat.css";
+import React, { useEffect,useContext } from "react";
+import { useChat } from '../../context/ChatContext'
 
-export default function Chat() {
+const Chat = () => {
+  const { message, setMessage, chatLog, sendMessage, socket } = useChat();
+
+  useEffect(() => {
+    console.log("Chat socket:", socket);
+  }, [socket]);
+
   return (
     <div
       className="col flex-grow-1 d-flex flex-column p-0"
@@ -83,4 +89,6 @@ export default function Chat() {
       </div>
     </div>
   );
-}
+};
+
+export default Chat;
