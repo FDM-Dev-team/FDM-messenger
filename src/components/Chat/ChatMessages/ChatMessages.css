@@ -1,0 +1,30 @@
+.message {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: fit-content;
+  max-width: 50%;
+  max-height: 500px;
+  border-radius: 20px;
+  padding-inline: 20px;
+  padding-block: 10px;
+  margin-block: 5px;
+}
+
+.sent-message {
+  margin-left: auto;
+  background-color: lightblue;
+  display: flex;
+}
+
+.recieved-message {
+  margin-right: auto;
+  background-color: lightgray;
+  display: flex;
+}
+
+.message-time {
+  font-size: 10px;
+  margin-left: 10px;
+  align-self: flex-end;
+}

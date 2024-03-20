@@ -1,12 +1,26 @@
-import React, { useEffect,useContext } from "react";
-import { useChat } from '../../context/ChatContext'
 
-const Chat = () => {
-  const { message, setMessage, chatLog, sendMessage, socket } = useChat();
+
+import React, { useEffect, useState } from "react";
+import "./Chat.css";
+import axios from "axios";
+import ChatMessages from "./ChatMessages/ChatMessages";
+
+export default function Chat() {
+  const [messages, setMessages] = useState([]);
 
   useEffect(() => {
-    console.log("Chat socket:", socket);
-  }, [socket]);
+    const fetchMessagesData = async () => {
+      try {
+        const response = await axios.get("http://localhost:9000/chatmessage/1");
+        setMessages(response.data);
+        console.log(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchMessagesData();
+  }, []);
 
   return (
     <div
@@ -39,7 +53,20 @@ const Chat = () => {
           ></div>
           <div className="chatroom-name">123</div>
         </div>
-        <div className="flex-grow-1"></div>
+
+        <div className="flex-grow-1">
+          <div
+            className="message-list"
+            style={{
+              paddingInline: "20px",
+            }}
+          >
+            {messages.map((message) => (
+              <ChatMessages key={message.message_id} messages={message} />
+            ))}
+          </div>
+        </div>
+
         <div
           className="input-area"
           style={{
@@ -89,6 +116,4 @@ const Chat = () => {
       </div>
     </div>
   );
-};
-
-export default Chat;
+}
