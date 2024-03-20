@@ -1,7 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useState, createContext, useContext, useEffect } from 'react';
 import io from 'socket.io-client';
 
-const useChatContext = () => {
+
+const chatContext = createContext()
+
+export function ChatProvider({ children }) {
   const [message, setMessage] = useState('');
   const [chatLog, setChatLog] = useState([]);
   const [socket, setSocket] = useState(null);
@@ -80,7 +83,7 @@ const useChatContext = () => {
     }
   };
 
-  return {
+  const contextData = {
     socket,
     connectPersonalChannel, // Corrected function name
     message,
@@ -88,7 +91,10 @@ const useChatContext = () => {
     chatLog,
     sendMessage,
     joinChatRoom
-  };
-};
+  }
+  return <chatContext.Provider value={contextData}>{children}</chatContext.Provider>
+}
 
-export default useChatContext;
+export function useChat() {
+  return useContext(chatContext)
+}

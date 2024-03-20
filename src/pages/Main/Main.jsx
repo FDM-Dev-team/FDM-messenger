@@ -3,14 +3,14 @@ import "./Main.css";
 import Navbar from "../../components/Navbar/Navbar";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import Chat from "../../components/Chat/Chat";
-import { ChatContext } from '../../context/ChatContext';
+import { useChat } from '../../context/ChatContext'
 import { Socket } from "socket.io-client";
 
 export default function Main() {
-  const { connectPeronalChannel , socket} = useContext(ChatContext);
+  const { connectPersonalChannel , socket} = useChat();
 
   useEffect(() => {
-    connectPeronalChannel();
+    connectPersonalChannel();
   }, []);
 
   useEffect(() => {

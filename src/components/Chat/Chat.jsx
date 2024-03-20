@@ -1,8 +1,8 @@
 import React, { useEffect,useContext } from "react";
-import { ChatContext } from '../../context/ChatContext';
+import { useChat } from '../../context/ChatContext'
 
 const Chat = () => {
-  const { message, setMessage, chatLog, sendMessage, socket } = useContext(ChatContext);
+  const { message, setMessage, chatLog, sendMessage, socket } = useChat();
 
   useEffect(() => {
     console.log("Chat socket:", socket);
