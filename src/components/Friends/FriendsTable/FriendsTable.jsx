@@ -1,6 +1,7 @@
 import React from "react";
 import "./FriendsTable.css";
 import { FaRegCommentAlt } from 'react-icons/fa';
+import { useFriends } from '../../../context/FriendsContext';
 import { useChat } from '../../../context/ChatContext'
 import { useNavigation } from '../../../context/NavigationContext';
 
@@ -8,12 +9,13 @@ const FriendsTable = () => {
   const { currentActiveChat, changeCurrentActiveChat } = useChat();
   const { navagation, navagate } = useNavigation();
 
-  const friends = [
-    { id: 1, initials: "JD", name: "John Doe" },
-    { id: 2, initials: "JS", name: "Jane Smith" },
-    { id: 3, initials: "AM", name: "Alex Martin" },
-    { id: 4, initials: "ES", name: "Emily Summers" },
-  ];
+  const { friends } = useFriends();
+  // const friends = [
+  //   { id: 1, initials: "JD", name: "John Doe" },
+  //   { id: 2, initials: "JS", name: "Jane Smith" },
+  //   { id: 3, initials: "AM", name: "Alex Martin" },
+  //   { id: 4, initials: "ES", name: "Emily Summers" },
+  // ];
 
   const editCurrentActiveChat = (id) => {
     navagate("chat");
@@ -32,7 +34,7 @@ const FriendsTable = () => {
               <td className="friends-table-cell-avatar">
                 <div className="friends-avatar">{friend.initials}</div>
               </td>
-              <td className="friends-table-cell-name">{friend.name}</td>
+              <td className="friends-table-cell-name">{friend.firstname} {friend.lastname}</td>
               <td className="friends-table-cell-action">
                 <button className="friends-message-button" onClick={() => editCurrentActiveChat(friend.id)}>
                   <FaRegCommentAlt />
