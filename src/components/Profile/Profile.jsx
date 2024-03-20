@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
 import "./Profile.css";
 import axios from "axios";
+import { useUser } from "../../context/UserContext";
 
 export default function Profile() {
-  const [profile, setProfile] = useState([]);
+  const { user } = useUser();
+  const [profile, setProfile] = useState(null);
 
   useEffect(() => {
     const fetchProfileData = async () => {
       try {
-        const response = await axios.get("http://localhost:9000/user/1");
+        const response = await axios.get(`http://localhost:9000/user/${user.id}`);
         setProfile(response.data);
         console.log(response.data);
       } catch (error) {
@@ -16,8 +18,11 @@ export default function Profile() {
       }
     };
 
-    fetchProfileData();
-  }, []);
+    if (user) {
+      fetchProfileData();
+    }
+  }, [user]);
+
   return (
     <div
       className="col flex-grow-1 d-flex flex-column p-0"
@@ -45,16 +50,26 @@ export default function Profile() {
               borderRadius: "50%",
               backgroundColor: "lightgray",
               boxShadow: "5px 5px 10px rgba(0, 0, 0, 0.5)",
-              marginBottom: "10px",
-            }}
-          ></div>
-          <div className="profile-name">
-            {profile.firstname} {profile.lastname}
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: "10px",
+    fontSize: "60px",
+    color: "gray",
+    fontWeight: "500",
+  }}
+          >
+            {user && user.initials}
           </div>
-          <div className="profile-username"> @{profile.username} </div>
+          <div className="profile-name">
+            {user && `${user.firstname} ${user.lastname}`}
+          </div>
+          <div className="profile-username">
+            {user && `@${user.username}`}
+          </div>
           <div className="profile-line-break"></div>
-          <div className="profile-email"> {profile.email} </div>
-          <div className="profile-friend"> Friends: {} </div>
+          <div className="profile-email">{user && user.email}</div>
+          <div className="profile-friend">Friends: { }</div>
         </div>
       </div>
     </div>

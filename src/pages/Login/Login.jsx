@@ -53,33 +53,33 @@ const Login = () => {
   return (
     <div className="container">
       <div className="login-wrapper">
-       <div className="logo">
+        <div className="logo">
           <img src="./smileyLogo.png" alt="Logo" />
         </div>
-      <div className="login-box">
-        <h2 className="title">Login to use FDM!</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="input-group">
-            <label>Username</label>
-            <input
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-            />
-          </div>
-          <div className="input-group">
-            <label>Password</label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
-          <div className="button-container">
-          <button className="button" type="submit">Login</button>
-          </div>
-        </form>
-      </div>
+        <div className="login-box">
+          <h2 className="title">Login to use FDM!</h2>
+          <form onSubmit={handleSubmit}>
+            <div className="input-group">
+              <label>Username</label>
+              <input
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+              />
+            </div>
+            <div className="input-group">
+              <label>Password</label>
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+            <div className="button-container">
+              <button className="button" type="submit">Login</button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   );
