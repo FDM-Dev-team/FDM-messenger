@@ -6,10 +6,6 @@ import { useChat } from '../../../context/ChatContext'
 export default function SideBarChats({ chat }) {
   const { currentActiveChat, changeCurrentActiveChat } = useChat();
 
-  const editCurrentActiveChat = () => {
-    changeCurrentActiveChat(chat.chat_id);
-  }
-
   return (
     <div
       className="d-flex align-items-center border my-1"
@@ -21,7 +17,7 @@ export default function SideBarChats({ chat }) {
         cursor: "pointer",
         boxShadow: "-2px 2px 4px rgba(0, 0, 0, 0.5)",
       }}
-      onClick={editCurrentActiveChat}
+      onClick={() => changeCurrentActiveChat(chat.chat_id)}
     >
       <div
         className="circle"
