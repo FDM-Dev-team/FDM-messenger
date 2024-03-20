@@ -1,19 +1,37 @@
-import React from "react"; // Add the missing import statement
+import axios from 'axios';
 
-class UserService {
-  constructor() {
-    this.loggedIn = false;
-  }
+const BASE_URL = 'http://localhost:9000';
 
-  login(username, password) {
-    // Perform login logic here
-    // For simplicity, let's assume the login is successful
-    this.loggedIn = true;
-  }
+export const getUser = async (userId) => { 
+  try {
+    const response = await axios.get(`${BASE_URL}/user/${userId}`);
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    }
+};
 
-  isLoggedIn() {
-    return this.loggedIn;
-  }
-}
+export const loginUser = async (username, password) => {
+    try {
+      const response = await axios.post(`${BASE_URL}/login`, { username, password });
+      const user = response.data;
+      localStorage.setItem('user', JSON.stringify(response.data));
+    return user;
+    } catch (error) {
+        console.error(error);
+    }
+  };
 
-export default UserService;
+
+  
+  
+  
+  export const getLoggedInUser = () => {
+    const storedUser = localStorage.getItem('user');
+    return storedUser ? JSON.parse(storedUser) : null;
+  };
+  
+  export const logoutUser = () => {
+    localStorage.removeItem('user');
+  };

@@ -3,8 +3,9 @@ import "./Main.css";
 import Navbar from "../../components/Navbar/Navbar";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import Chat from "../../components/Chat/Chat";
-import Profile from "../../components/Profile/Profile";
 import { useState } from "react";
+import Friends from "../../components/Friends/Friends";
+import Profile from "../../components/Profile/Profile";
 
 export default function Main() {
   const [activeComponent, setActiveComponent] = useState("chat");
@@ -24,7 +25,9 @@ export default function Main() {
             style={{ width: "350px" }}
           >
             <Navbar onNavbarItemClick={handleNavbarItemClick} />
+            <Navbar onNavbarItemClick={handleNavbarItemClick} />
             <Sidebar />
+
           </div>
           <div
             className="col flex-grow-1 d-flex flex-column p-0"
@@ -32,6 +35,7 @@ export default function Main() {
           >
             {activeComponent === "chat" && <Chat />}
             {activeComponent === "profile" && <Profile />}
+            {activeComponent === "friends" && <Friends />}
           </div>
         </div>
       </div>
