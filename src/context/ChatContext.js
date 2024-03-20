@@ -76,7 +76,9 @@ export function ChatProvider({ children }) {
       console.log("send");
       const data = {
         roomId: "roomId_1", // Replace 'your-room-id' with the actual room ID
+        sender: "userId_1",
         message: message.trim(),
+        sentTime: "null",
       };
       socket.emit("chat message", data);
       setMessage("");

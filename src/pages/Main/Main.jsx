@@ -17,10 +17,6 @@ export default function Main() {
     connectPersonalChannel();
   }, []);
 
-  useEffect(() => {
-    console.log("main socket:", socket);
-  }, [socket]);
-
 
   const handleNavbarItemClick = (component) => {
     navagate(component);

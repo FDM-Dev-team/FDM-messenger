@@ -14,8 +14,8 @@ export default function ChatMessages({ messages }) {
   return (
     <div
       className={`message ${messages.sender_participant_id === 1
-          ? "sent-message"
-          : "recieved-message"
+        ? "sent-message"
+        : "recieved-message"
         }`}
     >
       <div className="message-text">{messages.text}</div>

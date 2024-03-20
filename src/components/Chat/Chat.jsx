@@ -93,6 +93,7 @@ export default function Chat() {
           </div>
           <input
             type="text"
+            value={message} onChange={(e) => setMessage(e.target.value)}
             placeholder="Enter your message"
             style={{
               width: "80%",
@@ -111,7 +112,7 @@ export default function Chat() {
               width: "10%",
             }}
           >
-            <span style={{ cursor: "pointer" }}>Send</span>
+            <button onClick={sendMessage}>Send</button>
           </div>
         </div>
       </div>
