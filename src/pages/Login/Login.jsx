@@ -5,13 +5,13 @@ import { Navigate, useNavigate } from "react-router-dom";
 import { loginUser } from "../../services/userService";
 import { useUser } from "../../context/UserContext";
 
-
 const Login = () => {
   const User = useUser()
   const isLoggedIn = User.userIsAuthenticated()
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+
 
   const navigate = useNavigate();
 
@@ -84,5 +84,4 @@ const Login = () => {
     </div>
   );
 };
-
 export default Login;
