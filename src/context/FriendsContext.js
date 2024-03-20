@@ -1,6 +1,6 @@
-import React, { useState, createContext, useContext, useEffect } from 'react';
-import axios from 'axios';
-import { useUser } from './UserContext'; // Assuming you have a UserContext
+import React, { useState, createContext, useContext, useEffect } from "react";
+import axios from "axios";
+import { useUser } from "./UserContext"; // Assuming you have a UserContext
 
 const friendsContext = createContext();
 
@@ -16,7 +16,9 @@ export function FriendsProvider({ children }) {
 
   const fetchFriends = async (userId) => {
     try {
-      const response = await axios.get(`http://localhost:9000/friends/${userId}`);
+      const response = await axios.get(
+        `http://localhost:9000/friends/${userId}`
+      );
       setFriends(response.data);
       console.log(response.data);
     } catch (error) {
@@ -25,7 +27,7 @@ export function FriendsProvider({ children }) {
   };
 
   const contextData = {
-    friends
+    friends,
   };
 
   return (
