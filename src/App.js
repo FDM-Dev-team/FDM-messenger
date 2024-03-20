@@ -31,32 +31,18 @@ const App = () => {
   }, []);
 
   return (
-<<<<<<< HEAD
-    
-      <Routes>
-        <Route path="/" element={currentUser ? <Main /> : <Navigate to="/login" />} />
-        <Route path="/login" element={<Login setCurrentUser={setCurrentUser}/>} />
-      </Routes>
-   
-=======
     <NavigationProvider>
       <UserProvider>
         <FriendsProvider>
           <ChatProvider>
-          <div>
-            {/* to do:
-              add userService where we check if User is logged in or not
-              if yes, then show Main page
-              if no, then show Login page
-            */}
-            <Login />
-            <Main />
-          </div>
+            <Routes>
+              <Route path="/" element={currentUser ? <Main /> : <Navigate to="/login" />} />
+              <Route path="/login" element={<Login setCurrentUser={setCurrentUser}/>} />
+            </Routes>
           </ChatProvider>
         </FriendsProvider>
       </UserProvider>
     </NavigationProvider>
->>>>>>> 1cc9a0a40d2355806818dc4fe1d19b6eebed90a1
   );
 
 };
