@@ -5,6 +5,7 @@ import axios from "axios";
 import ChatMessages from "./ChatMessages/ChatMessages";
 
 export default function Chat() {
+  const { message, setMessage, chatLog, sendMessage, socket } = useChat();
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
