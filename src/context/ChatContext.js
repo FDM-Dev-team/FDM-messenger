@@ -1,7 +1,9 @@
 import { useState, createContext, useContext, useEffect } from "react";
 import io from "socket.io-client";
 
-const chatContext = createContext();
+
+
+const chatContext = createContext()
 
 export function ChatProvider({ children }) {
   const [message, setMessage] = useState("");
@@ -9,48 +11,53 @@ export function ChatProvider({ children }) {
   const [currentActiveChat, setCurrentActiveChat] = useState(null);
   const [socket, setSocket] = useState(null);
 
-  const connectPersonalChannel = () => {
+  const connectPersonalChannel = user => {
+    //console.log("User.user:",user)
     if (!socket) {
-      const user = {
-        id: 1,
-        name: "John Doe",
-      };
+      const { user_id, firstname, lastname, username } = user
 
       const newSocket = io("http://localhost:8000", {
         query: {
-          userId: user.id,
-          userName: user.name,
+          userId: user_id,
+          userName: username,
+          firstname: firstname,
+          lastname: lastname
         },
       });
 
-      newSocket.on("connect", () => {
-        joinChatRoom("joinRoom", "roomId_1", "userId_1"); // Join personal channel when connected
+      newSocket.on('connect', () => {
+        console.log('User_id:', user_id, ' connected to Socket');
       });
 
-      console.log("Connected to personal channel");
+      //console.log("Connected to personal channel");
       setSocket(newSocket);
     }
   };
 
+  const connectToChatRoom = (roomId, UserId) =>{
+    joinChatRoom('joinRoom', roomId, UserId); // Join the chat room when connected
+    console.log('Connected to channel:', roomId);
+  }
+  
   useEffect(() => {
     if (!socket) return; // Check if socket is null
 
-    // Event listener for successful connection
-    const handleConnect = () => {
-      joinChatRoom("joinRoom", "roomId_1", "userId_1"); // Join the chat room when connected
-      console.log("Connected to friend channel");
-    };
-
-    handleConnect();
-
-    // Event listener for incoming messages
     const handleChatMessage = (data) => {
+      console.log("recieved message:", data )
+
+      const { roomId, sender, message, sentTime } = data;
+  
       try {
-        // Handle JSON message
-        setChatLog((prevChatLog) => [...prevChatLog, data]);
+        const mappedObject = {
+          message_id: null,
+          chat_id: roomId,
+          sender_participant_id: sender,
+          text: message,
+          time: sentTime,
+        };
+        setChatLog((prevChatLog) => [...prevChatLog, mappedObject]);
       } catch (error) {
-        // Handle non-JSON message
-        console.log("Received non-JSON message:", data);
+        console.log('Received non-JSON message:', data);
       }
     };
 
@@ -59,7 +66,6 @@ export function ChatProvider({ children }) {
     // Clean up event listeners when component unmounts or socket changes
     return () => {
       console.log("Socket is unmounted"); // Log when the socket is unmounted
-      socket.off("connect", handleConnect);
       socket.off("chat message", handleChatMessage);
     };
   }, [socket]);
@@ -70,29 +76,35 @@ export function ChatProvider({ children }) {
     }
   };
 
-  const sendMessage = () => {
-    console.log("socket:", socket, " message:", message);
-    if (socket && socket.connected && message.trim() !== "") {
-      console.log("send");
+  const sendMessage = (room, userId) => {
+    //console.log('socket:', socket, ' message:', message);
+    if (socket && socket.connected && message.trim() !== '') {
+      console.log('send');
+      const currentTime = Date.now(); // Get current local time
       const data = {
-        roomId: 'roomId_1', // Replace 'your-room-id' with the actual room ID
-        sender: 'userId_1',
+        roomId: room,
+        sender: userId,
         message: message.trim(),
-        sentTime: "null"
-
+        sentTime: currentTime,
       };
-      socket.emit("chat message", data);
-      setMessage("");
+      socket.emit('chat message', data);
+      setMessage('');
     }
   };
 
   const changeCurrentActiveChat = (chatId) => {
+    console.log("current active chat:", chatId)
     setCurrentActiveChat(chatId);
+  };
+
+  const recieveChatlog = (chatlog) => {
+    setChatLog(chatlog);
   };
 
   const contextData = {
     socket,
-    connectPersonalChannel, // Corrected function name
+    connectPersonalChannel,
+    connectToChatRoom,
     message,
     setMessage,
     chatLog,
@@ -100,6 +112,7 @@ export function ChatProvider({ children }) {
     joinChatRoom,
     currentActiveChat,
     changeCurrentActiveChat,
+    recieveChatlog
   };
   return (
     <chatContext.Provider value={contextData}>{children}</chatContext.Provider>

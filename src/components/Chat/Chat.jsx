@@ -1,19 +1,31 @@
-import { useChat } from '../../context/ChatContext'
 import React, { useEffect, useState } from "react";
+import { useChat } from '../../context/ChatContext';
 import "./Chat.css";
 import axios from "axios";
 import ChatMessages from "./ChatMessages/ChatMessages";
+import { useUser } from "../../context/UserContext";
 
 export default function Chat() {
-  const { message, setMessage, chatLog, sendMessage, socket } = useChat();
+  const { message, setMessage, chatLog, setChatLog, sendMessage, currentActiveChat, recieveChatlog, connectToChatRoom } = useChat();
   const [messages, setMessages] = useState([]);
+  const User = useUser();
+
+  useEffect(() => {
+    if (User && User.user) {
+      connectToChatRoom(currentActiveChat, User.user.user_id);
+    }
+  }, [currentActiveChat, User]);
+
+  useEffect(() => {
+    console.log("chatLog", chatLog)
+  }, [chatLog]);
 
   useEffect(() => {
     const fetchMessagesData = async () => {
       try {
         const response = await axios.get("http://localhost:9000/chatmessage/1");
-        setMessages(response.data);
-        console.log(response.data);
+        //recieveChatlog(response.data);
+        //console.log(response.data);
       } catch (error) {
         console.error(error);
       }
@@ -21,6 +33,17 @@ export default function Chat() {
 
     fetchMessagesData();
   }, []);
+
+  const send = () => {
+    console.log("User.user", User.user)
+    sendMessage(currentActiveChat, User.user.user_id);
+  }
+
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      send();
+    }
+  };
 
   return (
     <div
@@ -54,19 +77,12 @@ export default function Chat() {
           <div className="chatroom-name">123</div>
         </div>
 
-        <div className="flex-grow-1">
-          <div
-            className="message-list"
-            style={{
-              paddingInline: "20px",
-              height: `calc(100vh - 200px)`,
-              overflow: "scroll"
-            }}
-          >
-            {messages.map((message) => (
-              <ChatMessages key={message.message_id} messages={message} />
+        <div className="message-list" style={{ paddingInline: "20px", height: `calc(100vh - 200px)`, overflow: "scroll" }}>
+          {Object.entries(chatLog)
+            .filter(([key, value]) => value.sender_participant_id === currentActiveChat || (value.sender_participant_id === User.user.user_id && value.chat_id === currentActiveChat))
+            .map(([key, value]) => (
+              <ChatMessages key={value.message_id || key} messages={value} />
             ))}
-          </div>
         </div>
 
         <div
@@ -94,7 +110,9 @@ export default function Chat() {
           </div>
           <input
             type="text"
-            value={message} onChange={(e) => setMessage(e.target.value)}
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            onKeyPress={handleKeyPress} // Handle Enter key press
             placeholder="Enter your message"
             style={{
               width: "80%",
@@ -113,7 +131,7 @@ export default function Chat() {
               width: "10%",
             }}
           >
-            <button onClick={sendMessage}>Send</button>
+            <button onClick={send}>Send</button>
           </div>
         </div>
       </div>

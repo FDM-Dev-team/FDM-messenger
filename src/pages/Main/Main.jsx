@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { Component, useEffect, useContext, useState } from "react";
 import "./Main.css";
 import Navbar from "../../components/Navbar/Navbar";
 import Sidebar from "../../components/Sidebar/Sidebar";
@@ -15,15 +15,20 @@ export default function Main() {
   const User = useUser();
   const isLoggedIn = User.userIsAuthenticated();
 
-  const { connectPersonalChannel, socket } = useChat();
+  const { connectPersonalChannel, socket, connectToChatRoom, activeComponent, setActiveComponent } = useChat();
   const { navagation, navagate } = useNavigation();
 
   useEffect(() => {
-    connectPersonalChannel();
-  }, []);
+    if (User.user) {
+      connectPersonalChannel(User.user);
+
+    }
+  }, [User.user]);
 
   useEffect(() => {
-    console.log("main socket:", socket);
+    if (User.user) {
+      connectToChatRoom(User.user.user_id, User.user.user_id);
+    }
   }, [socket]);
 
   if (!isLoggedIn) {
