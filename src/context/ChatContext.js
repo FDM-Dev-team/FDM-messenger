@@ -46,10 +46,8 @@ export function ChatProvider({ children }) {
     // Event listener for incoming messages
     const handleChatMessage = (data) => {
       try {
-        // Handle JSON message
         setChatLog((prevChatLog) => [...prevChatLog, data]);
       } catch (error) {
-        // Handle non-JSON message
         console.log('Received non-JSON message:', data);
       }
     };
