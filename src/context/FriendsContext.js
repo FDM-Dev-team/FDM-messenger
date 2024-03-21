@@ -20,7 +20,7 @@ export function FriendsProvider({ children }) {
         `http://localhost:9000/friends/${userId}`
       );
       setFriends(response.data);
-      console.log(response.data);
+      //console.log(response.data);
     } catch (error) {
       console.error(error);
     }

@@ -2,23 +2,33 @@ import React, { useEffect, useState } from "react";
 import "./Sidebar.css";
 import axios from "axios";
 import SideBarChats from "./SidebarChats/SidebarChats";
+import { useChat } from '../../context/ChatContext';
+import { useUser } from "../../context/UserContext";
 
 export default function Sidebar() {
+  const { changeCurrentActiveChat } = useChat();
+  const User = useUser();
+
   const [chatList, setChatList] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:9000/chat/list/2");
-        setChatList(response.data);
-        //console.log("chats:", response.data);
+        if (User.user && User.user.user_id) {
+          const response = await axios.get(`http://localhost:9000/chat/list/${User.user.user_id}`);
+          setChatList(response.data);
+          const firstChat = response.data.find(chat => chat.chat_id !== User.user.user_id);
+          if (firstChat) {
+            changeCurrentActiveChat(firstChat.chat_id);
+          }
+        }
       } catch (error) {
         console.error(error);
       }
     };
 
     fetchData();
-  }, []);
+  }, [User.user]);
 
   return (
     <div className="row flex-grow-1 justify-content-center">
