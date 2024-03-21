@@ -2,31 +2,25 @@ import { useState, createContext, useContext, useEffect } from 'react';
 import "./SidebarChats.css";
 import axios from "axios";
 import { useChat } from '../../../context/ChatContext'
+import { useUser } from "../../../context/UserContext";
 
 export default function SideBarChats({ chat }) {
   const { changeCurrentActiveChat, currentActiveChat } = useChat();
+  const [isActiveChat, setIsActiveChat] = useState(false);
+  const User = useUser();
 
-  // useEffect(() => {
-  //   console.log("currentActiveChat", chat.chat_id)
-  // }, [currentActiveChat]);
+  useEffect(() => {
+    setIsActiveChat(currentActiveChat === chat.chat_id);
+  }, [currentActiveChat, chat.chat_id]);
 
 
-  const fetchThatChatMessage = async () => {
-    changeCurrentActiveChat(chat.chat_id)
-    try {
-      const response = await axios.get(
-        `http://localhost:9000/chatmessage/${chat.chat_id}`
-      );
-      //console.log("chat info:", response.data);
-
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  if (chat.chat_id === User.user.user_id) {
+    return null; // Do not render the component if it's the same as the user's chat_id
+  }
 
   return (
     <div
-      className="d-flex align-items-center border my-1"
+      className={`d-flex align-items-center border my-1 ${isActiveChat ? 'active-chat' : ''}`}
       style={{
         width: "300px",
         height: "75px",
@@ -34,6 +28,7 @@ export default function SideBarChats({ chat }) {
         padding: "10px",
         cursor: "pointer",
         boxShadow: "-2px 2px 4px rgba(0, 0, 0, 0.5)",
+        backgroundColor: isActiveChat ? "lightgray" : "white",
       }}
       onClick={() => changeCurrentActiveChat(chat.chat_id)}
     >

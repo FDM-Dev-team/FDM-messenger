@@ -1,7 +1,15 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./ChatMessages.css";
+import { useUser } from "../../../context/UserContext";
+
 
 export default function ChatMessages({ messages }) {
+  const User = useUser();
+
+  useEffect(() => {
+    // console.log("User:", User.user.user_id)
+    // console.log("messages:", messages)
+  }, [messages]);
 
   const convertTime = (time) => {
     const date = new Date(time);
@@ -14,12 +22,12 @@ export default function ChatMessages({ messages }) {
   };
   return (
     <div
-      className={`message ${messages.sender === 1
+      className={`message ${messages.sender_participant_id === User.user.user_id
         ? "sent-message"
         : "recieved-message"
         }`}
     >
-      <div className="message-text">{messages.message}</div>
+      <div className="message-text">{messages.text}</div>
       <div className="message-time">{convertTime(messages.sentTime)}</div>
     </div>
   );

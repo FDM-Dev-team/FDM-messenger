@@ -12,7 +12,7 @@ export default function Profile() {
       try {
         const response = await axios.get(`http://localhost:9000/user/${user.id}`);
         setProfile(response.data);
-        console.log(response.data);
+        //console.log(response.data);
       } catch (error) {
         console.error(error);
       }
@@ -50,14 +50,14 @@ export default function Profile() {
               borderRadius: "50%",
               backgroundColor: "lightgray",
               boxShadow: "5px 5px 10px rgba(0, 0, 0, 0.5)",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    marginBottom: "10px",
-    fontSize: "60px",
-    color: "gray",
-    fontWeight: "500",
-  }}
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              marginBottom: "10px",
+              fontSize: "60px",
+              color: "gray",
+              fontWeight: "500",
+            }}
           >
             {user && user.initials}
           </div>
