@@ -1,12 +1,12 @@
-import { useState, createContext, useContext, useEffect } from 'react';
-import io from 'socket.io-client';
+import { useState, createContext, useContext, useEffect } from "react";
+import io from "socket.io-client";
 
 
 
 const chatContext = createContext()
 
 export function ChatProvider({ children }) {
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState("");
   const [chatLog, setChatLog] = useState([]);
   const [currentActiveChat, setCurrentActiveChat] = useState(null);
   const [socket, setSocket] = useState(null);
@@ -16,7 +16,7 @@ export function ChatProvider({ children }) {
     if (!socket) {
       const { user_id, firstname, lastname, username } = user
 
-      const newSocket = io('http://localhost:8000', {
+      const newSocket = io("http://localhost:8000", {
         query: {
           userId: user_id,
           userName: username,
@@ -29,7 +29,7 @@ export function ChatProvider({ children }) {
         joinChatRoom('joinRoom', user_id, user_id); // Join personal channel when connected
       });
 
-      console.log('Connected to personal channel');
+      console.log("Connected to personal channel");
       setSocket(newSocket);
     }
   };
@@ -61,13 +61,13 @@ export function ChatProvider({ children }) {
       }
     };
 
-    socket.on('chat message', handleChatMessage);
+    socket.on("chat message", handleChatMessage);
 
     // Clean up event listeners when component unmounts or socket changes
     return () => {
-      console.log('Socket is unmounted'); // Log when the socket is unmounted
-      socket.off('connect', handleConnect);
-      socket.off('chat message', handleChatMessage);
+      console.log("Socket is unmounted"); // Log when the socket is unmounted
+      socket.off("connect", handleConnect);
+      socket.off("chat message", handleChatMessage);
     };
   }, [socket]);
 
@@ -88,8 +88,8 @@ export function ChatProvider({ children }) {
         sentTime: "null"
 
       };
-      socket.emit('chat message', data);
-      setMessage('');
+      socket.emit("chat message", data);
+      setMessage("");
     }
   };
 
@@ -114,5 +114,5 @@ export function ChatProvider({ children }) {
 }
 
 export function useChat() {
-  return useContext(chatContext)
+  return useContext(chatContext);
 }

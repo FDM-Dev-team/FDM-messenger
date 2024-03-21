@@ -1,17 +1,32 @@
-import React, { useEffect, useContext } from "react";
-import { useChat } from '../../context/ChatContext'
+import React, { useEffect, useState } from "react";
+import { useChat } from '../../context/ChatContext';
 import "./Chat.css";
 import axios from "axios";
 import ChatMessages from "./ChatMessages/ChatMessages";
 import { useUser } from "../../context/UserContext";
 
-const Chat = () => {
+export default function Chat() {
   const { message, setMessage, chatLog, sendMessage, currentActiveChat } = useChat();
+  const [messages, setMessages] = useState([]);
   const User = useUser();
 
   useEffect(() => {
     console.log("currentActiveChat", currentActiveChat)
   }, [currentActiveChat]);
+
+  useEffect(() => {
+    const fetchMessagesData = async () => {
+      try {
+        const response = await axios.get("http://localhost:9000/chatmessage/1");
+        setMessages(response.data);
+        console.log(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchMessagesData();
+  }, []);
 
   const send = () => {
     console.log("User.user", User.user)
@@ -55,10 +70,12 @@ const Chat = () => {
             className="message-list"
             style={{
               paddingInline: "20px",
+              height: `calc(100vh - 200px)`,
+              overflow: "scroll"
             }}
           >
-            {chatLog.map((msg, index) => (
-              <ChatMessages key={index} messages={msg} />
+            {messages.map((message) => (
+              <ChatMessages key={message.message_id} messages={message} />
             ))}
           </div>
         </div>
@@ -113,6 +130,4 @@ const Chat = () => {
       </div>
     </div>
   );
-};
-
-export default Chat;
+}

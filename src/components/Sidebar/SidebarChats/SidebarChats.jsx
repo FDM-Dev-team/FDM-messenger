@@ -35,7 +35,7 @@ export default function SideBarChats({ chat }) {
         cursor: "pointer",
         boxShadow: "-2px 2px 4px rgba(0, 0, 0, 0.5)",
       }}
-      onClick={fetchThatChatMessage}
+      onClick={() => changeCurrentActiveChat(chat.chat_id)}
     >
       <div
         className="circle"

@@ -1,11 +1,11 @@
-import React, { Component, useEffect, useContext } from "react";
+import React, { Component, useEffect, useContext, useState } from "react";
 import "./Main.css";
 import Navbar from "../../components/Navbar/Navbar";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import Chat from "../../components/Chat/Chat";
 import { useChat } from '../../context/ChatContext'
+import { useNavigation } from '../../context/NavigationContext';
 import { Socket } from "socket.io-client";
-import { useState } from "react";
 import Friends from "../../components/Friends/Friends";
 import Profile from "../../components/Profile/Profile";
 import { useUser } from "../../context/UserContext";
@@ -17,6 +17,7 @@ export default function Main() {
 
   const { connectPersonalChannel, socket } = useChat();
   const [activeComponent, setActiveComponent] = useState("chat");
+  const { navagation, navagate } = useNavigation();
 
   useEffect(() => {
     if (User.user) {
@@ -33,7 +34,7 @@ export default function Main() {
   }
 
   const handleNavbarItemClick = (component) => {
-    setActiveComponent(component);
+    navagate(component);
   };
   return (
     <div className="App d-flex min-vh-100">
@@ -54,9 +55,9 @@ export default function Main() {
             className="col flex-grow-1 d-flex flex-column p-0"
             style={{ height: "100vh" }}
           >
-            {activeComponent === "chat" && <Chat />}
-            {activeComponent === "profile" && <Profile />}
-            {activeComponent === "friends" && <Friends />}
+            {navagation === "chat" && <Chat />}
+            {navagation === "profile" && <Profile />}
+            {navagation === "friends" && <Friends />}
           </div>
         </div>
       </div>
