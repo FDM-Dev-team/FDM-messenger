@@ -1,4 +1,4 @@
-import React, { Component, useEffect,useContext } from "react";
+import React, { Component, useEffect, useContext } from "react";
 import "./Main.css";
 import Navbar from "../../components/Navbar/Navbar";
 import Sidebar from "../../components/Sidebar/Sidebar";
@@ -15,11 +15,13 @@ export default function Main() {
   const User = useUser();
   const isLoggedIn = User.userIsAuthenticated();
 
-  const { connectPersonalChannel , socket} = useChat();
+  const { connectPersonalChannel, socket } = useChat();
   const [activeComponent, setActiveComponent] = useState("chat");
 
   useEffect(() => {
-    connectPersonalChannel();
+    if (User.user) {
+      connectPersonalChannel(User.user);
+    }
   }, []);
 
   useEffect(() => {

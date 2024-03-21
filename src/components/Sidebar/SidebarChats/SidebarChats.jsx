@@ -1,14 +1,24 @@
-import React from "react";
+import { useState, createContext, useContext, useEffect } from 'react';
 import "./SidebarChats.css";
 import axios from "axios";
+import { useChat } from '../../../context/ChatContext'
 
 export default function SideBarChats({ chat }) {
+  const { changeCurrentActiveChat, currentActiveChat } = useChat();
+
+  // useEffect(() => {
+  //   console.log("currentActiveChat", chat.chat_id)
+  // }, [currentActiveChat]);
+
+
   const fetchThatChatMessage = async () => {
+    changeCurrentActiveChat(chat.chat_id)
     try {
       const response = await axios.get(
         `http://localhost:9000/chatmessage/${chat.chat_id}`
       );
-      console.log(response.data);
+      //console.log("chat info:", response.data);
+
     } catch (error) {
       console.error(error);
     }
@@ -44,7 +54,7 @@ export default function SideBarChats({ chat }) {
           height: "50px",
         }}
       >
-        {chat.name}
+        Chat with user: {chat.chat_id}
       </div>
     </div>
   );

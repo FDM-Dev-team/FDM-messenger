@@ -2,6 +2,7 @@ import React from "react";
 import "./ChatMessages.css";
 
 export default function ChatMessages({ messages }) {
+
   const convertTime = (time) => {
     const date = new Date(time);
     const hours = date.getHours();
@@ -13,13 +14,13 @@ export default function ChatMessages({ messages }) {
   };
   return (
     <div
-      className={`message ${messages.sender_participant_id === 1
-          ? "sent-message"
-          : "recieved-message"
+      className={`message ${messages.sender === 1
+        ? "sent-message"
+        : "recieved-message"
         }`}
     >
-      <div className="message-text">{messages}</div>
-      <div className="message-time">{convertTime(messages.time)}</div>
+      <div className="message-text">{messages.message}</div>
+      <div className="message-time">{convertTime(messages.sentTime)}</div>
     </div>
   );
 }

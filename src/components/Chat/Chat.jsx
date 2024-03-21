@@ -1,15 +1,22 @@
-import React, { useEffect,useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import { useChat } from '../../context/ChatContext'
 import "./Chat.css";
 import axios from "axios";
 import ChatMessages from "./ChatMessages/ChatMessages";
+import { useUser } from "../../context/UserContext";
 
 const Chat = () => {
-  const { message, setMessage, chatLog, sendMessage, socket } = useChat();
+  const { message, setMessage, chatLog, sendMessage, currentActiveChat } = useChat();
+  const User = useUser();
 
   useEffect(() => {
-    console.log("Chatlog:", chatLog);
-  }, [chatLog]);
+    console.log("currentActiveChat", currentActiveChat)
+  }, [currentActiveChat]);
+
+  const send = () => {
+    console.log("User.user", User.user)
+    sendMessage(currentActiveChat, User.user.user_id);
+  }
 
   return (
     <div
@@ -100,7 +107,7 @@ const Chat = () => {
               width: "10%",
             }}
           >
-            <button onClick={sendMessage}>Send</button>
+            <button onClick={send}>Send</button>
           </div>
         </div>
       </div>
