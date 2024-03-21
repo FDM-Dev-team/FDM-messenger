@@ -3,10 +3,12 @@ import React, { useEffect, useState } from "react";
 import "./Chat.css";
 import axios from "axios";
 import ChatMessages from "./ChatMessages/ChatMessages";
+import { useUser } from "../../context/UserContext";
 
 export default function Chat() {
-  const { message, setMessage, chatLog, sendMessage, socket } = useChat();
+  const { message, setMessage, chatLog, sendMessage, currentActiveChat } = useChat();
   const [messages, setMessages] = useState([]);
+  const User = useUser();
 
   useEffect(() => {
     const fetchMessagesData = async () => {
@@ -113,7 +115,7 @@ export default function Chat() {
               width: "10%",
             }}
           >
-            <button onClick={sendMessage}>Send</button>
+            <button onClick={send}>Send</button>
           </div>
         </div>
       </div>

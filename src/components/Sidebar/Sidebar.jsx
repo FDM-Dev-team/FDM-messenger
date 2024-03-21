@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "./Sidebar.css";
-import useChatMiddleware from '../../context/ChatContext';
 import axios from "axios";
 import SideBarChats from "./SidebarChats/SidebarChats";
 
@@ -10,9 +9,9 @@ export default function Sidebar() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:9000/chat/list/1");
+        const response = await axios.get("http://localhost:9000/chat/list/2");
         setChatList(response.data);
-        console.log(response.data);
+        //console.log("chats:", response.data);
       } catch (error) {
         console.error(error);
       }

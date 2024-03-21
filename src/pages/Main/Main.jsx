@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { Component, useEffect, useContext } from "react";
 import "./Main.css";
 import Navbar from "../../components/Navbar/Navbar";
 import Sidebar from "../../components/Sidebar/Sidebar";
@@ -19,7 +19,9 @@ export default function Main() {
   const [activeComponent, setActiveComponent] = useState("chat");
 
   useEffect(() => {
-    connectPersonalChannel();
+    if (User.user) {
+      connectPersonalChannel(User.user);
+    }
   }, []);
 
   useEffect(() => {

@@ -1,7 +1,7 @@
-import React from "react";
+import { useState, createContext, useContext, useEffect } from 'react';
 import "./SidebarChats.css";
+import axios from "axios";
 import { useChat } from '../../../context/ChatContext'
-
 
 export default function SideBarChats({ chat }) {
   const { currentActiveChat, changeCurrentActiveChat } = useChat();
@@ -36,7 +36,7 @@ export default function SideBarChats({ chat }) {
           height: "50px",
         }}
       >
-        {chat.name}
+        Chat with user: {chat.chat_id}
       </div>
     </div>
   );

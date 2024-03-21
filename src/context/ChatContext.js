@@ -9,22 +9,22 @@ export function ChatProvider({ children }) {
   const [currentActiveChat, setCurrentActiveChat] = useState(null);
   const [socket, setSocket] = useState(null);
 
-  const connectPersonalChannel = () => {
+  const connectPersonalChannel = (user) => {
+    console.log("User.user:", user);
     if (!socket) {
-      const user = {
-        id: 1,
-        name: "John Doe",
-      };
+      const { user_id, firstname, lastname, username } = user;
 
       const newSocket = io("http://localhost:8000", {
         query: {
-          userId: user.id,
-          userName: user.name,
+          userId: user_id,
+          userName: username,
+          firstname: firstname,
+          lastname: lastname,
         },
       });
 
       newSocket.on("connect", () => {
-        joinChatRoom("joinRoom", "roomId_1", "userId_1"); // Join personal channel when connected
+        joinChatRoom("joinRoom", user_id, user_id); // Join personal channel when connected
       });
 
       console.log("Connected to personal channel");
@@ -37,16 +37,23 @@ export function ChatProvider({ children }) {
 
     // Event listener for successful connection
     const handleConnect = () => {
-      joinChatRoom("joinRoom", "roomId_1", "userId_1"); // Join the chat room when connected
+      joinChatRoom("joinRoom", 1, 1); // Join the chat room when connected
       console.log("Connected to friend channel");
     };
 
     handleConnect();
 
-    // Event listener for incoming messages
     const handleChatMessage = (data) => {
+      const { roomId, sender, message, sentTime } = data;
+
       try {
-        setChatLog((prevChatLog) => [...prevChatLog, data]);
+        const mappedObject = {
+          roomId: roomId,
+          sender: sender,
+          message: message,
+          sentTime: sentTime,
+        };
+        setChatLog((prevChatLog) => [...prevChatLog, mappedObject]);
       } catch (error) {
         console.log("Received non-JSON message:", data);
       }
@@ -68,13 +75,13 @@ export function ChatProvider({ children }) {
     }
   };
 
-  const sendMessage = () => {
+  const sendMessage = (room, userId) => {
     console.log("socket:", socket, " message:", message);
     if (socket && socket.connected && message.trim() !== "") {
       console.log("send");
       const data = {
-        roomId: "roomId_1", // Replace 'your-room-id' with the actual room ID
-        sender: "userId_1",
+        roomId: room,
+        sender: userId,
         message: message.trim(),
         sentTime: "null",
       };
