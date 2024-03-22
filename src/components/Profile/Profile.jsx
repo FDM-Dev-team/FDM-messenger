@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import "./Profile.css";
 import axios from "axios";
 import { useUser } from "../../context/UserContext";
+import { useFriends } from "../../context/FriendsContext";
 
 export default function Profile() {
   const { user } = useUser();
+  const { friendCount } = useFriends();
   const [profile, setProfile] = useState(null);
 
   useEffect(() => {
@@ -69,7 +71,7 @@ export default function Profile() {
           </div>
           <div className="profile-line-break"></div>
           <div className="profile-email">{user && user.email}</div>
-          <div className="profile-friend">Friends: { }</div>
+          <div className="profile-friend">Friends: {friendCount}</div>
         </div>
       </div>
     </div>

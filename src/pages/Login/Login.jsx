@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { Navigate, useNavigate } from "react-router-dom";
 import { loginUser } from "../../services/userService";
 import { useUser } from "../../context/UserContext";
+import logo from "../../assets/smileyLogo.png";
 
 const Login = () => {
   const User = useUser()
@@ -53,8 +54,9 @@ const Login = () => {
   return (
     <div className="container">
       <div className="login-wrapper">
-        <div className="logo">
-          <img src="./smileyLogo.png" alt="Logo" />
+        <div className="logo" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+          <img src={logo} alt="Logo" style={{ height: "70px", width: "auto" }} />
+          <span className="logo-text" style={{ fontWeight: "bolder" }}>Fluent Dialogue Messenger</span>
         </div>
         <div className="login-box">
           <h2 className="title">Login to use FDM!</h2>
