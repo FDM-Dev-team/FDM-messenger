@@ -1,6 +1,6 @@
-import axios from 'axios';
+import axios from "axios";
 
-const BASE_URL = 'http://localhost:9000';
+const BASE_URL = "http://localhost:9000";
 
 export const getUser = async (userId) => {
   try {
@@ -9,27 +9,30 @@ export const getUser = async (userId) => {
     return response.data;
   } catch (error) {
     console.error(error);
-    }
+  }
 };
 
 export const loginUser = async (username, password) => {
-    try {
-      const response = await axios.post(`${BASE_URL}/login`, { username, password });
-      const user = response.data;
+  try {
+    const response = await axios.post(`${BASE_URL}/login`, {
+      username,
+      password,
+    });
+    const user = response.data;
 
-    console.log("userservice login", user)
+    console.log("userservice login", user);
     return user;
-    } catch (error) {
-        console.error(error);
-        throw error;
-    }
-  };
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
 
-  export const getLoggedInUser = () => {
-    const storedUser = localStorage.getItem('user');
-    return storedUser ? JSON.parse(storedUser) : null;
-  };
+export const getLoggedInUser = () => {
+  const storedUser = localStorage.getItem("user");
+  return storedUser ? JSON.parse(storedUser) : null;
+};
 
-  export const logoutUser = () => {
-    localStorage.removeItem('user');
-  };
+export const logoutUser = () => {
+  localStorage.removeItem("user");
+};

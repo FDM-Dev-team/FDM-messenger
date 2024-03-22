@@ -1,15 +1,15 @@
 import React from "react";
 import "./FriendsTable.css";
 import { FaRegCommentAlt } from 'react-icons/fa';
+import { useFriends } from '../../../context/FriendsContext';
 import { useChat } from '../../../context/ChatContext'
 import { useNavigation } from '../../../context/NavigationContext';
-import { useFriends } from '../../../context/FriendsContext';
 
 const FriendsTable = () => {
   const { currentActiveChat, changeCurrentActiveChat } = useChat();
   const { navagation, navagate } = useNavigation();
+
   const { friends } = useFriends();
-  
   // const friends = [
   //   { id: 1, initials: "JD", name: "John Doe" },
   //   { id: 2, initials: "JS", name: "Jane Smith" },

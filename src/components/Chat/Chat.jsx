@@ -23,14 +23,14 @@ export default function Chat() {
   useEffect(() => {
     const fetchMessagesData = async () => {
       try {
-        const response = await axios.get("http://localhost:9000/chatmessage/1");
-        //recieveChatlog(response.data);
+        const response = await axios.get(`http://localhost:9000/chatmessage/${currentActiveChat}`);
+        recieveChatlog(response.data);
         //console.log(response.data);
       } catch (error) {
         console.error(error);
       }
     };
-
+ 
     fetchMessagesData();
   }, []);
 
