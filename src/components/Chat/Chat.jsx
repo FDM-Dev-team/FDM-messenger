@@ -4,6 +4,8 @@ import "./Chat.css";
 import axios from "axios";
 import ChatMessages from "./ChatMessages/ChatMessages";
 import { useUser } from "../../context/UserContext";
+import { postMessage } from "../../services/chatService";
+
 
 export default function Chat() {
   const { message, setMessage, chatLog, setChatLog, sendMessage, currentActiveChat, recieveChatlog, connectToChatRoom } = useChat();
@@ -30,13 +32,14 @@ export default function Chat() {
         console.error(error);
       }
     };
- 
+
     fetchMessagesData();
   }, []);
 
   const send = () => {
     console.log("User.user", User.user)
     sendMessage(currentActiveChat, User.user.user_id);
+    postMessage(currentActiveChat, User.user.user_id, message);
   }
 
   const handleKeyPress = (e) => {
