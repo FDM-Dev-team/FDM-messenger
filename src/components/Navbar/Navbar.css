@@ -20,13 +20,13 @@
   }
 
  #navCircleOn {
-    background-image: url("C:/Users/MAK/Downloads/FDM app/FDM-messenger/src/assets/iconOn.png");
+    background-image: url("../../../src/assets/iconOn.png");
     background-size: cover;
     background-position: center;
   }
 
   #navCircleOff {
-    background-image: url("C:/Users/MAK/Downloads/FDM app/FDM-messenger/src/assets/iconOff.png");
+    background-image: url("../../../src/assets/iconOff.png");
     background-size: cover;
     background-position: center;
   }
