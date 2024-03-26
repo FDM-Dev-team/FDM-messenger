@@ -1,5 +1,6 @@
 import { useState, createContext, useContext, useEffect } from "react";
 import io from "socket.io-client";
+import { postMessage } from "../services/chatService";
 
 
 
@@ -54,7 +55,9 @@ export function ChatProvider({ children }) {
       console.log("recieved message:", data )
 
       const { chatId, sender, message, sentTime } = data;
-  
+
+      postMessage(chatId, sender, message, sentTime);
+
       try {
         const mappedObject = {
           message_id: null,

@@ -62,7 +62,7 @@ export default function Chat() {
 
     if (activeChat) {
       sendMessage(currentActiveChat, User.user.user_id, activeChat);
-      postMessage(currentActiveChat, User.user.user_id, message);
+      // postMessage(currentActiveChat, User.user.user_id, message);
     }
 
   }

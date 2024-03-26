@@ -4,9 +4,10 @@ import axios from "axios";
 import SideBarChats from "./SidebarChats/SidebarChats";
 import { useChat } from '../../context/ChatContext';
 import { useUser } from "../../context/UserContext";
+import { Socket } from "socket.io-client";
 
 export default function Sidebar() {
-  const { changeCurrentActiveChat, chatList, updateChatList } = useChat();
+  const { changeCurrentActiveChat, chatList, updateChatList, socket } = useChat();
   const User = useUser();
 
 
@@ -25,11 +26,11 @@ export default function Sidebar() {
         }
       } catch (error) {
         console.error(error);
-      }
+      } <s></s>
     };
 
     fetchData();
-  }, [User.user]);
+  }, [User]);
 
   return (
     <div className="row flex-grow-1 justify-content-center">

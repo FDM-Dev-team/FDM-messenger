@@ -20,8 +20,8 @@ export const fetchChatList = async (userId) => {
   }
 };
 
-export const postMessage = async (chat_id, sender_id, text) => {
-  const time = Date.now();
+export const postMessage = async (chat_id, sender_id, text, time) => {
+  // const time = Date.now();
 
   try {
     // console.log(chat_id, sender_participant_Id, text, time);
