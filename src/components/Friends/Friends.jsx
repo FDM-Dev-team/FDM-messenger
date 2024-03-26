@@ -4,11 +4,13 @@ import { FaUserFriends } from 'react-icons/fa';
 import FriendsTable from "./FriendsTable/FriendsTable";
 export default function Friends() {
   return (
+
+
     <div className="col flex-grow-1 d-flex flex-column p-0" style={{ height: "100vh" }}>
       <div className="friends-container rounded p-0">
-        <div className="friends-header">
-          <span className="friends-title">Friends</span>
-        </div>
+
+        <div className="friends-header">Friends</div>
+
         <div className="friends-header-content">
           <div className="d-flex align-items-center">
             <div className="friends-icon">

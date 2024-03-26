@@ -6,17 +6,18 @@ import { useChat } from '../../context/ChatContext';
 import { useUser } from "../../context/UserContext";
 
 export default function Sidebar() {
-  const { changeCurrentActiveChat } = useChat();
+  const { changeCurrentActiveChat, chatList, updateChatList } = useChat();
   const User = useUser();
 
-  const [chatList, setChatList] = useState([]);
+
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         if (User.user && User.user.user_id) {
           const response = await axios.get(`http://localhost:9000/chat/list/${User.user.user_id}`);
-          setChatList(response.data);
+          updateChatList(response.data);
+          console.log("chat list:", response.data);
           const firstChat = response.data.find(chat => chat.chat_id !== User.user.user_id);
           if (firstChat) {
             changeCurrentActiveChat(firstChat.chat_id);

@@ -10,13 +10,14 @@ export function ChatProvider({ children }) {
   const [chatLog, setChatLog] = useState([]);
   const [currentActiveChat, setCurrentActiveChat] = useState(null);
   const [socket, setSocket] = useState(null);
+  const [chatList, setChatList] = useState([]);
 
   const connectPersonalChannel = user => {
     //console.log("User.user:",user)
     if (!socket) {
       const { user_id, firstname, lastname, username } = user
 
-      const newSocket = io("http://localhost:8000", {
+      const newSocket = io("https://fdm-websocket-production.up.railway.app", {
         query: {
           userId: user_id,
           userName: username,
@@ -34,9 +35,16 @@ export function ChatProvider({ children }) {
     }
   };
 
-  const connectToChatRoom = (roomId, UserId) =>{
-    joinChatRoom('joinRoom', roomId, UserId); // Join the chat room when connected
-    console.log('Connected to channel:', roomId);
+  const connectToChatRoom = (activeChat, UserId) =>{
+    console.log("attempting to join room:", activeChat.user_id)
+    joinChatRoom('joinRoom', activeChat.user_id, UserId); // Join the chat room when connected
+    console.log('Connected to channel:', activeChat.user_id);
+  }
+
+  const connectToMyChatRoom = (mychannel, UserId) =>{
+    console.log("connecting to my room:", mychannel)
+    joinChatRoom('joinRoom', mychannel, UserId); // Join the chat room when connected
+    console.log('Connected to my channel:', mychannel);
   }
   
   useEffect(() => {
@@ -45,12 +53,12 @@ export function ChatProvider({ children }) {
     const handleChatMessage = (data) => {
       console.log("recieved message:", data )
 
-      const { roomId, sender, message, sentTime } = data;
+      const { chatId, sender, message, sentTime } = data;
   
       try {
         const mappedObject = {
           message_id: null,
-          chat_id: roomId,
+          chat_id: chatId,
           sender_participant_id: sender,
           text: message,
           time: sentTime,
@@ -76,13 +84,14 @@ export function ChatProvider({ children }) {
     }
   };
 
-  const sendMessage = (room, userId) => {
-    //console.log('socket:', socket, ' message:', message);
+  const sendMessage = (currentActiveChat, userId, activeChat) => {
+    console.log('currentActiveChat:', currentActiveChat, ' userId:', userId, ' activeChat:', activeChat);
     if (socket && socket.connected && message.trim() !== '') {
       console.log('send');
       const currentTime = Date.now(); // Get current local time
       const data = {
-        roomId: room,
+        roomId: activeChat.user_id,
+        chatId: currentActiveChat,
         sender: userId,
         message: message.trim(),
         sentTime: currentTime,
@@ -101,6 +110,10 @@ export function ChatProvider({ children }) {
     setChatLog(chatlog);
   };
 
+  const updateChatList = (data) => {
+    setChatList(data)
+  }
+
   const contextData = {
     socket,
     connectPersonalChannel,
@@ -112,7 +125,10 @@ export function ChatProvider({ children }) {
     joinChatRoom,
     currentActiveChat,
     changeCurrentActiveChat,
-    recieveChatlog
+    recieveChatlog,
+    chatList, 
+    updateChatList,
+    connectToMyChatRoom
   };
   return (
     <chatContext.Provider value={contextData}>{children}</chatContext.Provider>

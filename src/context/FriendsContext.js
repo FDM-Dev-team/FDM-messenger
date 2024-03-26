@@ -20,7 +20,7 @@ export function FriendsProvider({ children }) {
       const response = await axios.get(`http://localhost:9000/friends/${userId}`);
       setFriends(response.data);
       setFriendCount(response.data.length);
-      console.log(response.data);
+      //console.log("friends:", response.data);
     } catch (error) {
       console.error(error);
     }

@@ -6,3 +6,27 @@
     width: 70px;
     cursor: pointer;
   }
+
+  .user-avatar {
+    width: 55px;
+    height: 55px;
+    color: rgb(71, 71, 71);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 22px;
+    font-weight: bold;
+  }
+
+ #navCircleOn {
+    background-image: url("C:/Users/MAK/Downloads/FDM app/FDM-messenger/src/assets/iconOn.png");
+    background-size: cover;
+    background-position: center;
+  }
+
+  #navCircleOff {
+    background-image: url("C:/Users/MAK/Downloads/FDM app/FDM-messenger/src/assets/iconOff.png");
+    background-size: cover;
+    background-position: center;
+  }

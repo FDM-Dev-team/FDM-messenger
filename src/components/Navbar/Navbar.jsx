@@ -1,11 +1,21 @@
-import React from "react";
+import { useState, createContext, useContext, useEffect } from 'react';
 import "./Navbar.css";
 import smileyLogo from "../../assets/smileyLogo.png";
 import { FaUserFriends, FaUser, FaFacebookMessenger, FaTools } from 'react-icons/fa';
-import { useNavigate } from "react-router-dom";
+import { useNavigation } from '../../context/NavigationContext';
+import { useUser } from "../../context/UserContext";
 
 
 export default function Navbar({ onNavbarItemClick }) {
+  const User = useUser();
+  const { navagation } = useNavigation();
+
+  useEffect(() => {
+    console.log("user info:", User);
+  }, [User]);
+
+  const initials = User.user?.initials || ""; // Defensive coding for User.user.initials
+
   return (
     <div>
       <div
@@ -40,26 +50,31 @@ export default function Navbar({ onNavbarItemClick }) {
           }}
         >
           <div
-            className="bg-info m-1 rounded-circle friends-icon-container"
-
+            className="m-1 rounded-circle friends-icon-container"
+            id={navagation === "profile" ? "navCircleOn" : "navCircleOff"}
             onClick={() => onNavbarItemClick("profile")}
           >
-            <FaUser size={32} />
+            <div className='user-avatar'>
+              {initials}
+            </div>
           </div>
           <div
-            className="bg-info m-1 rounded-circle friends-icon-container"
+            className="m-1 rounded-circle friends-icon-container"
+            id={navagation === "friends" ? "navCircleOn" : "navCircleOff"}
             onClick={() => onNavbarItemClick("friends")}
           >
             <FaUserFriends size={40} />
           </div>
           <div
-            className="bg-info m-1 rounded-circle friends-icon-container"
+            className="m-1 rounded-circle friends-icon-container"
+            id={navagation === "chat" ? "navCircleOn" : "navCircleOff"}
             onClick={() => onNavbarItemClick("chat")}
           >
             <FaFacebookMessenger size={32} />
           </div>
           <div
-            className="bg-info m-1 rounded-circle friends-icon-container"
+            className="m-1 rounded-circle friends-icon-container"
+            id={navagation === "settings" ? "navCircleOn" : "navCircleOff"}
             onClick={() => onNavbarItemClick("settings")}
           >
             <FaTools size={32} />

@@ -14,9 +14,6 @@ export default function SideBarChats({ chat }) {
   }, [currentActiveChat, chat.chat_id]);
 
 
-  if (chat.chat_id === User.user.user_id) {
-    return null; // Do not render the component if it's the same as the user's chat_id
-  }
 
   return (
     <div
@@ -32,16 +29,16 @@ export default function SideBarChats({ chat }) {
       }}
       onClick={() => changeCurrentActiveChat(chat.chat_id)}
     >
-      <div
-        className="circle"
-        style={{
-          width: "55px",
-          height: "55px",
-          borderRadius: "50%",
-          backgroundColor: "gray",
-          marginRight: "10px",
-        }}
-      ></div>
+      <div className="chat-table-cell-avatar" >
+        <div className="chat-avatar"
+          id='ProfileCircle'
+        // style={{
+        //   backgroundColor: getRandomColor(),
+        //   color: getRandomTextColor(getRandomColor()),
+        // }}
+        >
+          {chat.initials}</div>
+      </div>
       <div
         className="d-flex align-items-center justify-content-center"
         style={{
@@ -49,8 +46,8 @@ export default function SideBarChats({ chat }) {
           height: "50px",
         }}
       >
-        Chat with user: {chat.chat_id}
+        {chat.name}
       </div>
-    </div>
+    </div >
   );
 }

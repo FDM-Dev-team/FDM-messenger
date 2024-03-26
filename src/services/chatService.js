@@ -20,14 +20,14 @@ export const fetchChatList = async (userId) => {
   }
 };
 
-export const postMessage = async (chat_id, sender_participant_id, text) => {
+export const postMessage = async (chat_id, sender_id, text) => {
   const time = Date.now();
 
   try {
     // console.log(chat_id, sender_participant_Id, text, time);
     const response = await axios.post(`${BASE_URL}/chatmessage/post`, {
       chat_id,
-      sender_participant_id,
+      sender_id,
       text,
       time,
     });

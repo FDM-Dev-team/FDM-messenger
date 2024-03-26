@@ -7,14 +7,19 @@ import { useUser } from "../../context/UserContext";
 import { postMessage } from "../../services/chatService";
 
 
+
 export default function Chat() {
-  const { message, setMessage, chatLog, setChatLog, sendMessage, currentActiveChat, recieveChatlog, connectToChatRoom } = useChat();
+  const { socket, message, setMessage, chatLog, setChatLog, sendMessage, currentActiveChat, recieveChatlog, connectToChatRoom, chatList } = useChat();
   const [messages, setMessages] = useState([]);
   const User = useUser();
 
   useEffect(() => {
-    if (User && User.user) {
-      connectToChatRoom(currentActiveChat, User.user.user_id);
+    if (User && currentActiveChat && chatList) {
+      const activeChat = chatList.find(chat => chat.chat_id === currentActiveChat);
+
+      if (activeChat) {
+        connectToChatRoom(activeChat, User.user.user_id);
+      }
     }
   }, [currentActiveChat, User]);
 
@@ -23,23 +28,43 @@ export default function Chat() {
   }, [chatLog]);
 
   useEffect(() => {
-    const fetchMessagesData = async () => {
-      try {
-        const response = await axios.get(`http://localhost:9000/chatmessage/${currentActiveChat}`);
-        recieveChatlog(response.data);
-        //console.log(response.data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
+    if (currentActiveChat) {
+      const fetchMessagesData = async () => {
+        try {
+          const response = await axios.get(`http://localhost:9000/chatmessage/${currentActiveChat}`);
+          recieveChatlog(response.data);
+          //console.log(response.data);
+          scrollToBottom(); // Scroll to bottom after fetching messages
+        } catch (error) {
+          console.error(error);
+        }
+      };
 
-    fetchMessagesData();
-  }, []);
+      fetchMessagesData();
+    }
+  }, [currentActiveChat]);
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [chatLog]);
+
+  const scrollToBottom = () => {
+    const messageList = document.getElementById("messageList");
+    if (messageList) {
+      messageList.scrollTop = messageList.scrollHeight;
+    }
+  };
 
   const send = () => {
-    console.log("User.user", User.user)
-    sendMessage(currentActiveChat, User.user.user_id);
-    postMessage(currentActiveChat, User.user.user_id, message);
+    console.log("chatList send", chatList)
+
+    const activeChat = chatList.find(chat => chat.chat_id === currentActiveChat);
+
+    if (activeChat) {
+      sendMessage(currentActiveChat, User.user.user_id, activeChat);
+      postMessage(currentActiveChat, User.user.user_id, message);
+    }
+
   }
 
   const handleKeyPress = (e) => {
@@ -47,6 +72,22 @@ export default function Chat() {
       send();
     }
   };
+
+  const getChatName = () => {
+    if (chatList && currentActiveChat) {
+      const activeChat = chatList.find(chat => chat.chat_id === currentActiveChat);
+      console.log("active chat:", activeChat)
+      return activeChat.initials
+    }
+  }
+
+  const getChatUserName = () => {
+    if (chatList && currentActiveChat) {
+      const activeChat = chatList.find(chat => chat.chat_id === currentActiveChat);
+      console.log("active chat:", activeChat)
+      return activeChat.name
+    }
+  }
 
   return (
     <div
@@ -66,25 +107,19 @@ export default function Chat() {
           flexDirection: "column",
         }}
       >
-        <div className="chatroom-header">
-          <div
-            className="circle"
-            style={{
-              width: "38px",
-              height: "38px",
-              borderRadius: "50%",
-              backgroundColor: "gray",
-              marginBlock: "6px",
-            }}
-          ></div>
-          <div className="chatroom-name">123</div>
+        <div className="chatroom-header" style={{}}>
+          <div className="friends-table-cell-avatar" style={{ paddingTop: "5px", paddingLeft: "0px" }}>
+            <div className="friends-avatar" id="UserProfileCircle">
+              {getChatName()}</div>
+          </div>
+          <div className="chatroom-name">{getChatUserName()}</div>
         </div>
 
-        <div className="message-list" style={{ paddingInline: "20px", height: `calc(100vh - 200px)`, overflow: "scroll" }}>
+        <div className="message-list" id="messageList" style={{ paddingInline: "20px", height: `calc(100vh - 200px)`, overflow: "scroll" }}>
           {Object.entries(chatLog)
-            .filter(([key, value]) => value.sender_participant_id === currentActiveChat || (value.sender_participant_id === User.user.user_id && value.chat_id === currentActiveChat))
-            .map(([key, value]) => (
-              <ChatMessages key={value.message_id || key} messages={value} />
+            .filter(([key, value]) => value.chat_id === currentActiveChat)
+            .map(([key, value], index) => (
+              <ChatMessages key={`${currentActiveChat}-${index}`} messages={value} />
             ))}
         </div>
 
@@ -100,17 +135,7 @@ export default function Chat() {
             justifyContent: "center",
           }}
         >
-          <div
-            className="icon"
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              width: "10%",
-            }}
-          >
-            <span style={{ cursor: "pointer" }}>+</span>
-          </div>
+
           <input
             type="text"
             value={message}
@@ -124,20 +149,15 @@ export default function Chat() {
               borderRadius: "5px",
               border: "1px solid lightgray",
             }}
-          />
-          <div
-            className="icon"
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              width: "10%",
-            }}
           >
-            <button onClick={send}>Send</button>
-          </div>
+
+          </input>
+          <button className="btn btn-primary" id="sendButton" onClick={send}>Send</button>
+
+
         </div>
       </div>
     </div>
+
   );
 }

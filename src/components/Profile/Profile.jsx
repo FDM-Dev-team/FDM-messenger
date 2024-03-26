@@ -46,6 +46,7 @@ export default function Profile() {
         <div className="profile-main">
           <div
             className="circle"
+            id="UserProfileCircle"
             style={{
               width: "200px",
               height: "200px",

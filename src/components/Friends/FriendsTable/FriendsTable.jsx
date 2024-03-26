@@ -32,7 +32,7 @@ const FriendsTable = () => {
           {friends.map((friend) => (
             <tr key={friend.id} className="friends-table-row">
               <td className="friends-table-cell-avatar">
-                <div className="friends-avatar">
+                <div className="friends-avatar" id="UserProfileCircle">
                   {friend.initials}</div>
               </td>
               <td className="friends-table-cell-name">{friend.firstname} {friend.lastname}</td>

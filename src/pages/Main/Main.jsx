@@ -7,6 +7,7 @@ import { useChat } from '../../context/ChatContext'
 import { useNavigation } from '../../context/NavigationContext';
 import { Socket } from "socket.io-client";
 import Friends from "../../components/Friends/Friends";
+import Settings from "../../components/Sttngs/Settings";
 import Profile from "../../components/Profile/Profile";
 import { useUser } from "../../context/UserContext";
 import { Navigate } from "react-router-dom";
@@ -15,7 +16,7 @@ export default function Main() {
   const User = useUser();
   const isLoggedIn = User.userIsAuthenticated();
 
-  const { connectPersonalChannel, socket, connectToChatRoom, activeComponent, setActiveComponent } = useChat();
+  const { connectPersonalChannel, socket, connectToChatRoom, connectToMyChatRoom, activeComponent, setActiveComponent } = useChat();
   const { navagation, navagate } = useNavigation();
 
   useEffect(() => {
@@ -27,7 +28,8 @@ export default function Main() {
 
   useEffect(() => {
     if (User.user) {
-      connectToChatRoom(User.user.user_id, User.user.user_id);
+      console.log("my user id:", User.user.user_id)
+      connectToMyChatRoom(User.user.user_id, User.user.user_id);
     }
   }, [socket]);
 
@@ -60,6 +62,7 @@ export default function Main() {
             {navagation === "chat" && <Chat />}
             {navagation === "profile" && <Profile />}
             {navagation === "friends" && <Friends />}
+            {navagation === "settings" && <Settings />}
           </div>
         </div>
       </div>

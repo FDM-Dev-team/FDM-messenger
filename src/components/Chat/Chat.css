@@ -1,11 +1,11 @@
 .chatroom-header {
   height: 50px;
-  font-size: 28px;
+  font-size: 20px;
   font-weight: 450;
   margin-block: 10px;
   text-align: left;
-  background-color: wheat;
-  padding-left: 10px;
+  background-color: rgb(184, 201, 219);
+  padding-left: 5px;
   margin-inline: 10px;
   border-radius: 50px;
   display: flex;
@@ -13,8 +13,18 @@
 }
 
 .chatroom-name {
-  margin-left: 15px;
+  margin-left: 0px;
   display: flex;
   align-items: center;
   color: white;
+}
+
+#sendButton {
+  height: 50px !important;
+  margin-left: 20px ;
+  width: 80px;
+  --bs-btn-bg: #a0c5ec;
+  --bs-btn-border-color: #a0c5ec;
+  --bs-btn-hover-bg:#86b0dc;
+  --bs-btn-hover-border-color: #86b0dc;
 }

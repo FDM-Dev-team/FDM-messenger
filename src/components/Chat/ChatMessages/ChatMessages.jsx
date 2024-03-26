@@ -28,7 +28,7 @@ export default function ChatMessages({ messages }) {
         }`}
     >
       <div className="message-text">{messages.text}</div>
-      <div className="message-time">{convertTime(messages.sentTime)}</div>
+      <div className="message-time">{convertTime(messages.time)}</div>
     </div>
   );
 }
