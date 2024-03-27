@@ -6,7 +6,7 @@ import { useChat } from '../../../context/ChatContext'
 import { useNavigation } from '../../../context/NavigationContext';
 
 const FriendsTable = () => {
-  const { currentActiveChat, changeCurrentActiveChat } = useChat();
+  const { currentActiveChat, changeCurrentActiveChat, chatList} = useChat();
   const { navagation, navagate } = useNavigation();
 
   const { friends } = useFriends();
@@ -17,9 +17,12 @@ const FriendsTable = () => {
   //   { id: 4, initials: "ES", name: "Emily Summers" },
   // ];
 
-  const editCurrentActiveChat = (id) => {
+  const editCurrentActiveChat = (friendId) => {
     navagate("chat");
-    changeCurrentActiveChat(id);
+    console.log("chatlist:", chatList, "friendId:", friendId);
+    const chat = chatList.find(chat => chat.user_id === friendId).chat_id;
+    console.log("chat:", chat);
+    changeCurrentActiveChat(chat);
   }
 
   return ( friends &&
@@ -37,7 +40,7 @@ const FriendsTable = () => {
               </td>
               <td className="friends-table-cell-name">{friend.firstname} {friend.lastname}</td>
               <td className="friends-table-cell-action">
-                <button className="friends-message-button" onClick={() => editCurrentActiveChat(friend.id)}>
+                <button className="friends-message-button" onClick={() => editCurrentActiveChat(friend.user_id)}>
                   <FaRegCommentAlt />
                 </button>
               </td>
