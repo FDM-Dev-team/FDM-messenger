@@ -18,7 +18,7 @@ export default function Sidebar() {
         if (User.user && User.user.user_id) {
           const response = await axios.get(`http://localhost:9000/chat/list/${User.user.user_id}`);
           updateChatList(response.data);
-          console.log("chat list:", response.data);
+          changeCurrentActiveChat(response.data[0].chat_id);
           const firstChat = response.data.find(chat => chat.chat_id !== User.user.user_id);
           if (firstChat) {
             changeCurrentActiveChat(firstChat.chat_id);
@@ -32,7 +32,7 @@ export default function Sidebar() {
     fetchData();
   }, [User]);
 
-  return ( chatList &&
+  return (chatList &&
     <div className="row flex-grow-1 justify-content-center">
       <div
         className="p-0 rounded d-flex flex-column justify-content-start align-items-center"
