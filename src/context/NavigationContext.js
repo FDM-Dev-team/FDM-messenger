@@ -3,7 +3,7 @@ import { useState, createContext, useContext, useEffect } from "react";
 const navigationContext = createContext();
 
 export function NavigationProvider({ children }) {
-  const [navagation, setNavagation] = useState("chat");
+  const [navagation, setNavagation] = useState("profile");
 
   const navagate = (destination) => {
     setNavagation(destination);

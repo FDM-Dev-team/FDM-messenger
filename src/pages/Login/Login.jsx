@@ -5,6 +5,7 @@ import { Navigate, useNavigate } from "react-router-dom";
 import { loginUser } from "../../services/userService";
 import { useUser } from "../../context/UserContext";
 import logo from "../../assets/smileyLogo.png";
+import { useNavigation } from "../../context/NavigationContext";
 
 const Login = () => {
   const User = useUser()
@@ -13,8 +14,7 @@ const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-
-  const navigate = useNavigate();
+  const { navagate } = useNavigation();
 
   const formValidation = () => {
     // Check all inputs
@@ -48,7 +48,8 @@ const Login = () => {
   };
 
     if (isLoggedIn) {
-    return <Navigate to={'/'} />
+      navagate("profile")
+      return <Navigate to={'/'} />
   }
 
   return (
