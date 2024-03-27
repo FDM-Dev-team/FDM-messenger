@@ -6,10 +6,10 @@ import { useUser } from "../../../context/UserContext";
 export default function ChatMessages({ messages }) {
   const User = useUser();
 
-  useEffect(() => {
-    console.log("User:", User.user.user_id)
-    console.log("messages:", messages)
-  }, [messages]);
+  // useEffect(() => {
+  //   console.log("User:", User.user.user_id)
+  //   console.log("messages:", messages)
+  // }, [messages]);
 
   const convertTime = (time) => {
     const date = new Date(time);
