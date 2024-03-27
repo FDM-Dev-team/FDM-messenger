@@ -7,8 +7,8 @@ export default function ChatMessages({ messages }) {
   const User = useUser();
 
   useEffect(() => {
-    // console.log("User:", User.user.user_id)
-    // console.log("messages:", messages)
+    console.log("User:", User.user.user_id)
+    console.log("messages:", messages)
   }, [messages]);
 
   const convertTime = (time) => {
@@ -22,7 +22,7 @@ export default function ChatMessages({ messages }) {
   };
   return (
     <div
-      className={`message ${messages.sender_participant_id === User.user.user_id
+      className={`message ${messages.sender_id === User.user.user_id || messages.sender_participant_id === User.user.user_id
         ? "sent-message"
         : "recieved-message"
         }`}

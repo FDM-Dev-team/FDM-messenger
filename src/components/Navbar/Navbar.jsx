@@ -47,6 +47,7 @@ export default function Navbar({ onNavbarItemClick }) {
             marginLeft: "0px",
             marginRight: "0px",
             boxShadow: "-4px 4px 10px rgba(0, 0, 0, 0.4)",
+            color: "#55595d"
           }}
         >
           <div
@@ -54,7 +55,7 @@ export default function Navbar({ onNavbarItemClick }) {
             id={navagation === "profile" ? "navCircleOn" : "navCircleOff"}
             onClick={() => onNavbarItemClick("profile")}
           >
-            <div className='user-avatar'>
+            <div className='user-avatar' style={{color: "#55595d"}}>
               {initials}
             </div>
           </div>

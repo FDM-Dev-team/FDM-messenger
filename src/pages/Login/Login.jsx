@@ -54,8 +54,8 @@ const Login = () => {
   return (
     <div className="container">
       <div className="login-wrapper">
-        <div className="logo" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-          <img src={logo} alt="Logo" style={{ height: "70px", width: "auto" }} />
+        <div className="logo" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "10px" }}>
+          <img src={logo} alt="Logo" style={{ height: "40px", width: "auto" }} />
           <span className="logo-text" style={{ fontWeight: "bolder" }}>Fluent Dialogue Messenger</span>
         </div>
         <div className="login-box">
