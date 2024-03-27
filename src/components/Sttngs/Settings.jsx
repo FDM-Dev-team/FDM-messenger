@@ -1,7 +1,16 @@
 import React, { useEffect, useState } from "react";
-
+import { useNavigate } from "react-router-dom";
+import { logoutUser } from "../../services/userService";
+import "./Settings.css";
 
 export default function Settings() {
+
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logoutUser();
+    navigate("/login");
+  }
 
   return (
     <div
@@ -22,6 +31,9 @@ export default function Settings() {
         <div className="profile-header">Settings</div>
 
         <div className="profile-main">
+          <button className="button-logout" onClick={handleLogout}>
+            Logout
+          </button>
 
         </div>
       </div>
