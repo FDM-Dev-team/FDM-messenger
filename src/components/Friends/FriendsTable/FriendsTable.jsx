@@ -23,7 +23,7 @@ const FriendsTable = () => {
   }
 
   return (
-    <div className="friends-table-container">
+    <div className="friends-table-container" style={{ overflow: "auto" ,         height: "calc(100vh - 150px)",}}>
       <div className="friends-table-header">
         All Friends: {friends.length}
       </div>

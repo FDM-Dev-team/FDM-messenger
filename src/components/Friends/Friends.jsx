@@ -13,9 +13,7 @@ export default function Friends() {
 
         <div className="friends-header-content">
           <div className="d-flex align-items-center">
-            <div className="friends-icon">
-              <FaUserFriends />
-            </div>
+
             <div className="friends-tab">All</div>
           </div>
         </div>
