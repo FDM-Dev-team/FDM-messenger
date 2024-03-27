@@ -32,7 +32,7 @@ export default function Sidebar() {
     fetchData();
   }, [User]);
 
-  return (
+  return ( chatList &&
     <div className="row flex-grow-1 justify-content-center">
       <div
         className="p-0 rounded d-flex flex-column justify-content-start align-items-center"
