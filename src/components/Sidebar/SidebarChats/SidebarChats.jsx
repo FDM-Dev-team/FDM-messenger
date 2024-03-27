@@ -3,10 +3,13 @@ import "./SidebarChats.css";
 import axios from "axios";
 import { useChat } from '../../../context/ChatContext'
 import { useUser } from "../../../context/UserContext";
+import { useNavigation } from '../../../context/NavigationContext';
+
 
 export default function SideBarChats({ chat }) {
   const { changeCurrentActiveChat, currentActiveChat } = useChat();
   const [isActiveChat, setIsActiveChat] = useState(false);
+  const { navagate } = useNavigation();
   const User = useUser();
 
   useEffect(() => {
@@ -27,7 +30,10 @@ export default function SideBarChats({ chat }) {
         boxShadow: "-2px 2px 4px rgba(0, 0, 0, 0.5)",
         backgroundColor: isActiveChat ? "lightgray" : "white",
       }}
-      onClick={() => changeCurrentActiveChat(chat.chat_id)}
+      onClick={() => {
+        changeCurrentActiveChat(chat.chat_id);
+        navagate("chat")
+      }}
     >
       <div className="chat-table-cell-avatar" >
         <div className="chat-avatar"
