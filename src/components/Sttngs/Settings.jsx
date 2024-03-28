@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { logoutUser } from "../../services/userService";
 import "./Settings.css";
+import { FaBellSlash, FaMoon, FaClock, FaSun, FaKey } from "react-icons/fa";
 
 export default function Settings() {
 
@@ -75,41 +76,27 @@ export default function Settings() {
         <div className="profile-header">Settings</div>
 
         <div className="settings-main">
-          <form onSubmit={handleSubmit}>
-            <section id="appearance">
-              <h2>Appearance</h2>
-              <div className="settings-line-break"></div>
-              <label htmlFor="theme">Theme:</label>
-              <select id="theme" name="theme" value={theme} onChange={(e) => setTheme(e.target.value)}>
-                <option value="light">Light Mode</option>
-                <option value="dark">Dark Mode</option>
-              </select>
+          <div className="sttngs-box">
+            <FaSun size={44} />
+            <p style={{ paddingTop: "10px" }}>Theme</p>
 
-              <label htmlFor="fontSize">Font Size:</label>
-              <select id="fontSize" name="fontSize" value={fontSize} onChange={(e) => setFontSize(e.target.value)}>
-                <option value="S">Small</option>
-                <option value="M">Medium</option>
-                <option value="L">Large</option>
-              </select>
-            </section>
+            {/* <FaMoon size={40} /> */}
+          </div>
+          <div className="sttngs-box" style={{}}>
+            <FaBellSlash size={48} />
+            <p style={{ paddingTop: "10px" }}>Notifications</p>
 
-            <section id="messaging">
-              <h2>Messaging</h2>
-              <div className="settings-line-break"></div>
-              <label htmlFor="muteNotifications">Mute Notifications:</label>
-              <select
-                id="muteNotifications"
-                name="muteNotifications"
-                value={mute}
-                onChange={(e) => setMute(e.target.value)}
-              >
-                <option value="Unmute">Unmute</option>
-                <option value="Mute">Mute</option>
-              </select>
-            </section>
+          </div>
+          <div className="sttngs-box">
+            <FaClock size={40} />
+            <p style={{ paddingTop: "10px" }}>Show activity</p>
 
-            <button type="submit">Update Settings</button>
-          </form>
+          </div>
+          <div className="sttngs-box">
+            <FaKey size={40} />
+            <p style={{ paddingTop: "10px" }}>Change Password</p>
+
+          </div>
           <button className="button-logout" onClick={handleLogout}>
             Logout
           </button>

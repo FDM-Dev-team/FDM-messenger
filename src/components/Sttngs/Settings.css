@@ -1,14 +1,15 @@
 .button-logout {
+  grid-column-start: 1;
+  grid-column-end: 2;
     background-color:lightseagreen;
     color: #fff;
-    height: 180px;
-    width: 40lvw;
-    border-radius: 3rem;
-    font-size: 5rem;
+    height: 50px;
+    width: 400px;
+    border-radius: 0.5rem;
+    font-size: 2rem;
     cursor: pointer;
     transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
     margin: 0 auto;
-    display: block;
     box-shadow: 0 0.5rem 1rem rgba(58, 58, 58, 0.15);
     border: none;
 }
@@ -18,29 +19,48 @@
     border-color: darkcyan;
   }
 
-section h2 {
-  font-size: 24px;
-  color: gray;
-  font-weight: 500;
-}
+  .settings-main {
+    padding-top: 130px;
+    display: grid;
+    margin: 0 auto;
+    grid-template-columns: repeat(2, 200px);
+    justify-content: center; /* Center items horizontally */
+    align-items: center; /* Center items vertically */
+    gap: 10px 5px; /* Reduce the vertical gap and keep the horizontal gap small */
+  }
 
-.settings-main {
+.sttngs-box{
+  
+  /* padding: 20px; */
+  padding-top: 40px;
+  height: 9rem;
+  width: 12rem;
+  background-color: #fff;
+  border-radius: 1rem;
+  cursor: pointer;
+    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+    /* display: block; */
+    box-shadow: 0 0.5rem 1rem rgba(58, 58, 58, 0.15);
+    
+
+}
+.change-pass{
   display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
+  justify-content: center;
+  align-items: center;
 }
 
-section {
+/* section {
   margin: 0 auto;
   width: 80%;
   padding: 20px;
   background-color: #fff;
-}
+} */
 
-.profile-line-break {
+/* .profile-line-break {
   height: 1px;
   width: 300px;
   font-weight: 100;
   background-color: gray;
   margin: 3px 0;
-}
+} */
