@@ -17,3 +17,30 @@
     background-color: darkcyan;
     border-color: darkcyan;
   }
+
+section h2 {
+  font-size: 24px;
+  color: gray;
+  font-weight: 500;
+}
+
+.settings-main {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+section {
+  margin: 0 auto;
+  width: 80%;
+  padding: 20px;
+  background-color: #fff;
+}
+
+.profile-line-break {
+  height: 1px;
+  width: 300px;
+  font-weight: 100;
+  background-color: gray;
+  margin: 3px 0;
+}
