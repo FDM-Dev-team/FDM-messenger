@@ -4,7 +4,7 @@
   font-weight: 450;
   margin-block: 10px;
   text-align: left;
-  background-color: rgb(184, 201, 219);
+  background-color: var(--chatbox-header-color);
   padding-left: 5px;
   margin-inline: 10px;
   border-radius: 50px;
@@ -16,15 +16,15 @@
   margin-left: 0px;
   display: flex;
   align-items: center;
-  color: white;
+  color: var(--text-lighter-color);
 }
 
 #sendButton {
   height: 50px !important;
   margin-left: 20px ;
   width: 80px;
-  --bs-btn-bg: #a0c5ec;
-  --bs-btn-border-color: #a0c5ec;
-  --bs-btn-hover-bg:#86b0dc;
-  --bs-btn-hover-border-color: #86b0dc;
+  --bs-btn-bg: var(--button-bg-color);
+  --bs-btn-border-color: var(--button-border-color);
+  --bs-btn-hover-bg: var(--button-hover-bg-color);
+  --bs-btn-hover-border-color: var(--button-hover-border-color);
 }

@@ -11,3 +11,19 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+:root {
+  --background-color: #F5F5F5;
+  --button-bg-color: #a0c5ec;
+  --button-border-color: #a0c5ec;
+  --button-hover-bg-color: #86b0dc;
+  --button-hover-border-color: #86b0dc;
+  --logo-color: #B6A7A2;
+  --profile-color: #BBBBBB;
+  --text-dark-color: #757575;
+  --text-light-color: #9D9D9D;
+  --text-lighter-color: #FFFFFF;
+  --chatbox-header-color: #F6D1BF;
+  --message-self-color: #add8e6;
+  --message-other-color: #D8D8D8;
+}

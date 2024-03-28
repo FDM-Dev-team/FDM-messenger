@@ -13,13 +13,13 @@
 
 .sent-message {
   margin-left: auto;
-  background-color: lightblue;
+  background-color: var(--message-self-color);
   display: flex;
 }
 
 .recieved-message {
   margin-right: auto;
-  background-color: lightgray;
+  background-color: var(--message-other-color);
   display: flex;
 }
 
