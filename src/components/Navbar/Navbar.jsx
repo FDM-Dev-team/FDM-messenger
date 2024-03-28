@@ -20,7 +20,7 @@ export default function Navbar({ onNavbarItemClick }) {
     <div>
       <div
         className="row align-items-center d-flex justify-content-center"
-        style={{ height: "40px", background: "white" }}
+        style={{ height: "40px"}}
       >
         <div className="col-1 p-0">
           <img
@@ -41,21 +41,14 @@ export default function Navbar({ onNavbarItemClick }) {
         style={{ height: "85px" }}
       >
         <div
-          className="row my-1 justify-content-center rounded-pill p-0"
-          style={{
-            width: "320px",
-            marginLeft: "0px",
-            marginRight: "0px",
-            boxShadow: "-4px 4px 10px rgba(0, 0, 0, 0.4)",
-            color: "#55595d"
-          }}
+          className="row my-1 justify-content-center rounded-pill p-0 icon"
         >
           <div
             className="m-1 rounded-circle friends-icon-container"
             id={navagation === "profile" ? "navCircleOn" : "navCircleOff"}
             onClick={() => onNavbarItemClick("profile")}
           >
-            <div className='user-avatar' style={{color: "#55595d"}}>
+            <div className='user-avatar'>
               {initials}
             </div>
           </div>

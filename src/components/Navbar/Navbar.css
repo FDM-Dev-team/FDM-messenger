@@ -30,3 +30,11 @@
     background-size: cover;
     background-position: center;
   }
+
+.icon {
+  width: 320px;
+  margin-left: 0px;
+  margin-right: 0px;
+  box-shadow: -4px 4px 10px rgba(0, 0, 0, 0.4);
+  color: var(--text-dark-color);
+}
