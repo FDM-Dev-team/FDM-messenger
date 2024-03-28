@@ -10,7 +10,7 @@
   .user-avatar {
     width: 55px;
     height: 55px;
-    color: rgb(71, 71, 71);
+    color: var(--text-dark-color);
     border-radius: 50%;
     display: flex;
     justify-content: center;

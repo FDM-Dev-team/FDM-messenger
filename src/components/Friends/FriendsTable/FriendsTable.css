@@ -1,7 +1,7 @@
 .friends-table-container {
     border: 1px solid #e0e0e0;
     border-radius: 8px;
-    background-color: white;
+    background-color: var(--background-color);
     padding: 20px;
     margin: 2%;
   }
@@ -50,7 +50,6 @@
   .friends-avatar {
     width: 40px;
     height: 40px;
-    color: white;
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -60,8 +59,8 @@
   }
   
   .friends-message-button {
-    background-color: white;
-    color: black;
+    background-color: var(--background-color);
+    color: var(--text-dark-color);
     border: none;
     border-radius: 4px;
     padding: 5px 10px;
@@ -69,5 +68,5 @@
   }
   
   .friends-message-button:hover {
-    background-color: lightslategray;
+    background-color: var(--text-light-color);
   }

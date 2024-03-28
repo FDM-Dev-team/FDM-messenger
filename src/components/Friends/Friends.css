@@ -4,21 +4,21 @@
     margin-right: 15px;
     margin-left: 5px;
     flex: 1;
-    box-shadow: -4px 4px 10px rgba(0, 0, 0, 0.4);
+    box-shadow: -4px 4px 10px var(--shadow);
     display: flex;
     flex-direction: column;
   }
 
   .friends-header {
     height: 70px;
-    background: white;
+    background: var(--background-color);
     padding: 0px;
     display: flex;
     align-items: center;
   }
   .friends-header-content {
     height: 40px;
-    background: white;
+    background: var(--background-color);
     padding: 0 10px;
     display: flex;
     align-items: center;
@@ -50,7 +50,7 @@
       font-weight: 450;
       margin-bottom: 5px;
       text-align: left;
-      color: gray;
+      color: var(--text-dark-color);
       margin-left: 25px;
       margin-top: 10px;
       padding-left: 0px;
