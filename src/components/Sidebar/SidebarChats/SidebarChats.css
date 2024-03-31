@@ -3,15 +3,27 @@
     width: 50px;
   }
    
-  .chat-avatar {
-    width: 55px;
-    height: 55px;
-    background-color: #007bff;
-    color: white;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 16px;
-    font-weight: bold;
-  }
+.chat-avatar {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.side-bar-chat {
+  width: 300px;
+  height: 75px;
+  border-radius: 20px;
+  padding: 10px;
+  box-shadow: -2px 2px 4px var(--shadow);
+  cursor: pointer;
+  background-color: var(--background-color);
+}
+
+.active-chat {
+  background-color: var(--active-chat-color);
+}

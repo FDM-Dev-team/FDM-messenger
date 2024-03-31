@@ -27,4 +27,6 @@ code {
   --message-self-color: #add8e6;
   --message-other-color: #D8D8D8;
   --shadow: #00000066;
+  --lighter-shadow: #3a3a3a26;
+  --active-chat-color: lightgrey;
 }

@@ -20,16 +20,7 @@ export default function SideBarChats({ chat }) {
 
   return (
     <div
-      className={`d-flex align-items-center border my-1 ${isActiveChat ? 'active-chat' : ''}`}
-      style={{
-        width: "300px",
-        height: "75px",
-        borderRadius: "20px",
-        padding: "10px",
-        cursor: "pointer",
-        boxShadow: "-2px 2px 4px rgba(0, 0, 0, 0.5)",
-        backgroundColor: isActiveChat ? "lightgray" : "white",
-      }}
+      className={`d-flex align-items-center border my-1 side-bar-chat ${isActiveChat ? 'active-chat' : ''}`}
       onClick={() => {
         changeCurrentActiveChat(chat.chat_id);
         navagate("chat")
