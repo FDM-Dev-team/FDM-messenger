@@ -1,5 +1,5 @@
 #ProfileCircle {
-    background-image: url("../../../src/assets/iconOff.png");
+    background-image: var(--navbar-icon-off-img);
     background-size: cover;
     background-position: center;
     color: var(--text-dark-color)

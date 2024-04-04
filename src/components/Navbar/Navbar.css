@@ -20,13 +20,13 @@
   }
 
  #navCircleOn {
-    background-image: url("../../../src/assets/iconOn.png");
+    background-image: var(--navbar-icon-on-img);
     background-size: cover;
     background-position: center;
   }
 
   #navCircleOff {
-    background-image: url("../../../src/assets/iconOff.png");
+    background-image: var(--navbar-icon-off-img);
     background-size: cover;
     background-position: center;
   }
@@ -37,4 +37,10 @@
   margin-right: 0px;
   box-shadow: -4px 4px 10px rgba(0, 0, 0, 0.4);
   color: var(--text-dark-color);
+}
+
+.brand-name {
+  font-size: 14px;
+  margin-left: 15px;
+  color: var(--text-dark-color)
 }

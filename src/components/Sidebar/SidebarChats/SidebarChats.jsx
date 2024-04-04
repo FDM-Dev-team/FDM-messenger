@@ -20,7 +20,7 @@ export default function SideBarChats({ chat }) {
 
   return (
     <div
-      className={`d-flex align-items-center border my-1 side-bar-chat ${isActiveChat ? 'active-chat' : ''}`}
+      className={`d-flex align-items-center my-1 side-bar-chat ${isActiveChat ? 'active-chat' : ''}`}
       onClick={() => {
         changeCurrentActiveChat(chat.chat_id);
         navagate("chat")
@@ -37,11 +37,7 @@ export default function SideBarChats({ chat }) {
           {chat.initials}</div>
       </div>
       <div
-        className="d-flex align-items-center justify-content-center"
-        style={{
-          width: "220px",
-          height: "50px",
-        }}
+        className="d-flex align-items-center justify-content-center chat-name"
       >
         {chat.name}
       </div>

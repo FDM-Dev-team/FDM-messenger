@@ -1,8 +1,19 @@
+.settings-container {
+  margin-bottom: 15px;
+  margin-top: 15px;
+  margin-right: 15px;
+  margin-left: 5px;
+  flex: 1;
+  box-shadow: -4px 4px 10px var(--shadow);
+  display: flex;
+  flex-direction: column;
+}
+
 .button-logout {
   grid-column-start: 1;
   grid-column-end: 2;
-    background-color: lightseagreen;
-    color: var(--text-lighter-color);
+    background-color: var(--button-bg-color);
+    color: white;
     height: 50px;
     width: 400px;
     border-radius: 0.5rem;
@@ -15,8 +26,8 @@
 }
 
   .button-logout:hover {
-    background-color: darkcyan;
-    border-color: darkcyan;
+    background-color: var(--button-hover-bg-color);
+    border-color: var(--button-hover-border-color);
   }
 
   .settings-main {
@@ -26,7 +37,7 @@
     grid-template-columns: repeat(2, 200px);
     justify-content: center; /* Center items horizontally */
     align-items: center; /* Center items vertically */
-    gap: 10px 5px; /* Reduce the vertical gap and keep the horizontal gap small */
+    gap: 20px 5px; /* Reduce the vertical gap and keep the horizontal gap small */
   }
 
 .sttngs-box{
@@ -40,27 +51,22 @@
   cursor: pointer;
     transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
     /* display: block; */
-    box-shadow: 0 0.5rem 1rem var(--lighter-shadow);
-    
-
+    box-shadow: 0 0.5rem 1rem var(--shadow);
 }
+
+
 .change-pass{
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-/* section {
-  margin: 0 auto;
-  width: 80%;
-  padding: 20px;
-  background-color: #fff;
-} */
+.setting-icon {
+  color: var(--text-dark-color);
+}
 
-/* .profile-line-break {
-  height: 1px;
-  width: 300px;
-  font-weight: 100;
-  background-color: gray;
-  margin: 3px 0;
-} */
+p {
+  color: var(--text-dark-color);
+  font-size: 1.05rem;
+  text-align: center;
+}

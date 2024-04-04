@@ -14,10 +14,10 @@ code {
 
 :root {
   --background-color: #FFFFFF;
-  --button-bg-color: #a0c5ec;
-  --button-border-color: #a0c5ec;
-  --button-hover-bg-color: #86b0dc;
-  --button-hover-border-color: #86b0dc;
+  --button-bg-color: #B8D0D6;
+  --button-border-color: #8DA6B0;
+  --button-hover-bg-color: #8DA6B0;
+  --button-hover-border-color: #8DA6B0;
   --logo-color: #B6A7A2;
   --profile-color: #BBBBBB;
   --text-dark-color: #757575;
@@ -30,6 +30,8 @@ code {
   --lighter-shadow: #3a3a3a26;
   --active-chat-color: lightgrey;
   --line-color: #e0e0e0;
+  --navbar-icon-on-img: url("./assets/iconOn.png");
+  --navbar-icon-off-img: url("./assets/iconOff.png");
 }
 
 #root {
@@ -38,10 +40,10 @@ code {
 
 [data-theme = "dark"] {
   --background-color: #515151;
-  --button-bg-color: #a0c5ec;
-  --button-border-color: #a0c5ec;
-  --button-hover-bg-color: #86b0dc;
-  --button-hover-border-color: #86b0dc;
+  --button-bg-color: #B8D0D6;
+  --button-border-color: #8DA6B0;
+  --button-hover-bg-color: #8DA6B0;
+  --button-hover-border-color: #8DA6B0;
   --logo-color: #B6A7A2;
   --profile-color: #BBBBBB;
   --text-dark-color: #FFFFFF;
@@ -52,6 +54,8 @@ code {
   --message-other-color: #D8D8D8;
   --shadow: #00000066;
   --lighter-shadow: #3a3a3a26;
-  --active-chat-color: lightgrey;
+  --active-chat-color: #757575;
   --line-color: #757575;
+  --navbar-icon-on-img: url("./assets/iconOn.png");
+  --navbar-icon-off-img: url("./assets/iconOff.png");
   }

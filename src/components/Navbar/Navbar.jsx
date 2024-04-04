@@ -20,7 +20,7 @@ export default function Navbar({ onNavbarItemClick }) {
     <div>
       <div
         className="row align-items-center d-flex justify-content-center"
-        style={{ height: "40px"}}
+        style={{ height: "50px"}}
       >
         <div className="col-1 p-0">
           <img
@@ -29,10 +29,7 @@ export default function Navbar({ onNavbarItemClick }) {
             style={{ height: "40px", width: "40px" }}
           />
         </div>
-        <div
-          className="col-6 p-0"
-          style={{ fontSize: "14px", marginLeft: "15px" }}
-        >
+        <div className="brand-name col-6 p-0">
           Fluent Dialogue Messenger
         </div>
       </div>

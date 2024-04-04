@@ -70,40 +70,30 @@ export default function Settings() {
       className="col flex-grow-1 d-flex flex-column p-0"
       style={{ height: "100vh" }}
     >
-      <div
-        className=" p-0 rounded"
-        style={{
-          marginBottom: "15px",
-          marginTop: "15px",
-          marginRight: "15px",
-          marginLeft: "5px",
-          flex: "1",
-          boxShadow: "-4px 4px 10px rgba(0, 0, 0, 0.4)",
-        }}
-      >
+      <div className="settings-container p-0 rounded">
         <div className="profile-header">Settings</div>
 
         <div className="settings-main">
           <div className="sttngs-box" onClick={() => {
             
           }}>
-            <FaSun size={44} />
+            <FaSun className="setting-icon" size={44} onClick={() => setDarkMode()}/>
             <p style={{ paddingTop: "10px" }}>Theme</p>
 
             {/* <FaMoon size={40} /> */}
           </div>
           <div className="sttngs-box" style={{}}>
-            <FaBellSlash size={48} />
+            <FaBellSlash className="setting-icon" size={48} />
             <p style={{ paddingTop: "10px" }}>Notifications</p>
 
           </div>
           <div className="sttngs-box">
-            <FaClock size={40} />
+            <FaClock className="setting-icon" size={40} />
             <p style={{ paddingTop: "10px" }}>Show activity</p>
 
           </div>
           <div className="sttngs-box">
-            <FaKey size={40} />
+            <FaKey className="setting-icon" size={40} />
             <p style={{ paddingTop: "10px" }}>Change Password</p>
 
           </div>
