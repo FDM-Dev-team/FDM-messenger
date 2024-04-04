@@ -10,16 +10,19 @@
   }
 
   .friends-header {
-    height: 70px;
-    background: var(--background-color);
-    padding: 0px;
-    display: flex;
-    align-items: center;
+    height: 10%;
+    font-size: 30px;
+    font-weight: 450;
+    margin-bottom: 5px;
+    text-align: left;
+    color: var(--text-dark-color);
+    margin-left: 25px;
+    margin-top: 10px;
   }
   .friends-header-content {
     height: 40px;
     background: var(--background-color);
-    padding: 0 10px;
+    margin-left: 25px;
     display: flex;
     align-items: center;
   }

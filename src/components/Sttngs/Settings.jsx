@@ -12,6 +12,14 @@ export default function Settings() {
   const [fontSize, setFontSize] = useState("M");
   const [mute, setMute] = useState("Unmute");
 
+  const setDarkMode = () => {
+    document.querySelector("body").setAttribute("data-theme", "dark");
+  }
+
+  const setLightMode = () => {
+    document.querySelector("body").setAttribute("data-theme", "light");
+  }
+
   useEffect(() => {
     const theme_cookie = getCookie("theme")
     const fontSize_cookie = getCookie("fontSize")
@@ -76,7 +84,9 @@ export default function Settings() {
         <div className="profile-header">Settings</div>
 
         <div className="settings-main">
-          <div className="sttngs-box">
+          <div className="sttngs-box" onClick={() => {
+            
+          }}>
             <FaSun size={44} />
             <p style={{ paddingTop: "10px" }}>Theme</p>
 

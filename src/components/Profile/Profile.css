@@ -4,7 +4,7 @@
   font-weight: 450;
   margin-bottom: 5px;
   text-align: left;
-  color: gray;
+  color: var(--text-dark-color);
   margin-left: 25px;
   margin-top: 10px;
 }
@@ -19,13 +19,13 @@
 
 .profile-name {
   font-size: 34px;
-  color: gray;
+  color: var(--text-light-color);
   font-weight: 500;
 }
 
 .profile-username {
   font-size: 16px;
-  color: gray;
+  color: var(--text-light-color);
   font-weight: 500;
 }
 
@@ -33,14 +33,14 @@
   height: 1px;
   width: 300px;
   font-weight: 100;
-  background-color: gray;
+  background-color: var(--line-color);
   margin: 3px 0;
 }
 
 .profile-email,
 .profile-friend {
   font-size: 18px;
-  color: gray;
+  color: var(--text-light-color);
   font-weight: 500;
 }
 
