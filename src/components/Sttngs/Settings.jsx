@@ -38,6 +38,8 @@ export default function Settings() {
     }
   }
 
+  let themeIcon = theme === "dark" ? <FaMoon className="setting-icon" size={40} /> : <FaSun className="setting-icon" size={44}/>;
+
   // useEffect(() => {
   //   const theme_cookie = getCookie("theme")
   //   const fontSize_cookie = getCookie("fontSize")
@@ -92,13 +94,9 @@ export default function Settings() {
         <div className="profile-header">Settings</div>
 
         <div className="settings-main">
-          <div className="sttngs-box" onClick={() => {
-            
-          }}>
-            <FaSun className="setting-icon" size={44} onClick={() => toggleTheme()}/>
+          <div className="sttngs-box" onClick={() => toggleTheme()}>
+            {themeIcon}
             <p style={{ paddingTop: "10px" }}>Theme</p>
-
-            {/* <FaMoon size={40} /> */}
           </div>
           <div className="sttngs-box" style={{}}>
             <FaBellSlash className="setting-icon" size={48} />
