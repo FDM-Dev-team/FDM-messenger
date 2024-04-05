@@ -14,10 +14,12 @@ import { UserProvider } from "./context/UserContext";
 import Main from "./pages/Main/Main";
 import Login from "./pages/Login/Login";
 import UserService from "./services/userService";
+import { SettingProvider } from "./context/SettingContext";
 
 const App = () => {
 
   return (
+    <SettingProvider>
     <NavigationProvider>
       <UserProvider>
         <FriendsProvider>
@@ -30,6 +32,7 @@ const App = () => {
         </FriendsProvider>
       </UserProvider>
     </NavigationProvider>
+    </SettingProvider>
   );
 
 };
