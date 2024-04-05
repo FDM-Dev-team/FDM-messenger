@@ -14,6 +14,8 @@ const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
+  const [errorMessage, setErrorMessage] = useState('');
+
   const { navagate } = useNavigation();
 
   const formValidation = () => {
@@ -43,7 +45,7 @@ const Login = () => {
 
     } catch (error) {
       // handleLogError(error)
-      // setErrorMessage(error.response.data.message)
+      setErrorMessage(error.response.data)
     }
   };
 
@@ -78,11 +80,15 @@ const Login = () => {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
+            
             <div className="button-container">
               <button className="button" type="submit">Login</button>
             </div>
           </form>
         </div>
+        {errorMessage && (
+          <div className="error-message">{errorMessage}</div>
+        )}
       </div>
     </div>
   );

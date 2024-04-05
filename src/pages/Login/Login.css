@@ -82,3 +82,9 @@
   .logo-text {
     color: var(--text-dark-color);
   }
+
+.error-message {
+  color: var(--error-color);
+  margin-top: 10px;
+  text-align: center;
+}

@@ -32,6 +32,7 @@ code {
   --line-color: #e0e0e0;
   --navbar-icon-on-img: url("./assets/iconOn.png");
   --navbar-icon-off-img: url("./assets/iconOff.png");
+  --error-color: rgb(216, 72, 72);
 }
 
 #root {
@@ -58,4 +59,5 @@ code {
   --line-color: #757575;
   --navbar-icon-on-img: url("./assets/iconOn.png");
   --navbar-icon-off-img: url("./assets/iconOff.png");
+  --error-color: rgb(245, 180, 180);
   }
