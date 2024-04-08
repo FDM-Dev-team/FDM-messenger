@@ -2,9 +2,7 @@ import { useState, createContext, useContext, useEffect } from "react";
 import io from "socket.io-client";
 import { postMessage } from "../services/chatService";
 
-
-
-const chatContext = createContext()
+const chatContext = createContext();
 
 export function ChatProvider({ children }) {
   const [message, setMessage] = useState("");
@@ -13,22 +11,22 @@ export function ChatProvider({ children }) {
   const [socket, setSocket] = useState(null);
   const [chatList, setChatList] = useState([]);
 
-  const connectPersonalChannel = user => {
+  const connectPersonalChannel = (user) => {
     //console.log("User.user:",user)
     if (!socket) {
-      const { user_id, firstname, lastname, username } = user
+      const { user_id, firstname, lastname, username } = user;
 
       const newSocket = io("https://fdm-websocket-production.up.railway.app", {
         query: {
           userId: user_id,
           userName: username,
           firstname: firstname,
-          lastname: lastname
+          lastname: lastname,
         },
       });
 
-      newSocket.on('connect', () => {
-        console.log('User_id:', user_id, ' connected to Socket');
+      newSocket.on("connect", () => {
+        console.log("User_id:", user_id, " connected to Socket");
       });
 
       //console.log("Connected to personal channel");
@@ -37,17 +35,16 @@ export function ChatProvider({ children }) {
   };
 
   const connectToChatRoom = (chat_id, user_id) => {
-    console.log("attempting to join room:", chat_id)
+    console.log("attempting to join room:", chat_id);
     joinChatRoom(chat_id, user_id); // Join the chat room when connected
-    console.log('Connected to channel:', chat_id);
-  }
+    console.log("Connected to channel:", chat_id);
+  };
 
-  
   useEffect(() => {
     if (!socket) return; // Check if socket is null
 
     const handleChatMessage = (data) => {
-      console.log("recieved message:", data)
+      console.log("recieved message:", data);
 
       const { roomId, sender, message, sentTime, sender_name } = data;
 
@@ -60,11 +57,11 @@ export function ChatProvider({ children }) {
           sender_participant_id: sender,
           text: message,
           time: sentTime,
-          sender_name: sender_name
+          sender_name: sender_name,
         };
         setChatLog((prevChatLog) => [...prevChatLog, mappedObject]);
       } catch (error) {
-        console.log('Received non-JSON message:', data);
+        console.log("Received non-JSON message:", data);
       }
     };
 
@@ -84,19 +81,19 @@ export function ChatProvider({ children }) {
   };
 
   const sendMessage = (chat_id, user) => {
-    console.log('userId:', user.user_id, ' activeChatId:', chat_id);
-    if (socket && socket.connected && message.trim() !== '') {
-      console.log('send' + user.firstname);
+    console.log("userId:", user, " activeChatId:", chat_id);
+    if (socket && socket.connected && message.trim() !== "") {
+      console.log("send" + user.firstname);
       const currentTime = Date.now(); // Get current local time
       const data = {
         roomId: chat_id,
         sender: user.user_id,
         message: message.trim(),
         sentTime: currentTime,
-        sender_name: user.firstname + ' ' + user.lastname
+        sender_name: user.firstname + user.lastname,
       };
-      socket.emit('chat message', data);
-      setMessage('');
+      socket.emit("chat message", data);
+      setMessage("");
     }
   };
 
@@ -109,8 +106,8 @@ export function ChatProvider({ children }) {
   };
 
   const updateChatList = (data) => {
-    setChatList(data)
-  }
+    setChatList(data);
+  };
 
   const contextData = {
     socket,
@@ -124,8 +121,8 @@ export function ChatProvider({ children }) {
     currentActiveChat,
     changeCurrentActiveChat,
     recieveChatlog,
-    chatList, 
-    updateChatList
+    chatList,
+    updateChatList,
   };
   return (
     <chatContext.Provider value={contextData}>{children}</chatContext.Provider>
