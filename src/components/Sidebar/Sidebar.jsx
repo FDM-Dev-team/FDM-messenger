@@ -18,11 +18,7 @@ export default function Sidebar() {
         if (User.user && User.user.user_id) {
           const response = await axios.get(`http://localhost:9000/chat/list/${User.user.user_id}`);
           updateChatList(response.data);
-          changeCurrentActiveChat(response.data[0].chat_id);
-          const firstChat = response.data.find(chat => chat.chat_id !== User.user.user_id);
-          if (firstChat) {
-            changeCurrentActiveChat(firstChat.chat_id);
-          }
+          changeCurrentActiveChat(response.data[0]);
         }
       } catch (error) {
         console.error(error);

@@ -20,7 +20,9 @@ const FriendsTable = () => {
   const editCurrentActiveChat = (friendId) => {
     navagate("chat");
     console.log("chatlist:", chatList, "friendId:", friendId);
-    const chat = chatList.find(chat => chat.user_id === friendId).chat_id;
+    const chat = chatList.find(chat => 
+      chat.user_ids.length === 1 && chat.user_ids[0] === friendId
+    );
     console.log("chat:", chat);
     changeCurrentActiveChat(chat);
   }

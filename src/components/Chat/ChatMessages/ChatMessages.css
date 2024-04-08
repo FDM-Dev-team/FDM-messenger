@@ -17,7 +17,7 @@
   display: flex;
 }
 
-.recieved-message {
+.received-message {
   margin-right: auto;
   background-color: var(--message-other-color);
   display: flex;
@@ -27,4 +27,10 @@
   font-size: 10px;
   margin-left: 10px;
   align-self: flex-end;
+}
+
+.message-sender {
+  font-size: 10px;
+  margin-right: 10px;
+  align-self: flex-start;
 }
