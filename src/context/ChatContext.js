@@ -49,7 +49,7 @@ export function ChatProvider({ children }) {
     const handleChatMessage = (data) => {
       console.log("recieved message:", data)
 
-      const { roomId, sender, message, sentTime } = data;
+      const { roomId, sender, message, sentTime, sender_name } = data;
 
       postMessage(roomId, sender, message, sentTime);
 
@@ -60,6 +60,7 @@ export function ChatProvider({ children }) {
           sender_participant_id: sender,
           text: message,
           time: sentTime,
+          sender_name: sender_name
         };
         setChatLog((prevChatLog) => [...prevChatLog, mappedObject]);
       } catch (error) {
@@ -82,16 +83,17 @@ export function ChatProvider({ children }) {
     }
   };
 
-  const sendMessage = (chat_id, userId) => {
-    console.log('userId:', userId, ' activeChatId:', chat_id);
+  const sendMessage = (chat_id, user) => {
+    console.log('userId:', user.user_id, ' activeChatId:', chat_id);
     if (socket && socket.connected && message.trim() !== '') {
-      console.log('send');
+      console.log('send' + user.firstname);
       const currentTime = Date.now(); // Get current local time
       const data = {
         roomId: chat_id,
-        sender: userId,
+        sender: user.user_id,
         message: message.trim(),
         sentTime: currentTime,
+        sender_name: user.firstname + ' ' + user.lastname
       };
       socket.emit('chat message', data);
       setMessage('');

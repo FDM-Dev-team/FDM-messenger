@@ -55,7 +55,7 @@ export default function Chat() {
     console.log("chatList send", chatList)
 
     if (currentActiveChat) {
-      sendMessage(currentActiveChat.chat_id, User.user.user_id);
+      sendMessage(currentActiveChat.chat_id, User.user);
       // postMessage(currentActiveChat, User.user.user_id, message);
     }
 
