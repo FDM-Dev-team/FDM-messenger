@@ -61,7 +61,7 @@ export default function Chat() {
     const activeChat = chatList.find(chat => chat.chat_id === currentActiveChat);
 
     if (activeChat) {
-      sendMessage(currentActiveChat, User.user.user_id, activeChat);
+      sendMessage(activeChat, User.user.user_id);
       // postMessage(currentActiveChat, User.user.user_id, message);
     }
 
