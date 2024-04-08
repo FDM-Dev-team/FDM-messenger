@@ -15,7 +15,7 @@ export default function Chat() {
 
   useEffect(() => {
     if (User && currentActiveChat) {
-        connectToChatRoom(currentActiveChat.chat_id, User.user.user_id);
+      connectToChatRoom(currentActiveChat.chat_id, User.user.user_id);
     }
   }, [currentActiveChat, User]);
 
@@ -119,7 +119,9 @@ export default function Chat() {
               height: "50px",
               padding: "15px",
               borderRadius: "5px",
-              border: "1px solid lightgray",
+              border: "var(--chat-input-border)",
+              background: "var(--chat-input-background)",
+              color: "var(--chat-input-color)",
             }}
           >
 

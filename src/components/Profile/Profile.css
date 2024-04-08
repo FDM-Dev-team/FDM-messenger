@@ -56,8 +56,8 @@
 }
 
 #UserProfileCircle {
-  background-image: url("../../../src/assets/iconOff.png");
+  background-image: var(--chat-background-image);
   background-size: cover;
   background-position: center;
-  color: rgb(110, 110, 110);
+  color: var(--text-dark-color) !important;
 }

@@ -39,7 +39,7 @@
   }
 
   .friends-tab {
-    background-color: lightslategray;
+    background-color: var(--friends-tab-color);
     color: white;
     padding: 5px 50px;
     border-radius: 5px;

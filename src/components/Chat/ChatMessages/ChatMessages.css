@@ -34,3 +34,7 @@
   margin-right: 10px;
   align-self: flex-start;
 }
+
+.message-text {
+  color: var(--message-text);
+}
