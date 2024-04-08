@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useChat } from '../../context/ChatContext';
 import "./Chat.css";
 import axios from "axios";
-import ChatMessages from "./ChatMessages/ChatMessages";
 import { useUser } from "../../context/UserContext";
 import { postMessage } from "../../services/chatService";
+import ChatMessages from "./ChatMessages/ChatMessages";
 
 
 
@@ -14,12 +14,8 @@ export default function Chat() {
   const User = useUser();
 
   useEffect(() => {
-    if (User && currentActiveChat && chatList) {
-      const activeChat = chatList.find(chat => chat.chat_id === currentActiveChat);
-
-      if (activeChat) {
-        connectToChatRoom(activeChat, User.user.user_id);
-      }
+    if (User && currentActiveChat) {
+        connectToChatRoom(currentActiveChat.chat_id, User.user.user_id);
     }
   }, [currentActiveChat, User]);
 
@@ -31,7 +27,7 @@ export default function Chat() {
     if (currentActiveChat) {
       const fetchMessagesData = async () => {
         try {
-          const response = await axios.get(`http://localhost:9000/chatmessage/${currentActiveChat}`);
+          const response = await axios.get(`http://localhost:9000/chatmessage/${currentActiveChat.chat_id}`);
           recieveChatlog(response.data);
           //console.log(response.data);
           scrollToBottom(); // Scroll to bottom after fetching messages
@@ -58,10 +54,8 @@ export default function Chat() {
   const send = () => {
     console.log("chatList send", chatList)
 
-    const activeChat = chatList.find(chat => chat.chat_id === currentActiveChat);
-
-    if (activeChat) {
-      sendMessage(currentActiveChat, User.user.user_id, activeChat);
+    if (currentActiveChat) {
+      sendMessage(currentActiveChat.chat_id, User.user);
       // postMessage(currentActiveChat, User.user.user_id, message);
     }
 
@@ -74,18 +68,14 @@ export default function Chat() {
   };
 
   const getChatName = () => {
-    if (chatList && currentActiveChat) {
-      const activeChat = chatList.find(chat => chat.chat_id === currentActiveChat);
-      console.log("active chat:", activeChat)
-      return activeChat.initials
+    if (currentActiveChat) {
+      return currentActiveChat.initials
     }
   }
 
   const getChatUserName = () => {
-    if (chatList && currentActiveChat) {
-      const activeChat = chatList.find(chat => chat.chat_id === currentActiveChat);
-      console.log("active chat:", activeChat)
-      return activeChat.name
+    if (currentActiveChat) {
+      return currentActiveChat.name
     }
   }
 
@@ -103,13 +93,7 @@ export default function Chat() {
           <div className="chatroom-name">{getChatUserName()}</div>
         </div>
 
-        <div className="message-list" id="messageList" style={{ paddingInline: "20px", height: `calc(100vh - 200px)`, overflow: "scroll" }}>
-          {Object.entries(chatLog)
-            .filter(([key, value]) => value.chat_id === currentActiveChat)
-            .map(([key, value], index) => (
-              <ChatMessages key={`${currentActiveChat}-${index}`} messages={value} />
-            ))}
-        </div>
+        <ChatMessages chatLog={chatLog} activeChat={currentActiveChat} />
 
         <div
           className="input-area"

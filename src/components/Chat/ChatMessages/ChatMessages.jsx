@@ -1,34 +1,26 @@
-import React, { useEffect, useState } from "react";
-import "./ChatMessages.css";
-import { useUser } from "../../../context/UserContext";
+import React from 'react'
+import DirectChatMessage from './DirectChatMessage'
+import GroupChatMessage from './GroupChatMessage'
 
-
-export default function ChatMessages({ messages }) {
-  const User = useUser();
-
-  // useEffect(() => {
-  //   console.log("User:", User.user.user_id)
-  //   console.log("messages:", messages)
-  // }, [messages]);
-
-  const convertTime = (time) => {
-    const date = new Date(time);
-    const hours = date.getHours();
-    const minutes = date.getMinutes();
-    const formattedHours = hours % 12 || 12;
-    const period = hours >= 12 ? "PM" : "AM";
-    const formattedMinutes = minutes.toString().padStart(2, "0");
-    return `${formattedHours}:${formattedMinutes}${period}`;
-  };
+function ChatMessages({ chatLog, activeChat }) {
   return (
-    <div
-      className={`message ${messages.sender_id === User.user.user_id || messages.sender_participant_id === User.user.user_id
-        ? "sent-message"
-        : "recieved-message"
-        }`}
-    >
-      <div className="message-text">{messages.text}</div>
-      <div className="message-time">{convertTime(messages.time)}</div>
+    activeChat.chat_type === "DIRECT" ?
+    <div className="message-list" id="messageList" style={{ paddingInline: "20px", height: `calc(100vh - 200px)`, overflow: "scroll" }}>
+      {Object.entries(chatLog)
+        .filter(([key, value]) => value.chat_id === activeChat.chat_id)
+        .map(([key, value], index) => (
+          <DirectChatMessage key={`${activeChat.chat_id}-${index}`} message={value} />
+        ))}
     </div>
-  );
+    :
+    <div className="message-list" id="messageList" style={{ paddingInline: "20px", height: `calc(100vh - 200px)`, overflow: "scroll" }}>
+      {Object.entries(chatLog)
+        .filter(([key, value]) => value.chat_id === activeChat.chat_id)
+        .map(([key, value], index) => (
+          <GroupChatMessage key={`${activeChat.chat_id}-${index}`} message={value} />
+        ))}
+    </div>
+)
 }
+
+export default ChatMessages

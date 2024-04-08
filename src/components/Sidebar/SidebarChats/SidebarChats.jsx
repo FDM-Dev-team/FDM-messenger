@@ -13,7 +13,7 @@ export default function SideBarChats({ chat }) {
   const User = useUser();
 
   useEffect(() => {
-    setIsActiveChat(currentActiveChat === chat.chat_id);
+    setIsActiveChat(currentActiveChat.chat_id === chat.chat_id);
   }, [currentActiveChat, chat.chat_id]);
 
 
@@ -22,7 +22,7 @@ export default function SideBarChats({ chat }) {
     <div
       className={`d-flex align-items-center my-1 side-bar-chat ${isActiveChat ? 'active-chat' : ''}`}
       onClick={() => {
-        changeCurrentActiveChat(chat.chat_id);
+        changeCurrentActiveChat(chat);
         navagate("chat")
       }}
     >

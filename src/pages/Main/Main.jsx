@@ -16,7 +16,7 @@ export default function Main() {
   const User = useUser();
   const isLoggedIn = User.userIsAuthenticated();
 
-  const { connectPersonalChannel, socket, connectToChatRoom, connectToMyChatRoom, activeComponent, setActiveComponent } = useChat();
+  const { connectPersonalChannel } = useChat();
   const { navagation, navagate } = useNavigation();
 
   useEffect(() => {
@@ -25,13 +25,6 @@ export default function Main() {
 
     }
   }, [User.user]);
-
-  useEffect(() => {
-    if (User.user) {
-      console.log("my user id:", User.user.user_id)
-      connectToMyChatRoom(User.user.user_id, User.user.user_id);
-    }
-  }, [socket]);
 
   if (!isLoggedIn) {
     return <Navigate to="/login" />;

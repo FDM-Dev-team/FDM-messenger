@@ -36,35 +36,31 @@ export function ChatProvider({ children }) {
     }
   };
 
-  const connectToChatRoom = (activeChat, UserId) =>{
-    console.log("attempting to join room:", activeChat.user_id)
-    joinChatRoom('joinRoom', activeChat.user_id, UserId); // Join the chat room when connected
-    console.log('Connected to channel:', activeChat.user_id);
+  const connectToChatRoom = (chat_id, user_id) => {
+    console.log("attempting to join room:", chat_id)
+    joinChatRoom(chat_id, user_id); // Join the chat room when connected
+    console.log('Connected to channel:', chat_id);
   }
 
-  const connectToMyChatRoom = (mychannel, UserId) =>{
-    console.log("connecting to my room:", mychannel)
-    joinChatRoom('joinRoom', mychannel, UserId); // Join the chat room when connected
-    console.log('Connected to my channel:', mychannel);
-  }
   
   useEffect(() => {
     if (!socket) return; // Check if socket is null
 
     const handleChatMessage = (data) => {
-      console.log("recieved message:", data )
+      console.log("recieved message:", data)
 
-      const { chatId, sender, message, sentTime } = data;
+      const { roomId, sender, message, sentTime, sender_name } = data;
 
-      postMessage(chatId, sender, message, sentTime);
+      postMessage(roomId, sender, message, sentTime);
 
       try {
         const mappedObject = {
           message_id: null,
-          chat_id: chatId,
+          chat_id: roomId,
           sender_participant_id: sender,
           text: message,
           time: sentTime,
+          sender_name: sender_name
         };
         setChatLog((prevChatLog) => [...prevChatLog, mappedObject]);
       } catch (error) {
@@ -81,32 +77,31 @@ export function ChatProvider({ children }) {
     };
   }, [socket]);
 
-  const joinChatRoom = (joinroom, room, userId) => {
+  const joinChatRoom = (chatId, userId) => {
     if (socket) {
-      socket.emit(joinroom, room, userId);
+      socket.emit("joinRoom", chatId, userId);
     }
   };
 
-  const sendMessage = (currentActiveChat, userId, activeChat) => {
-    console.log('currentActiveChat:', currentActiveChat, ' userId:', userId, ' activeChat:', activeChat);
+  const sendMessage = (chat_id, user) => {
+    console.log('userId:', user.user_id, ' activeChatId:', chat_id);
     if (socket && socket.connected && message.trim() !== '') {
-      console.log('send');
+      console.log('send' + user.firstname);
       const currentTime = Date.now(); // Get current local time
       const data = {
-        roomId: activeChat.user_id,
-        chatId: currentActiveChat,
-        sender: userId,
+        roomId: chat_id,
+        sender: user.user_id,
         message: message.trim(),
         sentTime: currentTime,
+        sender_name: user.firstname + ' ' + user.lastname
       };
       socket.emit('chat message', data);
       setMessage('');
     }
   };
 
-  const changeCurrentActiveChat = (chatId) => {
-    console.log("current active chat:", chatId)
-    setCurrentActiveChat(chatId);
+  const changeCurrentActiveChat = (chat) => {
+    setCurrentActiveChat(chat);
   };
 
   const recieveChatlog = (chatlog) => {
@@ -130,8 +125,7 @@ export function ChatProvider({ children }) {
     changeCurrentActiveChat,
     recieveChatlog,
     chatList, 
-    updateChatList,
-    connectToMyChatRoom
+    updateChatList
   };
   return (
     <chatContext.Provider value={contextData}>{children}</chatContext.Provider>
