@@ -7,7 +7,10 @@ function GroupReceivedChatMessage({ message, convertTime }) {
     <div className="message received-message">
       <div className="chatroom-table-cell-avatar">
         <div className="chatroom-avatar" id="UserProfileCircle">
-          {message.sender_name}
+          {message.sender_name
+            .split(' ')
+            .map(word => word[0])
+            .join('')}
         </div>
       </div>
       <div className="message-text">{message.text}</div>

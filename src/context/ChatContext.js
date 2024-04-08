@@ -90,7 +90,7 @@ export function ChatProvider({ children }) {
         sender: user.user_id,
         message: message.trim(),
         sentTime: currentTime,
-        sender_name: user.initials,
+        sender_name: user.firstname + user.lastname,
       };
       socket.emit("chat message", data);
       setMessage("");
