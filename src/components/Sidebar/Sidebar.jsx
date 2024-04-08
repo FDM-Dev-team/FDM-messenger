@@ -38,7 +38,7 @@ export default function Sidebar() {
         className="p-0 rounded d-flex flex-column justify-content-start align-items-center"
         style={{
           width: "330px",
-          height: "calc(100vh - 150px)",
+          height: "calc(100vh - 160px)",
           marginBottom: "15px",
           marginTop: "10px",
           marginRight: "15px",
