@@ -18,7 +18,7 @@ export function ChatProvider({ children }) {
     if (!socket) {
       const { user_id, firstname, lastname, username } = user
 
-      const newSocket = io("http://localhost:8000", {
+      const newSocket = io("https://fdm-websocket-production.up.railway.app", {
         query: {
           userId: user_id,
           userName: username,
