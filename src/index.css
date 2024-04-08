@@ -57,7 +57,7 @@ code {
   --lighter-shadow: #3a3a3a26;
   --active-chat-color: #757575;
   --line-color: #757575;
-  --navbar-icon-on-img: url("./assets/iconOn.png");
-  --navbar-icon-off-img: url("./assets/iconOff.png");
+  --navbar-icon-on-img: url("./assets/iconOndark.png");
+  --navbar-icon-off-img: url("./assets/iconOffdark.png");
   --error-color: rgb(245, 180, 180);
   }
