@@ -6,7 +6,7 @@ import { useUser } from "../../../context/UserContext";
 import { useNavigation } from '../../../context/NavigationContext';
 
 
-export default function SideBarChats({ chat }) {
+export default function SideBarChats({ chat, notify }) {
   const { changeCurrentActiveChat, currentActiveChat } = useChat();
   const [isActiveChat, setIsActiveChat] = useState(false);
   const { navagate } = useNavigation();
@@ -40,6 +40,13 @@ export default function SideBarChats({ chat }) {
         className="d-flex align-items-center justify-content-center chat-name"
       >
         {chat.name}
+      </div>
+
+      <div>
+        {notify.counter > 0 ?
+          <span class="badge-light">{notify.counter}</span>
+          :
+          <div></div>}
       </div>
     </div >
   );

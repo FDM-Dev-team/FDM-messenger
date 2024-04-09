@@ -58,18 +58,17 @@ export function ChatProvider({ children }) {
         const sound = new Audio(messageSound);
         sound.play();
 
-        console.log("chatNotifs",chatNotifs);
+        console.log("chatNotifs", chatNotifs);
 
-        const updatedNotif = chatNotifs.map(notif => {
+        const updatedNotif = chatNotifs.map((notif) => {
           if (notif.chat_id === roomId) {
             return { ...notif, counter: notif.counter + 1 };
           }
           return notif;
         });
 
-        console.log("updatedNotif:",updatedNotif);
+        console.log("updatedNotif:", updatedNotif);
         setChatNotifs(updatedNotif);
-
       }
 
       try {
@@ -94,7 +93,7 @@ export function ChatProvider({ children }) {
       console.log("Socket is unmounted"); // Log when the socket is unmounted
       socket.off("chat message", handleChatMessage);
     };
-  }, [socket,chatNotifs]);
+  }, [socket, chatNotifs]);
 
   const joinChatRoom = (chatId, userId) => {
     if (socket) {
@@ -131,13 +130,12 @@ export function ChatProvider({ children }) {
     setChatList(data);
 
     //adding notif counter for each chat
-    const mappedChats = data.map(chat => {
+    const mappedChats = data.map((chat) => {
       return { chat_id: chat.chat_id, counter: 0 };
     });
 
     //console.log("mappedChats:",mappedChats);
     setChatNotifs(mappedChats);
-    //console.log("chatNotifs:",chatNotifs)
   };
 
   const contextData = {
@@ -154,7 +152,7 @@ export function ChatProvider({ children }) {
     recieveChatlog,
     chatList,
     updateChatList,
-    chatNotifs
+    chatNotifs,
   };
   return (
     <chatContext.Provider value={contextData}>{children}</chatContext.Provider>

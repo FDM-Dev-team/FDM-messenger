@@ -7,7 +7,7 @@ import { useUser } from "../../context/UserContext";
 import { Socket } from "socket.io-client";
 
 export default function Sidebar() {
-  const { changeCurrentActiveChat, chatList, updateChatList, socket } = useChat();
+  const { changeCurrentActiveChat, chatList, updateChatList, socket, chatNotifs } = useChat();
   const User = useUser();
 
 
@@ -53,7 +53,7 @@ export default function Sidebar() {
         >
 
           {chatList.map((chat, index) => (
-            <SideBarChats key={chat.id || index} chat={chat} />
+            <SideBarChats key={chat.id || index} chat={chat} notify={chatNotifs[index]} />
           ))}
         </div>
       </div>
