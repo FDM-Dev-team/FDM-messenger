@@ -57,6 +57,19 @@ export function ChatProvider({ children }) {
       if (sender !== User.user.user_id) {
         const sound = new Audio(messageSound);
         sound.play();
+
+        console.log("chatNotifs",chatNotifs);
+
+        const updatedNotif = chatNotifs.map(notif => {
+          if (notif.chat_id === roomId) {
+            return { ...notif, counter: notif.counter + 1 };
+          }
+          return notif;
+        });
+
+        console.log("updatedNotif:",updatedNotif);
+        setChatNotifs(updatedNotif);
+
       }
 
       try {
@@ -81,7 +94,7 @@ export function ChatProvider({ children }) {
       console.log("Socket is unmounted"); // Log when the socket is unmounted
       socket.off("chat message", handleChatMessage);
     };
-  }, [socket]);
+  }, [socket,chatNotifs]);
 
   const joinChatRoom = (chatId, userId) => {
     if (socket) {
@@ -122,9 +135,9 @@ export function ChatProvider({ children }) {
       return { chat_id: chat.chat_id, counter: 0 };
     });
 
-    console.log("mappedChats:",mappedChats);
+    //console.log("mappedChats:",mappedChats);
     setChatNotifs(mappedChats);
-
+    //console.log("chatNotifs:",chatNotifs)
   };
 
   const contextData = {
@@ -141,6 +154,7 @@ export function ChatProvider({ children }) {
     recieveChatlog,
     chatList,
     updateChatList,
+    chatNotifs
   };
   return (
     <chatContext.Provider value={contextData}>{children}</chatContext.Provider>
