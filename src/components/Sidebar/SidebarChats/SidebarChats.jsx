@@ -42,6 +42,13 @@ export default function SideBarChats({ chat }) {
       >
         {chat.name}
       </div>
+
+      <div>
+        {notify.counter > 0 ?
+          <span class="badge-light">{notify.counter}</span>
+          :
+          <div></div>}
+      </div>
     </div >
   );
 }
