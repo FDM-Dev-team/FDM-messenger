@@ -6,7 +6,7 @@ import { useUser } from "../../../context/UserContext";
 import { useNavigation } from '../../../context/NavigationContext';
 
 
-export default function SideBarChats({ chat }) {
+export default function SideBarChats({ chat, notify }) {
   const { changeCurrentActiveChat, currentActiveChat, resetChatNotif } = useChat();
   const [isActiveChat, setIsActiveChat] = useState(false);
   const { navagate } = useNavigation();
@@ -45,7 +45,7 @@ export default function SideBarChats({ chat }) {
 
       <div>
         {notify.counter > 0 ?
-          <span class="badge-light">{notify.counter}</span>
+          <span id='notif' class="badge-light">{notify.counter}</span>
           :
           <div></div>}
       </div>

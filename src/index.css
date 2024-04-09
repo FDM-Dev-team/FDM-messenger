@@ -41,7 +41,9 @@ code {
 
   --scrollbar-background-color: #bdbdbd;
   --scrollbar-track-background-color: #f8f8f8;
-  
+    --notif-background-color: #abeedc;
+  --notif-color: #ffffff;
+
 }
 
 #root {
@@ -78,4 +80,6 @@ code {
 
   --scrollbar-background-color: #888;
   --scrollbar-track-background-color: #4e4e4e;
+  --notif-background-color: #c7c7c7;
+  --notif-color: #495057;
 }
