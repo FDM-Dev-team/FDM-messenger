@@ -20,7 +20,7 @@ export default function Chat() {
   }, [currentActiveChat, User]);
 
   useEffect(() => {
-    console.log("chatLog", chatLog)
+    //console.log("chatLog", chatLog)
   }, [chatLog]);
 
   useEffect(() => {

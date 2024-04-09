@@ -7,6 +7,7 @@ const chatContext = createContext();
 export function ChatProvider({ children }) {
   const [message, setMessage] = useState("");
   const [chatLog, setChatLog] = useState([]);
+  const [chatNotifs, setChatNotifs] = useState([]);
   const [currentActiveChat, setCurrentActiveChat] = useState(null);
   const [socket, setSocket] = useState(null);
   const [chatList, setChatList] = useState([]);
@@ -107,6 +108,15 @@ export function ChatProvider({ children }) {
 
   const updateChatList = (data) => {
     setChatList(data);
+
+    //adding notif counter for each chat
+    const mappedChats = data.map(chat => {
+      return { chat_id: chat.chat_id, counter: 0 };
+    });
+
+    console.log("mappedChats:",mappedChats);
+    setChatNotifs(mappedChats);
+
   };
 
   const contextData = {
