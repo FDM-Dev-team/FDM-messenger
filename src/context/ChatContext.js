@@ -140,6 +140,19 @@ export function ChatProvider({ children }) {
     //console.log("chatNotifs:",chatNotifs)
   };
 
+  const resetChatNotif = (chat) => {
+    console.log("chatId:",chat)
+    console.log("chatNotifs:",chatNotifs)
+
+  const ResetNotif = chatNotifs.map(notif => {
+      if (notif.chat_id === chat.chat_id) {
+        return { ...notif, counter: notif.counter = 0 };
+      }
+      return notif;
+    });
+
+  }
+
   const contextData = {
     socket,
     connectPersonalChannel,
@@ -154,7 +167,8 @@ export function ChatProvider({ children }) {
     recieveChatlog,
     chatList,
     updateChatList,
-    chatNotifs
+    chatNotifs,
+    resetChatNotif
   };
   return (
     <chatContext.Provider value={contextData}>{children}</chatContext.Provider>

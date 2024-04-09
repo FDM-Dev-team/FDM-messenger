@@ -7,7 +7,7 @@ import { useNavigation } from '../../../context/NavigationContext';
 
 
 export default function SideBarChats({ chat }) {
-  const { changeCurrentActiveChat, currentActiveChat } = useChat();
+  const { changeCurrentActiveChat, currentActiveChat, resetChatNotif } = useChat();
   const [isActiveChat, setIsActiveChat] = useState(false);
   const { navagate } = useNavigation();
   const User = useUser();
@@ -24,6 +24,7 @@ export default function SideBarChats({ chat }) {
       onClick={() => {
         changeCurrentActiveChat(chat);
         navagate("chat")
+        resetChatNotif(currentActiveChat)
       }}
     >
       <div className="chat-table-cell-avatar" >
