@@ -1,7 +1,9 @@
 import { useState, createContext, useContext, useEffect } from "react";
 import io from "socket.io-client";
 import { postMessage } from "../services/chatService";
+import { useUser } from "./UserContext";
 
+import messageSound from "../assets/Notification.mp3";
 const chatContext = createContext();
 
 export function ChatProvider({ children }) {
@@ -10,6 +12,7 @@ export function ChatProvider({ children }) {
   const [currentActiveChat, setCurrentActiveChat] = useState(null);
   const [socket, setSocket] = useState(null);
   const [chatList, setChatList] = useState([]);
+  const User = useUser();
 
   const connectPersonalChannel = (user) => {
     //console.log("User.user:",user)
@@ -45,10 +48,15 @@ export function ChatProvider({ children }) {
 
     const handleChatMessage = (data) => {
       console.log("recieved message:", data);
-
       const { roomId, sender, message, sentTime, sender_name } = data;
+      console.log(User.user.user_id);
 
       postMessage(roomId, sender, message, sentTime);
+
+      if (sender !== User.user.user_id) {
+        const sound = new Audio(messageSound);
+        sound.play();
+      }
 
       try {
         const mappedObject = {
