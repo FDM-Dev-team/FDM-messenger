@@ -5,6 +5,9 @@ import "./Settings.css";
 import { FaBellSlash, FaMoon, FaClock, FaSun, FaKey } from "react-icons/fa";
 import { useSetting } from "../../context/SettingContext";
 
+/**
+ * Component that represents the settings page.
+ */
 export default function Settings() {
 
   const navigate = useNavigate();
@@ -38,7 +41,7 @@ export default function Settings() {
     }
   }
 
-  let themeIcon = theme === "dark" ? <FaMoon className="setting-icon" size={40} /> : <FaSun className="setting-icon" size={44}/>;
+  let themeIcon = theme === "dark" ? <FaMoon className="setting-icon" size={40} /> : <FaSun className="setting-icon" size={44} />;
 
   // useEffect(() => {
   //   const theme_cookie = getCookie("theme")
