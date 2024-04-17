@@ -4,6 +4,10 @@ import axios from "axios";
 import { useUser } from "../../context/UserContext";
 import { useFriends } from "../../context/FriendsContext";
 
+/**
+ * Component that represents the user profile page.
+ * Displays user information such as name, username, email, and friend count.
+ */
 export default function Profile() {
   const { user } = useUser();
   const { friendCount } = useFriends();
