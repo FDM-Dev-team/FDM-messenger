@@ -12,6 +12,9 @@ import Profile from "../../components/Profile/Profile";
 import { useUser } from "../../context/UserContext";
 import { Navigate } from "react-router-dom";
 
+/**
+ * Component that represents the main page of the application.
+ */
 export default function Main() {
   const User = useUser();
   const isLoggedIn = User.userIsAuthenticated();
@@ -26,13 +29,21 @@ export default function Main() {
     }
   }, [User.user]);
 
+  /**
+   * Redirects the user to the login page if not logged in.
+   */
   if (!isLoggedIn) {
     return <Navigate to="/login" />;
   }
 
+  /**
+   * Handles the click event on the navbar item.
+   * @param {string} component - The component to navigate to.
+   */
   const handleNavbarItemClick = (component) => {
     navagate(component);
   };
+
   return (
     <div className="App d-flex min-vh-100">
       <div
