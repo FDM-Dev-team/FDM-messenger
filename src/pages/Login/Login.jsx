@@ -7,6 +7,9 @@ import { useUser } from "../../context/UserContext";
 import logo from "../../assets/smileyLogo.png";
 import { useNavigation } from "../../context/NavigationContext";
 
+/**
+ * Component that represents the login page.
+ */
 const Login = () => {
   const User = useUser()
   const isLoggedIn = User.userIsAuthenticated()
@@ -18,6 +21,10 @@ const Login = () => {
 
   const { navagate } = useNavigation();
 
+  /**
+   * Checks if the username and password fields are filled.
+   * @returns {boolean} Returns true if both fields are filled; false otherwise.
+   */
   const formValidation = () => {
     // Check all inputs
     if (!username || !password) {
@@ -27,6 +34,10 @@ const Login = () => {
     return true;
   };
 
+  /**
+   * Handles the form submission.
+   * @param {Object} e - The form submission event.
+   */
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formValidation()) return;
@@ -39,7 +50,6 @@ const Login = () => {
 
       User.userLogin(authenticatedUser)
 
-
       setUsername('')
       setPassword('')
 
@@ -49,9 +59,12 @@ const Login = () => {
     }
   };
 
-    if (isLoggedIn) {
-      navagate("profile")
-      return <Navigate to={'/'} />
+  /**
+   * Redirects the user to the profile page if already logged in.
+   */
+  if (isLoggedIn) {
+    navagate("profile")
+    return <Navigate to={'/'} />
   }
 
   return (
@@ -80,7 +93,7 @@ const Login = () => {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-            
+
             <div className="button-container">
               <button className="button" type="submit">Login</button>
             </div>
