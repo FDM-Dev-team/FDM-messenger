@@ -2,6 +2,14 @@ import React from 'react'
 import DirectChatMessage from './DirectChatMessage'
 import GroupChatMessage from './GroupChatMessage'
 
+/**
+ * Renders the chat messages component.
+ *
+ * @param {Object} props - The component props.
+ * @param {Object} props.chatLog - The chat log object containing all the messages.
+ * @param {Object} props.activeChat - The active chat object.
+ * @returns {JSX.Element} The rendered chat messages component.
+ */
 function ChatMessages({ chatLog, activeChat }) {
   return (
     activeChat.chat_type === "DIRECT" ?

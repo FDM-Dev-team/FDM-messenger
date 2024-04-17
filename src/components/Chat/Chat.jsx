@@ -6,8 +6,10 @@ import { useUser } from "../../context/UserContext";
 import { postMessage } from "../../services/chatService";
 import ChatMessages from "./ChatMessages/ChatMessages";
 
-
-
+/**
+ * Represents the chat component.
+ * @returns {JSX.Element} The rendered chat component.
+ */
 export default function Chat() {
   const { socket, message, setMessage, chatLog, setChatLog, sendMessage, currentActiveChat, recieveChatlog, connectToChatRoom, chatList } = useChat();
   const [messages, setMessages] = useState([]);
@@ -25,6 +27,10 @@ export default function Chat() {
 
   useEffect(() => {
     if (currentActiveChat) {
+      /**
+       * Fetches the chat messages for the current active chat.
+       * @returns {Promise<void>}
+       */
       const fetchMessagesData = async () => {
         try {
           const response = await axios.get(`http://localhost:9000/chatmessage/${currentActiveChat.chat_id}`);
@@ -44,6 +50,9 @@ export default function Chat() {
     scrollToBottom();
   }, [chatLog]);
 
+  /**
+   * Scrolls to the bottom of the message list.
+   */
   const scrollToBottom = () => {
     const messageList = document.getElementById("messageList");
     if (messageList) {
@@ -51,6 +60,9 @@ export default function Chat() {
     }
   };
 
+  /**
+   * Sends the chat message.
+   */
   const send = () => {
     console.log("chatList send", chatList)
 
@@ -61,18 +73,30 @@ export default function Chat() {
 
   }
 
+  /**
+   * Handles the key press event.
+   * @param {React.KeyboardEvent} e - The key press event.
+   */
   const handleKeyPress = (e) => {
     if (e.key === 'Enter') {
       send();
     }
   };
 
+  /**
+   * Retrieves the chat name.
+   * @returns {string} The chat name.
+   */
   const getChatName = () => {
     if (currentActiveChat) {
       return currentActiveChat.initials
     }
   }
 
+  /**
+   * Retrieves the chat user name.
+   * @returns {string} The chat user name.
+   */
   const getChatUserName = () => {
     if (currentActiveChat) {
       return currentActiveChat.name

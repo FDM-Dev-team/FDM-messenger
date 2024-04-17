@@ -1,8 +1,15 @@
 import React from 'react'
 import "./ChatMessages.css";
 
+/**
+ * Renders a group chat message received by the user.
+ *
+ * @param {Object} props - The component props.
+ * @param {Object} props.message - The group chat message object.
+ * @param {Function} props.convertTime - The function to convert the message timestamp to a formatted time string.
+ * @returns {JSX.Element} The rendered group received chat message component.
+ */
 function GroupReceivedChatMessage({ message, convertTime }) {
-  console.log(message)
   return (
     <div className="message received-message">
       <div className="chatroom-table-cell-avatar">
