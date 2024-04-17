@@ -6,6 +6,10 @@ import { useUser } from "./UserContext";
 import messageSound from "../assets/Notification.mp3";
 const chatContext = createContext();
 
+/**
+ * Provider component that wraps the chat-related functionality and state.
+ * @param {object} children - The child components.
+ */
 export function ChatProvider({ children }) {
   const [message, setMessage] = useState("");
   const [chatLog, setChatLog] = useState([]);
@@ -15,6 +19,10 @@ export function ChatProvider({ children }) {
   const [chatList, setChatList] = useState([]);
   const User = useUser();
 
+  /**
+   * Connects to the personal channel for the logged-in user.
+   * @param {object} user - The user object.
+   */
   const connectPersonalChannel = (user) => {
     //console.log("User.user:",user)
     if (!socket) {
@@ -38,6 +46,11 @@ export function ChatProvider({ children }) {
     }
   };
 
+  /**
+   * Connects to the chat room with the specified chat ID and user ID.
+   * @param {string} chat_id - The ID of the chat room.
+   * @param {string} user_id - The ID of the user.
+   */
   const connectToChatRoom = (chat_id, user_id) => {
     console.log("attempting to join room:", chat_id);
     joinChatRoom(chat_id, user_id); // Join the chat room when connected
@@ -95,12 +108,22 @@ export function ChatProvider({ children }) {
     };
   }, [socket, chatNotifs]);
 
+  /**
+   * Joins the chat room with the specified chat ID and user ID.
+   * @param {string} chatId - The ID of the chat room.
+   * @param {string} userId - The ID of the user.
+   */
   const joinChatRoom = (chatId, userId) => {
     if (socket) {
       socket.emit("joinRoom", chatId, userId);
     }
   };
 
+  /**
+   * Sends a chat message to the specified chat room.
+   * @param {string} chat_id - The ID of the chat room.
+   * @param {object} user - The user object.
+   */
   const sendMessage = (chat_id, user) => {
     console.log("userId:", user, " activeChatId:", chat_id);
     if (socket && socket.connected && message.trim() !== "") {
@@ -118,14 +141,26 @@ export function ChatProvider({ children }) {
     }
   };
 
+  /**
+   * Changes the current active chat to the specified chat.
+   * @param {object} chat - The chat object.
+   */
   const changeCurrentActiveChat = (chat) => {
     setCurrentActiveChat(chat);
   };
 
+  /**
+   * Receives the chat log for the specified chat room.
+   * @param {array} chatlog - The chat log data.
+   */
   const recieveChatlog = (chatlog) => {
     setChatLog(chatlog);
   };
 
+  /**
+   * Updates the chat list with the provided data and adds notification counters for each chat.
+   * @param {array} data - The chat list data.
+   */
   const updateChatList = (data) => {
     setChatList(data);
 
@@ -139,18 +174,21 @@ export function ChatProvider({ children }) {
     //console.log("chatNotifs:",chatNotifs)
   };
 
+  /**
+   * Resets the notification counter for the specified chat.
+   * @param {object} chat - The chat object.
+   */
   const resetChatNotif = (chat) => {
-    console.log("chatId:",chat)
-    console.log("chatNotifs:",chatNotifs)
+    console.log("chatId:", chat);
+    console.log("chatNotifs:", chatNotifs);
 
-  const ResetNotif = chatNotifs.map(notif => {
+    const ResetNotif = chatNotifs.map((notif) => {
       if (notif.chat_id === chat.chat_id) {
-        return { ...notif, counter: notif.counter = 0 };
+        return { ...notif, counter: (notif.counter = 0) };
       }
       return notif;
     });
-
-  }
+  };
 
   const contextData = {
     socket,
@@ -167,13 +205,17 @@ export function ChatProvider({ children }) {
     chatList,
     updateChatList,
     chatNotifs,
-    resetChatNotif
+    resetChatNotif,
   };
   return (
     <chatContext.Provider value={contextData}>{children}</chatContext.Provider>
   );
 }
 
+/**
+ * Custom hook that provides access to the chat context.
+ * @returns {object} The chat context data.
+ */
 export function useChat() {
   return useContext(chatContext);
 }
