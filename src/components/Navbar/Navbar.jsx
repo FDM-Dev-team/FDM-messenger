@@ -5,7 +5,11 @@ import { FaUserFriends, FaUser, FaFacebookMessenger, FaTools } from 'react-icons
 import { useNavigation } from '../../context/NavigationContext';
 import { useUser } from "../../context/UserContext";
 
-
+/**
+ * Component that represents the navigation bar.
+ * Displays the logo, brand name, and navigation icons.
+ * @param {Function} onNavbarItemClick - Callback function invoked when a navigation icon is clicked.
+ */
 export default function Navbar({ onNavbarItemClick }) {
   const User = useUser();
   const { navagation } = useNavigation();
@@ -20,7 +24,7 @@ export default function Navbar({ onNavbarItemClick }) {
     <div>
       <div
         className="row align-items-center d-flex justify-content-center"
-        style={{ height: "50px"}}
+        style={{ height: "50px" }}
       >
         <div className="col-1 p-0">
           <img
