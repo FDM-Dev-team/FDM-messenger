@@ -5,8 +5,11 @@ import { useFriends } from '../../../context/FriendsContext';
 import { useChat } from '../../../context/ChatContext'
 import { useNavigation } from '../../../context/NavigationContext';
 
+/**
+ * Component that renders a table of friends.
+ */
 const FriendsTable = () => {
-  const { currentActiveChat, changeCurrentActiveChat, chatList} = useChat();
+  const { currentActiveChat, changeCurrentActiveChat, chatList } = useChat();
   const { navagation, navagate } = useNavigation();
 
   const { friends } = useFriends();
@@ -17,18 +20,22 @@ const FriendsTable = () => {
   //   { id: 4, initials: "ES", name: "Emily Summers" },
   // ];
 
+  /**
+   * Callback function that handles editing the current active chat.
+   * @param {number} friendId - The ID of the friend to initiate a chat with.
+   */
   const editCurrentActiveChat = (friendId) => {
     navagate("chat");
     console.log("chatlist:", chatList, "friendId:", friendId);
-    const chat = chatList.find(chat => 
+    const chat = chatList.find(chat =>
       chat.user_ids.length === 1 && chat.user_ids[0] === friendId
     );
     console.log("chat:", chat);
     changeCurrentActiveChat(chat);
   }
 
-  return ( friends &&
-    <div className="friends-table-container" style={{ overflow: "auto" ,         height: "calc(100vh - 150px)",}}>
+  return (friends &&
+    <div className="friends-table-container" style={{ overflow: "auto", height: "calc(100vh - 150px)", }}>
       <div className="friends-table-header">
         All Friends: {friends.length}
       </div>
