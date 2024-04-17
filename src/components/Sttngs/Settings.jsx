@@ -33,6 +33,9 @@ export default function Settings() {
   //   setDarkMode();
   // }
 
+  /**
+   * Toggles between dark and light themes.
+   */
   const toggleTheme = () => {
     if (theme === "dark") {
       setLightMode();
@@ -61,6 +64,10 @@ export default function Settings() {
   //   }
   // }, []);
 
+  /**
+   * Handles the logout action.
+   * Logs out the user and navigates to the login page.
+   */
   const handleLogout = () => {
     logoutUser();
     navigate("/login");
