@@ -5,7 +5,12 @@ import { useChat } from '../../../context/ChatContext'
 import { useUser } from "../../../context/UserContext";
 import { useNavigation } from '../../../context/NavigationContext';
 
-
+/**
+ * Component that represents a chat item in the sidebar.
+ * Displays the chat avatar, name, and notification count.
+ * @param {Object} chat - The chat object containing chat details.
+ * @param {Object} notify - The notification object containing the notification count.
+ */
 export default function SideBarChats({ chat, notify }) {
   const { changeCurrentActiveChat, currentActiveChat, resetChatNotif } = useChat();
   const [isActiveChat, setIsActiveChat] = useState(false);
@@ -15,8 +20,6 @@ export default function SideBarChats({ chat, notify }) {
   useEffect(() => {
     setIsActiveChat(currentActiveChat.chat_id === chat.chat_id);
   }, [currentActiveChat, chat.chat_id]);
-
-
 
   return (
     <div

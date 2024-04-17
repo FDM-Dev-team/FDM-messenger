@@ -6,11 +6,12 @@ import { useChat } from '../../context/ChatContext';
 import { useUser } from "../../context/UserContext";
 import { Socket } from "socket.io-client";
 
+/**
+ * Component that represents the sidebar displaying chat conversations.
+ */
 export default function Sidebar() {
   const { changeCurrentActiveChat, chatList, updateChatList, socket, chatNotifs } = useChat();
   const User = useUser();
-
-
 
   useEffect(() => {
     const fetchData = async () => {
