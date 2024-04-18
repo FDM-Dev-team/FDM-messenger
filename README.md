@@ -17,16 +17,16 @@ Follow the steps below to set up and run the chat web application locally:
 
 ## Demo
 ### Login
-<img src="demo_resources/login_demo.gif" width="80%" height="80%" />
+<img src="demo_resources/login_demo.gif" />
 
 ### Private Chat
-<img src="demo_resources/private_chat_demo.gif" width="80%" height="80%" />
+<img src="demo_resources/private_chat_demo.gif" />
 
 ### Group Chat
-<img src="demo_resources/group_chat_demo.gif" width="80%" height="80%" />
+<img src="demo_resources/group_chat_demo.gif" />
 
 ### Theme Toggling
-<img src="demo_resources/theme_toggling_demo.gif" width="80%" height="80%" />
+<img src="demo_resources/theme_toggling_demo.gif" />
 
 ### Friends Tab
-<img src="demo_resources/friends_demo.gif" width="80%" height="80%" />
+<img src="demo_resources/friends_demo.gif" />
