@@ -10,16 +10,17 @@ import { Socket } from "socket.io-client";
  * Component that represents the sidebar displaying chat conversations.
  */
 export default function Sidebar() {
-  const { changeCurrentActiveChat, chatList, updateChatList, socket, chatNotifs } = useChat();
+  const { changeCurrentActiveChat, chatList, updateChatList, connectToRooms, chatNotifs } = useChat();
   const User = useUser();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         if (User.user && User.user.user_id) {
-          const response = await axios.get(`http://localhost:9000/chat/list/${User.user.user_id}`);
+          const response = await axios.get(`http://localhost:9001/chat/list/${User.user.user_id}`);
           updateChatList(response.data);
           changeCurrentActiveChat(response.data[0]);
+          connectToRooms(response.data);
         }
       } catch (error) {
         console.error(error);

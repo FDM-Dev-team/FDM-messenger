@@ -25,7 +25,7 @@ export function FriendsProvider({ children }) {
   const fetchFriends = async (userId) => {
     try {
       const response = await axios.get(
-        `http://localhost:9000/friends/${userId}`
+        `http://localhost:9001/friends/${userId}`
       );
       setFriends(response.data);
       setFriendCount(response.data.length);

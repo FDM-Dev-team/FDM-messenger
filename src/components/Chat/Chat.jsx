@@ -11,15 +11,15 @@ import ChatMessages from "./ChatMessages/ChatMessages";
  * @returns {JSX.Element} The rendered chat component.
  */
 export default function Chat() {
-  const { socket, message, setMessage, chatLog, setChatLog, sendMessage, currentActiveChat, recieveChatlog, connectToChatRoom, chatList } = useChat();
+  const { socket, message, setMessage, chatLog, setChatLog, sendMessage, currentActiveChat, recieveChatlog, chatList } = useChat();
   const [messages, setMessages] = useState([]);
   const User = useUser();
 
-  useEffect(() => {
-    if (User && currentActiveChat) {
-      connectToChatRoom(currentActiveChat.chat_id, User.user.user_id);
-    }
-  }, [currentActiveChat, User]);
+  // useEffect(() => {
+  //   if (User && currentActiveChat) {
+  //     connectToChatRoom(currentActiveChat.chat_id, User.user.user_id);
+  //   }
+  // }, [currentActiveChat, User]);
 
   useEffect(() => {
     //console.log("chatLog", chatLog)
@@ -33,7 +33,7 @@ export default function Chat() {
        */
       const fetchMessagesData = async () => {
         try {
-          const response = await axios.get(`http://localhost:9000/chatmessage/${currentActiveChat.chat_id}`);
+          const response = await axios.get(`http://localhost:9001/chatmessage/${currentActiveChat.chat_id}`);
           recieveChatlog(response.data);
           //console.log(response.data);
           scrollToBottom(); // Scroll to bottom after fetching messages
@@ -67,7 +67,8 @@ export default function Chat() {
     console.log("chatList send", chatList)
 
     if (currentActiveChat) {
-      sendMessage(currentActiveChat.chat_id, User.user);
+      console.log("sending out message in active room " + currentActiveChat.chat_id + " from user " + User.user.user_id)
+      sendMessage(currentActiveChat.chat_id, User.user.user_id);
       // postMessage(currentActiveChat, User.user.user_id, message);
     }
 

@@ -3,7 +3,6 @@ import "./Main.css";
 import Navbar from "../../components/Navbar/Navbar";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import Chat from "../../components/Chat/Chat";
-import { useChat } from '../../context/ChatContext'
 import { useNavigation } from '../../context/NavigationContext';
 import { Socket } from "socket.io-client";
 import Friends from "../../components/Friends/Friends";
@@ -18,16 +17,7 @@ import { Navigate } from "react-router-dom";
 export default function Main() {
   const User = useUser();
   const isLoggedIn = User.userIsAuthenticated();
-
-  const { connectPersonalChannel } = useChat();
   const { navagation, navagate } = useNavigation();
-
-  useEffect(() => {
-    if (User.user) {
-      connectPersonalChannel(User.user);
-
-    }
-  }, [User.user]);
 
   /**
    * Redirects the user to the login page if not logged in.

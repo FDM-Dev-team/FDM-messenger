@@ -16,7 +16,7 @@ export default function Profile() {
   useEffect(() => {
     const fetchProfileData = async () => {
       try {
-        const response = await axios.get(`http://localhost:9000/user/${user.user_id}`);
+        const response = await axios.get(`http://localhost:9001/user/${user.user_id}`);
         setProfile(response.data);
         //console.log(response.data);
       } catch (error) {

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:9000";
+const BASE_URL = "http://localhost:9001";
 
 /**
  * Fetches a user by their ID.
