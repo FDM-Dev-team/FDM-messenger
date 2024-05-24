@@ -11,7 +11,7 @@ import ChatMessages from "./ChatMessages/ChatMessages";
  * @returns {JSX.Element} The rendered chat component.
  */
 export default function Chat() {
-  const { socket, message, setMessage, chatLog, setChatLog, sendMessage, currentActiveChat, recieveChatlog, chatList } = useChat();
+  const { message, setMessage, chatLog, setChatLog, sendMessage, currentActiveChat, recieveChatlog, chatList } = useChat();
   const [messages, setMessages] = useState([]);
   const User = useUser();
 

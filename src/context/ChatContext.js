@@ -27,57 +27,6 @@ export function ChatProvider({ children }) {
   
   }
 
-  // useEffect(() => {
-  //   if (!socket) return; // Check if socket is null
-
-  //   const handleChatMessage = (data) => {
-  //     console.log("recieved message:", data);
-  //     const { roomId, sender, message, sentTime, sender_name } = data;
-  //     console.log(User.user.user_id);
-
-  //     postMessage(roomId, sender, message, sentTime);
-
-  //     if (sender !== User.user.user_id) {
-  //       const sound = new Audio(messageSound);
-  //       sound.play();
-
-  //       console.log("chatNotifs", chatNotifs);
-
-  //       const updatedNotif = chatNotifs.map((notif) => {
-  //         if (notif.chat_id === roomId) {
-  //           return { ...notif, counter: notif.counter + 1 };
-  //         }
-  //         return notif;
-  //       });
-
-  //       console.log("updatedNotif:", updatedNotif);
-  //       setChatNotifs(updatedNotif);
-  //     }
-
-  //     try {
-  //       const mappedObject = {
-  //         message_id: null,
-  //         chat_id: roomId,
-  //         sender_participant_id: sender,
-  //         text: message,
-  //         time: sentTime,
-  //         sender_name: sender_name,
-  //       };
-  //       setChatLog((prevChatLog) => [...prevChatLog, mappedObject]);
-  //     } catch (error) {
-  //       console.log("Received non-JSON message:", data);
-  //     }
-  //   };
-
-  //   socket.on("chat message", handleChatMessage);
-
-  //   // Clean up event listeners when component unmounts or socket changes
-  //   return () => {
-  //     console.log("Socket is unmounted"); // Log when the socket is unmounted
-  //     socket.off("chat message", handleChatMessage);
-  //   };
-  // }, [socket, chatNotifs]);
-
   const createOrFindRoom = async (roomId) => {
     try {
       const response = await axios.get(`http://localhost:9001/chat/${roomId}`);
@@ -97,7 +46,12 @@ export function ChatProvider({ children }) {
     }
 
     socket.onmessage = (message) => {
-      console.log('Message received:', message.data);
+      console.log('Message received:', message);
+      // split sender_id, sender_name, time, message
+
+      const dataObject = JSON.parse(message.data);
+      console.log(dataObject);
+
     }
     const socketRecord = {roomId: roomId, socket: socket}
     console.log(socketRecord)
@@ -111,17 +65,6 @@ export function ChatProvider({ children }) {
     })
   }
 
-  // /**
-  //  * Joins the chat room with the specified chat ID and user ID.
-  //  * @param {string} chatId - The ID of the chat room.
-  //  * @param {string} userId - The ID of the user.
-  //  */
-  // const joinChatRoom = (chatId, userId) => {
-  //   if (socket) {
-  //     socket.emit("joinRoom", chatId, userId);
-  //   }
-  // };
-
   /**
    * Sends a chat message to the specified chat room.
    * @param {string} chat_id - The ID of the chat room.
@@ -129,23 +72,22 @@ export function ChatProvider({ children }) {
    */
   const sendMessage = (chat_id, user_id) => {
     console.log("userId:", user_id, " activeChatId:", chat_id);
+    // const data = JSON.stringify({ user_id: user_id, message: message });
+    console.log(sockets);
+  
     sockets
-    .filter(s => s.roomId == chat_id)
-    .forEach(s => s.socket.send("Hello from someone"))
-    // if (socket && socket.connected && message.trim() !== "") {
-    //   console.log("send" + user.firstname);
-    //   const currentTime = Date.now(); // Get current local time
-    //   const data = {
-    //     roomId: chat_id,
-    //     sender: user.user_id,
-    //     message: message.trim(),
-    //     sentTime: currentTime,
-    //     sender_name: user.firstname + user.lastname,
-    //   };
-    //   socket.emit("chat message", data);
-    //   setMessage("");
-    // }
+      .filter(s => s.roomId == chat_id)
+      .forEach(s => {
+        if (s.socket.readyState === WebSocket.OPEN) {
+          s.socket.send(message.trim());
+        } else {
+          console.error("WebSocket is not open: ", s.socket.readyState);
+        }
+      });
+  
+    setMessage("");
   };
+  
 
   /**
    * Changes the current active chat to the specified chat.
